@@ -1,5 +1,6 @@
-﻿using Common.Interface;
-using DtoTypes;
+﻿using DtoTypes;
+using ExchangerModels.Interface;
+using ExchangerViewModels.Interfaces;
 using Simplified;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -10,19 +11,18 @@ namespace ExchangerViewModels
     {
         private readonly IExchangerModel model;
 
-        public ExchangerViewModel(IExchangerModel model)
-        {
-            this.model = model;
-            foreach (var currency in model.GetCurrencies())
-                Currencies.Add(currency);
-        }
-
-        public CurrencyDto BaseCurrency { get => _baseCurrency; private set => Set(ref _baseCurrency, value); }
-        public decimal AmounBase { get => _amounBase; private set => Set(ref _amounBase, value); }
-
+        #region Private Fields
         private CurrencyDto _baseCurrency;
         private decimal _amounBase;
+        #endregion
 
+        #region Public Properties
+        public CurrencyDto BaseCurrency { get => _baseCurrency; private set => Set(ref _baseCurrency, value); }
+        public decimal AmounBase { get => _amounBase; private set => Set(ref _amounBase, value); }
+        #endregion
+
+        #region RelayCommand
+        /*---------------------------------------------------------------------------------------------------------------------*/
         private RelayCommand<(CurrencyDto BaseCurrency, decimal Amoun)> _setBaseCurrencyCommand;
         public RelayCommand<(CurrencyDto BaseCurrency, decimal Amoun)> SetBaseCurrencyCommand => _setBaseCurrencyCommand
              ?? (_setBaseCurrencyCommand = new RelayCommand<(CurrencyDto, decimal)>(SetBaseCurrencyMethod));
@@ -39,27 +39,20 @@ namespace ExchangerViewModels
             }
         }
 
-        private RelayCommand<CurrencyDto> _getRatesCommand;
-        public RelayCommand<CurrencyDto> GetRatesCommand => _getRatesCommand
-            ?? (_getRatesCommand = new RelayCommand<CurrencyDto>(GetRatesMethod));
+        /*---------------------------------------------------------------------------------------------------------------------*/
+        #endregion
 
-        private void GetRatesMethod(CurrencyDto parameter)
+        #region Collection
+        public ObservableCollection<ExchangeDto> Exchanges { get; } = new ObservableCollection<ExchangeDto>();
+        public ObservableCollection<CurrencyDto> Currencies { get; } = new ObservableCollection<CurrencyDto>();
+        #endregion
+
+
+        public ExchangerViewModel(IExchangerModel model)
         {
-            Rates.Clear();
-            BaseCurrency = parameter;
-            AmounBase = default;
-
-            foreach (var currency in Currencies.Where(cr => cr != BaseCurrency))
-            {
-                Rates.Add(model.GetRate(currency, BaseCurrency));
-            }
+            this.model = model;
+            foreach (var currency in model.GetCurrencies())
+                Currencies.Add(currency);
         }
-
-        public ObservableCollection<ExchangeDto> Exchanges { get; }
-            = new ObservableCollection<ExchangeDto>();
-        public ObservableCollection<CurrencyDto> Currencies { get; }
-            = new ObservableCollection<CurrencyDto>();
-        public ObservableCollection<RateDto> Rates { get; }
-            = new ObservableCollection<RateDto>();
     }
 }

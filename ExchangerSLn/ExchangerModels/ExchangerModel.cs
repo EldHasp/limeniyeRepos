@@ -1,25 +1,37 @@
-﻿using Common.Interface;
-using DtoTypes;
+﻿using DtoTypes;
+using ExchangerModels.API;
+using ExchangerModels.Interface;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace ExchangerModels
 {
-    public class ExchangerModel : IExchangerModel
+    public partial class ExchangerModel : IExchangerModel
     {
-        public IReadOnlyList<CurrencyDto> GetCurrencies()
-        {
-            throw new NotImplementedException();
-        }
-
+        private  ICurrencyRateAPI api;
+       
         public ExchangeDto GetExchange(CurrencyDto currency, CurrencyDto @base, decimal amounBase)
         {
-            throw new NotImplementedException();
+            RateDto pair = api.GetCurrencyRate(currency, @base).Result;
+            var value = pair.Rate * amounBase;
+            ExchangeDto exchange = new ExchangeDto(pair, amounBase, value, 999);
+            return exchange;
         }
 
-        public RateDto GetRate(CurrencyDto currency, CurrencyDto @base)
+        public IReadOnlyList<CurrencyDto> GetCurrencies()
         {
-            throw new NotImplementedException();
+            return availableCurrency;
+        }
+
+        ExchangerModel()
+        {
+            // Инициализация словаря и его неизменяемой оболочки.
+            // Для исходного словаря задаём сравнение строк без учёта регистра
+            exchanges = new Dictionary<RateDto, ExchangeDto>((IEqualityComparer<RateDto>)StringComparer.CurrentCultureIgnoreCase);
+            Exchanges = new ReadOnlyDictionary<RateDto, ExchangeDto>(exchanges);
+
+            api = new CurrencyExchangerate();
         }
     }
 }

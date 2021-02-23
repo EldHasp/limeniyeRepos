@@ -55,19 +55,54 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Test\Test.cs" />
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
+    <Compile Include="Styles\Xamls\Code\CurrencyItemButton.cs" />
+    <Compile Include="UserControls\Currency\CurrencyListUserControl.xaml.cs">
+      <DependentUpon>CurrencyListUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Currency\HeaderUserConstrol.xaml.cs">
+      <DependentUpon>HeaderUserConstrol.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Currency\HomeViewUserControl.xaml.cs">
+      <DependentUpon>HomeViewUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Currency\ReturnMoneyUserControl.xaml.cs">
+      <DependentUpon>ReturnMoneyUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
+    <Page Include="Styles\Xamls\Button.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Xamls\GenericButtons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\Currency\CurrencyListUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\Currency\HeaderUserConstrol.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\Currency\HomeViewUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\Currency\ReturnMoneyUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -91,9 +126,21 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="Styles\Fonts\ApexMk3.ttf" />
+    <Resource Include="Styles\Fonts\Cramaten.ttf" />
+    <Resource Include="Styles\Fonts\Dollar.ttf" />
+    <Resource Include="Styles\Fonts\Gardens.ttf" />
+    <Resource Include="Styles\Fonts\MonPump.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ExchangerViewModels\ExchangerViewModels.csproj">
+      <Project>{1aff1525-ea50-4170-a599-10048c5b04b0}</Project>
+      <Name>ExchangerViewModels</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

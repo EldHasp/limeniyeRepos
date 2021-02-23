@@ -42,12 +42,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExchangerViewModel.cs" />
+    <Compile Include="Intefaces\ICurrencyListViewModel.cs" />
+    <Compile Include="Intefaces\IExchangerViewModel.cs" />
+    <Compile Include="Intefaces\ISelectedCurrencyViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{695994e1-2f7b-49b5-9e3d-4e2a41e41c9a}</Project>
       <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ExchangerModels\ExchangerModels.csproj">
+      <Project>{1416a06b-a764-48e8-9afb-6ce533060688}</Project>
+      <Name>ExchangerModels</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

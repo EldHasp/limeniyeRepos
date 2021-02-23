@@ -2,7 +2,7 @@
 using Simplified;
 using System.Collections.ObjectModel;
 
-namespace Common.Interface
+namespace ExchangerViewModels.Interfaces
 {
 
     /// <summary>ViewModel обменика.</summary>
@@ -17,16 +17,11 @@ namespace Common.Interface
         /// <summary>Запрос предложений по обмену.</summary>
         RelayCommand<(CurrencyDto BaseCurrency, decimal Amoun)> SetBaseCurrencyCommand { get; }
 
-        /// <summary>Запрос курсов.</summary>
-        RelayCommand<CurrencyDto> GetRatesCommand { get; }
-
         /// <summary>Предложения по обмену.</summary>
         ObservableCollection<ExchangeDto> Exchanges { get; }
 
         /// <summary>Все валюты.</summary>
         ObservableCollection<CurrencyDto> Currencies { get; }
 
-        /// <summary>Все курсы.</summary>
-        ObservableCollection<RateDto> Rates{ get; }
     }
 }

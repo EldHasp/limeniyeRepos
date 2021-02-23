@@ -47,8 +47,9 @@
     <Compile Include="DtoTypes\CurrencyDto.cs" />
     <Compile Include="DtoTypes\ExchangeDto.cs" />
     <Compile Include="DtoTypes\RateDto.cs" />
-    <Compile Include="Interface\IExchangerModel.cs" />
-    <Compile Include="Interface\IExchangerViewModel.cs" />
+    <Compile Include="Enums\ActionListEnum.cs" />
+    <Compile Include="Events\NotifyActionDictionaryChangedEventArgs.cs" />
+    <Compile Include="Events\NotifyDictionaryChangedEventArgs.cs" />
     <Compile Include="Simplified\BaseInpc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Simplified\RelayCommandT.cs" />

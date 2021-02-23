@@ -1,7 +1,7 @@
 ﻿using DtoTypes;
 using System.Collections.Generic;
 
-namespace Common.Interface
+namespace ExchangerModels.Interface
 {
     /// <summary>Интерфейс обменика.</summary>
     public interface IExchangerModel
@@ -9,12 +9,6 @@ namespace Common.Interface
         /// <summary>Получить общий список всех доступных валют.</summary>
         /// <returns>Индексированный список только для чтения со всеми доступными валютами.</returns>
         IReadOnlyList<CurrencyDto> GetCurrencies();
-
-        /// <summary>Получение  курса пары.</summary>
-        /// <param name="currency">Оцениваемая валюта.</param>
-        /// <param name="base">Базовая валюта.</param>
-        /// <returns>Курс запрошенной пары.</returns>
-        RateDto GetRate(CurrencyDto currency, CurrencyDto @base);
 
         /// <summary>Получение предложения по обмену базовой валюты.</summary>
         /// <param name="currency">Получаемая валюта.</param>
