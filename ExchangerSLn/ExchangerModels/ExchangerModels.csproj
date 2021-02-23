@@ -44,15 +44,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExchangerListViewModel.cs" />
-    <Compile Include="ExchangeViewModel.cs" />
-    <Compile Include="MainExchengerViewModel.cs" />
+    <Compile Include="ExchangerModel - Events.cs" />
+    <Compile Include="ExchangerModel - Lists.cs" />
+    <Compile Include="ExchangerModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{695994e1-2f7b-49b5-9e3d-4e2a41e41c9a}</Project>
       <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Repository\Repository.csproj">
+      <Project>{37634e5e-00f9-4c86-91c0-82c404aacc6d}</Project>
+      <Name>Repository</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
