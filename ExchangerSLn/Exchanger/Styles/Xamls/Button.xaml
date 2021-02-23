@@ -1,0 +1,299 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+
+    <SolidColorBrush x:Key="BackgroundBrush"
+                     Color="#FF1A1A1A" />
+    <SolidColorBrush x:Key="ForegroundBrush"
+                     Color="White" />
+    <SolidColorBrush x:Key="ChromeBrush"
+                     Color="#FF232323" />
+
+
+    <ControlTemplate TargetType="Button" x:Key="ReturtButton">
+        <Grid>
+            <Rectangle RadiusX="20" RadiusY="20" Fill="#46876f" x:Name="MyBackgroundElement"/>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="1" Grid.Column="1" Text="{TemplateBinding Content}" x:Name="ReturnText"
+                                           Foreground="#ffffff" FontSize="27 pt"
+                                           FontFamily="/Styles/Fonts/#mr_ApexMk3"
+                                           TextWrapping="Wrap"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                <Viewbox Grid.Row="1" Grid.Column="2" Stretch="UniformToFill" VerticalAlignment="Center" Margin="0,0,0,0"
+                                         Width="{Binding ElementName=ReturnText, Path=ActualHeight}">
+                    <Canvas Width="20" Height="20">
+                        <Path Fill="#ffffff" Data="M19,7V11H5.83L9.41,7.41L8,6L2,12L8,18L9.41,16.58L5.83,13H21V7H19Z" />
+                    </Canvas>
+                </Viewbox>
+
+            </Grid>
+
+        </Grid>
+
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter TargetName="MyBackgroundElement" Property="Fill" Value="#474a52" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Foreground" Value="Gray"/>
+                <Setter TargetName="MyBackgroundElement" Property="Fill" Value="LightGray"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <sys:String x:Key="Currency">Empty</sys:String>
+    <sys:String x:Key="Value">Empty</sys:String>
+    <ControlTemplate TargetType="Button" x:Key="CurrencyType">
+        <Grid>
+
+            <Rectangle RadiusX="10" RadiusY="10" Fill="#272d3b" x:Name="MyBackgroundElement"/>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="1">
+                    <Ellipse Stretch="Uniform"
+                                         Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                                         Fill="{x:Null}"/>
+
+                    <TextBlock FontSize="60 pt" Foreground="#bac5db"
+                               Text="{TemplateBinding Content}"
+                               FontFamily="/Styles/Fonts/#mr_ApexMk3"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+
+
+                <StackPanel Grid.Row="3" HorizontalAlignment="Center">
+                    <TextBlock Text="{DynamicResource  Currency}" FontSize="20" Foreground="#9fa6b6"
+                               FontFamily="/Styles/Fonts/#mr_ApexMk3" 
+                               HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                    <TextBlock Text="{DynamicResource  Value}" FontSize="20" Foreground="#9fa6b6"
+                               FontFamily="/Styles/Fonts/#mr_ApexMk3" 
+                               HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </StackPanel>
+
+
+            </Grid>
+        </Grid>
+
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter TargetName="MyBackgroundElement" Property="Fill" Value="#474a52" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Foreground" Value="Gray"/>
+                <Setter TargetName="MyBackgroundElement" Property="Fill" Value="LightGray"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+
+
+
+    <Geometry x:Key="Button.Path.Data">M 10,100 L 100,100 L 100,50 Z</Geometry>
+    <ControlTemplate TargetType="Button" x:Key="WithLogo">
+
+        <Grid>
+            <Rectangle RadiusX="10" RadiusY="10" Fill="{TemplateBinding Background}" x:Name="MyBackgroundElement"/>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="1">
+                    <Ellipse Stretch="Uniform"
+                             Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                             Fill="#242834" Stroke="Aqua"/>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="5*"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Viewbox Grid.Row="1" Stretch="Uniform">
+                            <Canvas Width="24" Height="24">
+                                <Path Fill="#a3aac4" Data="{DynamicResource Button.Path.Data}"/>
+                            </Canvas>
+                        </Viewbox>
+                    </Grid>
+
+                </Grid>
+
+                <TextBlock Grid.Row="3" Text="{TemplateBinding Content}" FontSize="20" Foreground="#9fa6b6"
+                                       FontFamily="/Styles/Fonts/#Gardens CM" 
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+        </Grid>
+
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="FontWeight" Value="Bold" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter TargetName="MyBackgroundElement" Property="Fill" Value="Azure" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Foreground" Value="Gray"/>
+                <Setter TargetName="MyBackgroundElement" Property="Fill" Value="LightGray"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+
+
+
+
+
+
+
+
+    <ControlTemplate TargetType="Button" x:Key="ButtonSelectConvertedValue">
+        <Grid>
+            <Rectangle Fill="{TemplateBinding Background}" x:Name="MyBackgroundElement" Style="{StaticResource RoundedRectangle}"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Column="1" Grid.Row="1">
+                    <TextBlock Text= "{TemplateBinding Content}"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       TextWrapping="Wrap"
+                       TextAlignment="Center"
+                       FontSize="45" FontWeight="Bold"/>
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="FontWeight" Value="Bold" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter TargetName="MyBackgroundElement" Property="Fill" Value="Azure" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Foreground" Value="Gray"/>
+                <Setter TargetName="MyBackgroundElement" Property="Fill" Value="LightGray"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+
+    <ControlTemplate TargetType="Button" x:Key="ButtonSelectTypeIssueBalance">
+        <Grid>
+            <Rectangle Fill="{TemplateBinding Background}" x:Name="MyBackgroundElement"
+                       StrokeThickness="2" Stroke="#cc7c2e"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Column="1" Grid.Row="1">
+                    <TextBlock Text= "{TemplateBinding Content}"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       TextWrapping="Wrap"
+                       TextAlignment="Center"
+                       Foreground="#9d7171"
+                       FontSize="30" FontWeight="Bold"/>
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="FontWeight" Value="Bold" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter TargetName="MyBackgroundElement" Property="Fill" Value="Azure" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Foreground" Value="Gray"/>
+                <Setter TargetName="MyBackgroundElement" Property="Fill" Value="LightGray"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    
+    
+    
+    <ControlTemplate TargetType="Button" x:Key="ButtonLogOutControlTemplate">
+        <Grid>
+            <Rectangle Fill="#314052" RadiusX="10" RadiusY="10"/>
+            <TextBlock Text="Вийти" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40" Foreground="White"/>
+            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Grid>
+    </ControlTemplate>
+
+    <ControlTemplate TargetType="Button" x:Key="Return">
+        <Grid>
+            <Rectangle Fill="White" RadiusX="27" RadiusY="27"/>
+            <TextBlock Text="{TemplateBinding Content}" 
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       FontSize="23" Foreground="#1a479b" FontWeight="DemiBold"/>
+        </Grid>
+    </ControlTemplate>
+
+    <ControlTemplate TargetType="Button" x:Key="Accept">
+        <Grid>
+
+            <Rectangle Fill="{TemplateBinding Background}"  RadiusX="25" RadiusY="25"/>
+
+            <TextBlock Text="{TemplateBinding Content}" HorizontalAlignment="Center" 
+                       VerticalAlignment="Center" FontSize="30" Foreground="White"/>
+        </Grid>
+    </ControlTemplate>
+
+    <ControlTemplate TargetType="Button" x:Key="AcceptRight">
+        <Grid>
+            <Rectangle Fill="{TemplateBinding Background}"  RadiusX="25" RadiusY="25"/>
+            <TextBlock Text="{TemplateBinding Content}" HorizontalAlignment="Center" 
+                       VerticalAlignment="Center" FontSize="30" Foreground="Black"/>
+        </Grid>
+    </ControlTemplate>
+
+</ResourceDictionary>
