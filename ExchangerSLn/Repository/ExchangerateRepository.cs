@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using xNet;
 
-namespace ExchangerModels.API
+namespace Repository
 {
-    public class CurrencyExchangerate : ICurrencyRateAPI
+    public class CurrencyExchangerate : IRepository<RateDto>
     {
         public Task<RateDto> GetCurrencyRate(CurrencyDto currency, CurrencyDto @base)
         {
@@ -42,10 +42,13 @@ namespace ExchangerModels.API
                 string currencyName = item.Descendants("code").Select(v => (string)v).FirstOrDefault();
                 tempList.Add(new RateDto(available.First(x => x.Symbol == currencyName), @base, rate));
             }
-
-            //decimal rate = Convert.ToDecimal(element.Descendants("rate").Select(v => (string)v).FirstOrDefault());
-            //RateDto result = new RateDto(mainCurrency, sideCurrencyForRating, rate);
             return Task.Run(() => tempList);
+        }
+
+
+        public void Dispose()
+        {
+            GC.SuppressFinalize(this);
         }
     }
 }

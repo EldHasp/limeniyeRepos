@@ -1,7 +1,9 @@
-﻿using DtoTypes;
+﻿using Common.Events;
+using DtoTypes;
+using System;
 using System.Collections.Generic;
 
-namespace ExchangerModels.Interface
+namespace Common.Interfaces.Model
 {
     /// <summary>Интерфейс обменика.</summary>
     public interface IExchangerModel
@@ -16,5 +18,8 @@ namespace ExchangerModels.Interface
         /// <param name="amounBase">Обмениваемая сумма базовой валюты.</param>
         /// <returns>Предложение по паре пары.</returns>
         ExchangeDto GetExchange(CurrencyDto currency, CurrencyDto @base, decimal amounBase);
+
+
+        EventHandler<NotifyDictionaryChangedEventArgs<RateDto, ExchangeDto>> ChangedExchanges { get; set; }
     }
 }

@@ -41,10 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExchangerViewModel.cs" />
-    <Compile Include="Intefaces\ICurrencyListViewModel.cs" />
-    <Compile Include="Intefaces\IExchangerViewModel.cs" />
-    <Compile Include="Intefaces\ISelectedCurrencyViewModel.cs" />
+    <Compile Include="ExchangerListViewModel.cs" />
+    <Compile Include="ExchangeViewModel.cs" />
+    <Compile Include="MainExchengerViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

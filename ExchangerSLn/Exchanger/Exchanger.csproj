@@ -68,12 +68,12 @@
     <Compile Include="UserControls\Currency\ReturnMoneyUserControl.xaml.cs">
       <DependentUpon>ReturnMoneyUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Windows\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Styles\Xamls\Button.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -136,6 +136,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{695994e1-2f7b-49b5-9e3d-4e2a41e41c9a}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ExchangerViewModels\ExchangerViewModels.csproj">
       <Project>{1aff1525-ea50-4170-a599-10048c5b04b0}</Project>
       <Name>ExchangerViewModels</Name>

@@ -1,16 +1,16 @@
 ﻿using DtoTypes;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ExchangerModels.API
+namespace Repository
 {
-    public interface ICurrencyRateAPI
+    public interface IRepository<T> : IDisposable where T : class
     {
         /// <summary>Получить курс пары.</summary>
         /// <param name="base"> Курс будет отображаться в этой валюте.</param>
-        Task<RateDto> GetCurrencyRate(CurrencyDto currency, CurrencyDto @base);
-
+        Task<T>GetCurrencyRate(CurrencyDto currency, CurrencyDto @base); // получение курса пары валют
         /// <summary>Список пар относительно доступных.</summary>
-        Task<IList<RateDto>> GetAllCurrencyRate(CurrencyDto @base, IList<CurrencyDto> available);
+        Task<IList<T>> GetAllCurrencyRate(CurrencyDto @base, IList<CurrencyDto> available);
     }
 }

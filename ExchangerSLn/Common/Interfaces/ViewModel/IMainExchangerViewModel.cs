@@ -2,11 +2,11 @@
 using Simplified;
 using System.Collections.ObjectModel;
 
-namespace ExchangerViewModels.Interfaces
+namespace Common.Interfaces.ViewModel
 {
 
     /// <summary>ViewModel обменика.</summary>
-    public interface IExchangerViewModel
+    public interface IMainExchangerViewModel : IExchangerListViewModel
     {
         /// <summary>Базовая валюта.</summary>
         CurrencyDto BaseCurrency { get; }
@@ -15,10 +15,7 @@ namespace ExchangerViewModels.Interfaces
         decimal AmounBase { get; }
 
         /// <summary>Запрос предложений по обмену.</summary>
-        RelayCommand<(CurrencyDto BaseCurrency, decimal Amoun)> SetBaseCurrencyCommand { get; }
-
-        /// <summary>Предложения по обмену.</summary>
-        ObservableCollection<ExchangeDto> Exchanges { get; }
+        RelayCommand<CurrencyDto> SetBaseCurrencyCommand { get; }
 
         /// <summary>Все валюты.</summary>
         ObservableCollection<CurrencyDto> Currencies { get; }

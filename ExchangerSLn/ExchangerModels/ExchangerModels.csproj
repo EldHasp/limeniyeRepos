@@ -44,12 +44,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="API\CurrencyExchangerate.cs" />
-    <Compile Include="API\ICurrencyRateAPI.cs" />
-    <Compile Include="ExchangerModel - Events.cs" />
-    <Compile Include="ExchangerModel - Lists.cs" />
-    <Compile Include="ExchangerModel.cs" />
-    <Compile Include="Interfaces\IExchangerModel.cs" />
+    <Compile Include="ExchangerListViewModel.cs" />
+    <Compile Include="ExchangeViewModel.cs" />
+    <Compile Include="MainExchengerViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -12,15 +12,15 @@
 
         /// <summary>Сумма валюты на которую обмениваеся.</summary>
         /// <remarks>Если пользователь внёс 80 рублей, то тут будет 1.0 долар</remarks>
-        public decimal Amoun { get; }
+        public decimal Available { get; }
 
         /// <summary>Сумма базовой валюты недостающий до ближайшей.</summary>
         /// <remarks>Если пользователь внёс 80 рублей, то при курсе 1 USD = 70.38 RUB Lack будет хранить значение 68.76, то есть столько, сколько не хвататет до следующей единицы.</remarks>
         public decimal Lack { get; }
 
-        public ExchangeDto(RateDto rate, decimal amounBase, decimal amoun, decimal lack)
+        public ExchangeDto(RateDto rate, decimal amounBase, decimal available, decimal lack)
         {
-            Rate = rate; AmounBase = amounBase; Amoun = amoun; Lack = lack;
+            Rate = rate; AmounBase = amounBase; Available = available; Lack = lack;
         }
     }
 
