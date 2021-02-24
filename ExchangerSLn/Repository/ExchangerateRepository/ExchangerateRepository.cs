@@ -87,7 +87,7 @@ namespace Repository.ExchangerateRepository
         public async Task<List<RateDto>> GetAllCurrencyRateAsync(CurrencyDto @base)
         {
             HttpRequest request = new HttpRequest();
-            RequestParams rParams = new RequestParams();
+            RequestParams rParams = new RequestParams(j
             rParams["base"] = @base.Symbol;
             rParams["format"] = "XML";
             HttpResponse response = await Task.Run(() => request.Get("https://api.exchangerate.host/latest", rParams));

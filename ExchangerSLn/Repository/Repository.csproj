@@ -49,6 +49,7 @@
     <Compile Include="ExchangerateRepository\ExchangerateRepository - Events.cs" />
     <Compile Include="ExchangerateRepository\ExchangerateRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rates\RatesRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Libs\xNet.dll" />

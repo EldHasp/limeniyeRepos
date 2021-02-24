@@ -2,6 +2,7 @@
 {
     public enum ActionListEnum
     {
+        Clear,
         Added,
         Removed,
         Changed

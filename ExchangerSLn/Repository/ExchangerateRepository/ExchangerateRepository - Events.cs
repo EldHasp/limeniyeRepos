@@ -1,4 +1,4 @@
-﻿using Common.Events;
+﻿using Common.EventsArgs;
 using DtoTypes;
 using System;
 

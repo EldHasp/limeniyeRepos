@@ -1,5 +1,5 @@
 ﻿using Common.Enums;
-using Common.Events;
+using Common.EventsArgs;
 using DtoTypes;
 using System;
 

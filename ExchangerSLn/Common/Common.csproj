@@ -51,8 +51,10 @@
     <Compile Include="DtoTypes\ExchangeDto.cs" />
     <Compile Include="DtoTypes\RateDto.cs" />
     <Compile Include="Enums\ActionListEnum.cs" />
-    <Compile Include="Events\NotifyActionDictionaryChangedEventArgs.cs" />
-    <Compile Include="Events\NotifyDictionaryChangedEventArgs.cs" />
+    <Compile Include="EventsArgs\NotifyActionDictionaryChangedEventArgs.cs" />
+    <Compile Include="EventsArgs\NotifyCollectionChangedEventArgs.cs" />
+    <Compile Include="EventsArgs\NotifyDictionaryChangedEventArgs.cs" />
+    <Compile Include="EventsArgs\NotifyRatesChangedEventArgs.cs" />
     <Compile Include="Interfaces\Model\IExchangerModel.cs" />
     <Compile Include="Interfaces\Repository\IRatesRepository.cs" />
     <Compile Include="Interfaces\ViewModel\IExchangerListViewModel.cs" />

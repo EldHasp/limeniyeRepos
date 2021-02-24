@@ -1,6 +1,6 @@
 ﻿using Common.Enums;
 using System;
-namespace Common.Events
+namespace Common.EventsArgs
 {
     /// <summary>Аргументы события изменения словаря. 
     /// Содержит только действие и метод создания экземпляров производных классов.</summary>
@@ -23,4 +23,5 @@ namespace Common.Events
         public static NotifyDictionaryChangedEventArgs<TKey, TValue> ChangedValue<TKey, TValue>(TKey key, TValue oldValue, TValue newValue)
             => new NotifyDictionaryChangedEventArgs<TKey, TValue>(ActionListEnum.Changed, key, oldValue, newValue);
     }
+
 }

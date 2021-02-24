@@ -1,6 +1,6 @@
 ﻿using Common.Enums;
 
-namespace Common.Events
+namespace Common.EventsArgs
 {
 
     /// <summary>Аргументы события изменения словаря.</summary>
