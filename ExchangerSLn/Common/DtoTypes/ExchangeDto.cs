@@ -3,6 +3,8 @@
     /// <summary>Предложение по обмену базовой валюты.</summary>
     public class ExchangeDto
     {
+        public int Id { get; }
+
         /// <summary>Информация по курсу и валютам.</summary>
         public RateDto Rate { get; }
 
@@ -21,6 +23,8 @@
         public ExchangeDto(RateDto rate, decimal amounBase, decimal available, decimal lack)
         {
             Rate = rate; AmounBase = amounBase; Available = available; Lack = lack;
+
+            Id = rate.Id;
         }
     }
 

@@ -1,9 +1,7 @@
 ﻿using Common.Interfaces.Model;
 using Common.Interfaces.Repository;
 using DtoTypes;
-using Repository;
-using System;
-using System.Collections;
+using Repository.ExchangerateRepository;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -54,14 +52,10 @@ namespace ExchangerModels
 
         public ExchangerModel()
         {
-            // Инициализация словаря и его неизменяемой оболочки.
-            // Для исходного словаря задаём сравнение строк без учёта регистра
-            exchanges = new Dictionary<RateDto, ExchangeDto>((IEqualityComparer<RateDto>)StringComparer.CurrentCultureIgnoreCase);
-            Exchanges = new ReadOnlyDictionary<RateDto, ExchangeDto>(exchanges);
+            exchanges = new Dictionary<int, ExchangeDto>();
+            Exchanges = new ReadOnlyDictionary<int, ExchangeDto>(exchanges);
 
-
-
-            //api = new CurrencyExchangerate();
+            api = new ExchangerateRepository();
 
 
             //UpdateRates(600, (IList<CurrencyDto>)availableCurrency, Base);

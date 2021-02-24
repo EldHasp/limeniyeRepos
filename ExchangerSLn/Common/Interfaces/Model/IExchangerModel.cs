@@ -20,6 +20,6 @@ namespace Common.Interfaces.Model
         ExchangeDto GetExchange(CurrencyDto currency, CurrencyDto @base, decimal amounBase);
 
 
-        EventHandler<NotifyDictionaryChangedEventArgs<RateDto, ExchangeDto>> ChangedExchanges { get; set; }
+        EventHandler<NotifyDictionaryChangedEventArgs<int, ExchangeDto>> ChangedExchanges { get; set; }
     }
 }
