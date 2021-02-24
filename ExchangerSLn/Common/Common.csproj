@@ -53,7 +53,7 @@
     <Compile Include="Enums\ActionListEnum.cs" />
     <Compile Include="Events\NotifyActionDictionaryChangedEventArgs.cs" />
     <Compile Include="Events\NotifyDictionaryChangedEventArgs.cs" />
-    <Compile Include="Interfaces\Repository\IRepositoryT.cs" />
+    <Compile Include="Interfaces\Repository\IRepository.cs" />
     <Compile Include="Interfaces\Model\IExchangerModel.cs" />
     <Compile Include="Interfaces\ViewModel\IExchangerListViewModel.cs" />
     <Compile Include="Interfaces\ViewModel\IExchangeViewModel.cs" />

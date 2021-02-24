@@ -22,7 +22,7 @@ namespace ViewModel.Currency
         public IExchangeViewModel SelectedExchange { get => _selectedExchange; set => Set(ref _selectedExchange, value); }
 
 
-        private void ActionListChanged(object sender, NotifyDictionaryChangedEventArgs<RateDto, ExchangeDto> e)
+        private void ActionListChanged(object sender, NotifyDictionaryChangedEventArgs<int, ExchangeDto> e)
         {
 
             switch (e.Action)

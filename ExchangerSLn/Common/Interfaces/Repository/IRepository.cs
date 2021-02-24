@@ -1,5 +1,4 @@
 ﻿using DtoTypes;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,8 +8,8 @@ namespace Common.Interfaces.Repository
     {
         /// <summary>Получить курс пары.</summary>
         /// <param name="base"> Курс будет отображаться в этой валюте.</param>
-        Task GetCurrencyRate(CurrencyDto currency, CurrencyDto @base); // получение курса пары валют
+        Task<RateDto> GetCurrencyRateAsync(CurrencyDto currency, CurrencyDto @base); // получение курса пары валют
         /// <summary>Список пар относительно доступных.</summary>
-        Task GetAllCurrencyRate(CurrencyDto @base);
+        Task<List<RateDto>> GetAllCurrencyRateAsync(CurrencyDto @base);
     }
 }

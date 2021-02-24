@@ -42,23 +42,49 @@ namespace Repository.ExchangerateRepository
             Rates = new ReadOnlyDictionary<int, RateDto>(rates);
         }
 
-        public async Task GetCurrencyRate(CurrencyDto currency, CurrencyDto @base)
+
+
+
+
+
+
+        /*
+        private RateDto GetCurrencyRate(CurrencyDto currency, CurrencyDto @base)
         {
-            HttpRequest request = new HttpRequest();
-            RequestParams rParams = new RequestParams();
-            rParams["base"] = @base.Symbol;
-            rParams["symbols"] = currency.Symbol;
-            rParams["format"] = "XML";
+            Response<ClientAccount[]> response;
+            try
+            {
+                response = service.GetClientAccounts(FindedClient.id.ToString()); //точка останова тут
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException(ex.Message);
+            }
+            //в return возвращается баланс из всей кучи не нужной для метода информации. 
+            return (new List<ClientAccount>(response.Data).Find(x => x.account_id == SelectedAccount.account_id)).summ;
+
+        }
+
+
+        public async Task<string> BalanseNowAsync() => await Task.Factory.StartNew(BalanseNow);
+        */
+
+
+        public async Task<RateDto> GetCurrencyRateAsync(CurrencyDto currency, CurrencyDto @base)
+        {
+          
 
             HttpResponse response = await Task.Run(() => request.Get("https://api.exchangerate.host/latest", rParams));
             XDocument doc = XDocument.Parse(response.ToString());
             XElement element = doc.Descendants("data").First();
             decimal rate = element.Descendants("rate").Select(v => (decimal)v).FirstOrDefault();
             RateDto result = new RateDto(@base, currency, rate);
-            SetRateValue(result);
+            //SetRateValue(result);
+
+            return result;
         }
 
-        public async Task GetAllCurrencyRate(CurrencyDto @base)
+        public async Task<List<RateDto>> GetAllCurrencyRateAsync(CurrencyDto @base)
         {
             HttpRequest request = new HttpRequest();
             RequestParams rParams = new RequestParams();
@@ -69,12 +95,17 @@ namespace Repository.ExchangerateRepository
             var elements = doc.Descendants("data");
 
 
+            List<RateDto> tempList = new List<RateDto>();
             foreach (var item in elements)
             {
                 decimal rate = item.Descendants("rate").Select(v => (decimal)v).FirstOrDefault();
                 string currencyName = item.Descendants("code").Select(v => (string)v).FirstOrDefault();
-                SetRateValue(new RateDto(available[currencyName], @base, rate));               
+                tempList.Add(new RateDto(available[currencyName], @base, rate));
+
+                //SetRateValue(new RateDto(available[currencyName], @base, rate));               
             }
+
+            return tempList;
         }
     }
 }
