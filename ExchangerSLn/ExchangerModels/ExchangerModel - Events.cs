@@ -5,7 +5,6 @@ using System;
 
 namespace ExchangerModels
 {
-    public delegate void ActionListHandler<T>(object sender, ActionListEnum action, T item);
     public partial class ExchangerModel
     {
         /// <summary>Событие извещающее об изменении словаря.</summary>
@@ -39,11 +38,6 @@ namespace ExchangerModels
             }
         }
         #endregion
-
-
-        public event ActionListHandler<RateDto> ActionRates;
-        private void RaiseActionRates(ActionListEnum action, RateDto rate)
-            => ActionRates?.Invoke(this, action, rate);
     }
 
 }

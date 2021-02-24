@@ -1,4 +1,5 @@
 ﻿using Common.Interfaces.Model;
+using Common.Interfaces.Repository;
 using DtoTypes;
 using Repository;
 using System;
@@ -11,7 +12,7 @@ namespace ExchangerModels
 {
     public partial class ExchangerModel : IExchangerModel
     {
-        private IRepository<RateDto> api;
+        private IRatesRepository api;
         private CurrencyDto Base;
         
         public Task SetBaseCurrency(CurrencyDto currency)
@@ -26,15 +27,15 @@ namespace ExchangerModels
 
         public ExchangeDto GetExchange(CurrencyDto currency, CurrencyDto @base, decimal amounBase)
         {
-            RateDto pair = api.GetCurrencyRate(currency, @base).Result;
-            var value = pair.Rate * amounBase;
-            ExchangeDto exchange = new ExchangeDto(pair, amounBase, value, 999);
-            return exchange;
+            //RateDto pair = api.GetCurrencyRate(currency, @base).Result;
+            //var value = pair.Rate * amounBase;
+            //ExchangeDto exchange = new ExchangeDto(pair, amounBase, value, 999);
+            return null;
         }
 
         public IReadOnlyList<CurrencyDto> GetCurrencies()
         {
-            return availableCurrency;
+            return null;
         }
 
         public Task UpdateRates()
@@ -48,29 +49,7 @@ namespace ExchangerModels
 
         private async void UpdateRates(int everySeconds, IList<CurrencyDto> availbleCurrenciew, CurrencyDto @base)
         {
-            while (true)
-            {
-                var task = Task.Run(() => api.GetAllCurrencyRate(@base, availbleCurrenciew));
-                try
-                {
-                    var ratesResult = await task;
-                    foreach (var item in ratesResult)
-                    {
-                        if (rates.Find(x => x.Currency == item.Currency && x.Base == item.Base) != null)
-                            rates.Add(item);
-                        //else
-                        //rates.Find(x => x.Currency == item.Currency && x.Base == item.Base ) = item;\
-
-                        RaiseActionRates(Common.Enums.ActionListEnum.Added, item);
-                    }
-                    
-                }
-                catch (Exception ex)
-                {
-                    throw new ArgumentException(ex.Message);
-                }
-                await Task.Delay(everySeconds * 1000);
-            }
+           
         }
 
         public ExchangerModel()
@@ -82,10 +61,10 @@ namespace ExchangerModels
 
 
 
-            api = new CurrencyExchangerate();
+            //api = new CurrencyExchangerate();
 
 
-            UpdateRates(600, (IList<CurrencyDto>)availableCurrency, Base);
+            //UpdateRates(600, (IList<CurrencyDto>)availableCurrency, Base);
         }
     }
 }

@@ -1,8 +1,11 @@
-﻿namespace DtoTypes
+﻿using System.Collections.Generic;
+
+namespace DtoTypes
 {
     /// <summary>Курс пары валют.</summary>
     public class RateDto
     {
+        public int Id { get; }
         /// <summary>Оцениваемая валюта (числитель).</summary>
         public CurrencyDto Currency { get; }
 
@@ -21,6 +24,8 @@
             Currency = currency;
             Base = @base;
             Rate = rate;
+
+            Id =  12651974 + EqualityComparer<CurrencyDto>.Default.GetHashCode(Currency) + EqualityComparer<CurrencyDto>.Default.GetHashCode(Base);
         }
     }
 

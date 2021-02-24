@@ -11,19 +11,6 @@ namespace ExchangerModels
         /// <summary>Внутреннее поле "Только для чтения" со словарём предложение по обмену базовой валюты.</summary>
         private readonly Dictionary<RateDto, ExchangeDto> exchanges;
 
-        /// <summary>Неизменяемый словарь доступных, для пар, валют.</summary>
-        private IReadOnlyList<CurrencyDto> availableCurrency { get; } = new List<CurrencyDto>
-        {
-            new CurrencyDto("USD", "$"),
-            new CurrencyDto("EUR", "€"),
-            new CurrencyDto("RUB", "₽"),
-            new CurrencyDto("CNY", "¥"),
-            new CurrencyDto("KZT", "₸"),
-            new CurrencyDto("VND", "₫"),
-            new CurrencyDto("CHF", "₣")
-        };
-
-
         private List<RateDto> rates;
         public IReadOnlyList<RateDto> Rates { get; }
     }
