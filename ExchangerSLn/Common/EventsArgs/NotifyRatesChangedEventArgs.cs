@@ -30,6 +30,10 @@ namespace Common.EventsArgs
             }
             else
             {
+                // TODO : Может тут NewItems?
+                throw new NotImplementedException();
+
+
                 newItems = Array.AsReadOnly(newItems.ToArray());
             }
         }
@@ -37,8 +41,6 @@ namespace Common.EventsArgs
         public static NotifyCollectionChangedEventArgs<T> Added(IEnumerable<T> newItems)
            => new NotifyCollectionChangedEventArgs<T>(ActionListEnum.Added, null, newItems);
 
-        public static NotifyCollectionChangedEventArgs<T> Removed(IEnumerable<T> oldItems)
-           => new NotifyCollectionChangedEventArgs<T>(ActionListEnum.Removed, oldItems, null);
 
         public static NotifyCollectionChangedEventArgs<T> Changed(IEnumerable<T> newItems, IEnumerable<T> oldItems)
            => new NotifyCollectionChangedEventArgs<T>(ActionListEnum.Changed, oldItems, newItems);

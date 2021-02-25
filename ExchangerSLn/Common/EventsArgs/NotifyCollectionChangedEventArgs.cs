@@ -18,9 +18,6 @@ namespace Common.EventsArgs
         public static NotifyCollectionChangedEventArgs<T> Added<T>(IEnumerable<T> newItems)
            => NotifyCollectionChangedEventArgs<T>.Added(newItems);
 
-        public static NotifyCollectionChangedEventArgs<T> Removed<T>(IEnumerable<T> oldItems)
-           => NotifyCollectionChangedEventArgs<T>.Removed(oldItems);
-
         public static NotifyCollectionChangedEventArgs<T> Changed<T>(IEnumerable<T> newItems, IEnumerable<T> oldItems)
            => NotifyCollectionChangedEventArgs<T>.Changed(oldItems, newItems);
 
