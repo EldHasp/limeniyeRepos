@@ -44,6 +44,8 @@ namespace Repository.Rates
             timer.Elapsed -= RenderRates;
             timer.Elapsed += RenderRates;
 
+            
+
             timer.AutoReset = true;
             timer.Enabled = true;
             
@@ -52,9 +54,8 @@ namespace Repository.Rates
         /// <summary>Метод обновления курсов валют.</summary>
         private void RenderRates(object sender, ElapsedEventArgs e)
         {
-            timer.Interval = 1000 * 20; //1000 * 60 * 30;
+            timer.Interval = 1000 * 20;
             var resultList = GetAllRatesOfCurrencyAsync(baseCurrency, currencies).Result;
-
             // TODO : следующие строки до комментария черты добавляют рандомные значения к валютам только для демонстрации!
             // TODO : После теста их нужно будет удалить.
             Random rand = new Random(); int rand1 = rand.Next(0, resultList.Count); int rand2 = rand.Next(0, resultList.Count); int rand3 = rand.Next(0, resultList.Count);
@@ -149,9 +150,7 @@ namespace Repository.Rates
 
         public RatesRepository(CurrencyDto baseCurrency, IList<CurrencyDto> available)
         {
-            rates = GetAllRatesOfCurrencyAsync(baseCurrency, available).Result;
             SetBaseCurrency(baseCurrency, available);
-
         }
     }
 }
