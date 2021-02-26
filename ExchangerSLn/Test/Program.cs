@@ -17,13 +17,38 @@ namespace Test
             new CurrencyDto("VND", "₫"),
             new CurrencyDto("CHF", "₣")
         };
-        static async System.Threading.Tasks.Task Main(string[] args)
+
+
+        static void Main(string[] args)
         {
 
-            RatesRepository exchangeRate = new RatesRepository();
-            var rate = await exchangeRate.GetRateOfCurrencyAsync(new CurrencyDto("USD", "$"), new CurrencyDto("UAH", "₴"));
-            var rates = await exchangeRate.GetAllRatesOfCurrencyAsync(new CurrencyDto("UAH", "₴"), available);
+            RatesRepository exchangeRate = new RatesRepository(new CurrencyDto("UAH", "₴") , available);
+            foreach (var item in exchangeRate.GetAllRates())
+            {
+                Console.WriteLine("Базовая валюта -- " + item.Base + "\tПобочная -- " + item.Currency + "\tКурс -- " + item.Rate);
+            }
+            exchangeRate.RatesCnahged += ExchangeRate_RatesCnahged;
+
+            //var rate = await exchangeRate.GetRateOfCurrencyAsync(new CurrencyDto("USD", "$"), new CurrencyDto("UAH", "₴"));
+            //var rates = await exchangeRate.GetAllRatesOfCurrencyAsync(new CurrencyDto("UAH", "₴"), available);
             Console.ReadLine();
+        }
+
+        private static void ExchangeRate_RatesCnahged(object sender, Common.EventsArgs.RatesAction action, IEnumerable<RateDto> newRates)
+        {
+            switch(action)
+            {
+                case Common.EventsArgs.RatesAction.AddedOrChanged:
+                    Console.WriteLine("Изменились или добавились новые значения\n");
+                    foreach (var item in newRates)
+                    {
+                        Console.WriteLine("Базовая валюта -- " + item.Base + "\tПобочная -- " + item.Currency + "\tКурс -- " + item.Rate);
+                    }
+                    break;
+                case Common.EventsArgs.RatesAction.Clear:
+                    Console.WriteLine("\tСписок очистился.\t");
+                    break;
+            }
         }
     }
 }

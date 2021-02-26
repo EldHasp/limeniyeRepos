@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rates\RatesRepository - Events.cs" />
+    <Compile Include="Rates\RatesRepository - List.cs" />
     <Compile Include="Rates\RatesRepository.cs" />
   </ItemGroup>
   <ItemGroup>
