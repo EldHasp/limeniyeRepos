@@ -5,9 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 using xNet;
 
 namespace Repository.Rates
@@ -61,9 +63,9 @@ namespace Repository.Rates
             if (rands.Distinct().Count() != 3)
                 Console.WriteLine("Совпадение");
 
-            int valueRandom1 = rand.Next(1, 5);
-            int valueRandom2 = rand.Next(1, 7);
-            int valueRandom3 = rand.Next(1, 6);
+            int valueRandom1 = rand.Next(2, 5);
+            int valueRandom2 = rand.Next(2, 7);
+            int valueRandom3 = rand.Next(2, 6);
             resultList[rand1] = new RateDto(resultList[rand1].Currency, resultList[rand1].Base, resultList[rand1].Rate * valueRandom1);
             resultList[rand2] = new RateDto(resultList[rand2].Currency, resultList[rand2].Base, resultList[rand2].Rate * valueRandom2);
             resultList[rand3] = new RateDto(resultList[rand3].Currency, resultList[rand3].Base, resultList[rand3].Rate * valueRandom3);
@@ -127,27 +129,27 @@ namespace Repository.Rates
             RequestParams rParams = new RequestParams();
             rParams["base"] = baseCurrency.Symbol;
             rParams["symbols"] = symbols;
-            rParams["format"] = "XML";
+            rParams["format"] = "json";
             HttpResponse response = request.Get("https://api.exchangerate.host/latest", rParams);
+
+
             string responseXmlResult = "";
             using (StreamReader sr = new StreamReader(response.ToMemoryStream()))
             {
                 responseXmlResult = sr.ReadToEnd();
             }
 
+            RatesJson ratesJson = JsonSerializer.Deserialize<RatesJson>(responseXmlResult);
 
-            XDocument doc = XDocument.Parse(responseXmlResult);
-            var elements = doc.Root.Elements("data");
-
-            List<RateDto> tempList = new List<RateDto>();
-            foreach (var item in elements)
-            {
-                decimal rate = Convert.ToDecimal(item.Element("rate").Value) * commission;
-                CurrencyDto currency = AllCurrencies.FirstOrDefault(crr => crr.Symbol == item.Element("code").Value);
-                tempList.Add(new RateDto(currency, baseCurrency, rate));
-            }
+            List<RateDto> tempList = ratesJson.rates
+                .Select(rt => new RateDto(
+                    AllCurrencies.FirstOrDefault(crr => crr.Symbol == rt.Key),
+                    baseCurrency,
+                    rt.Value
+                )).ToList();
             return tempList;
         }
+
         #endregion
 
 
