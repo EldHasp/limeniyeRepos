@@ -1,7 +1,6 @@
 ﻿using Common.Interfaces.Model;
 using Common.Interfaces.Repository;
 using DtoTypes;
-using Repository.ExchangerateRepository;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;

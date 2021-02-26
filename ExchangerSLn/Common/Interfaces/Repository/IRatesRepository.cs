@@ -13,7 +13,16 @@ namespace Common.Interfaces.Repository
 
         /// <summary>Задание базовой валюты.</summary>
         /// <param name="base">Базовая валюта.</param>
-        /// <param name="currencies">Список отслеживаемых валют.</param>
-        void SetBaseCurrency(CurrencyDto @base, IEnumerable<CurrencyDto> currencies);
+        void SetBaseCurrency(CurrencyDto @base);
+
+        /// <summary> Метод получает список курсов заданных валют относительно базовой.</summary>
+        /// <returns> Список валют с курсами.</returns>
+        Task<IList<RateDto>> GetAllRatesOfCurrencyAsync();
+
+        /// <summary> Метод получает список курсов заданных валют относительно базовой.</summary>
+        /// <returns> Список валют с курсами.</returns>
+        IList<RateDto> GetAllRatesOfCurrency();
+
     }
+
 }

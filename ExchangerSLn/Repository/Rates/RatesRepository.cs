@@ -15,47 +15,33 @@ namespace Repository.Rates
     /// <summary>Класс репозитория для работы с сайтом ......</summary>
     public partial class RatesRepository : IRatesRepository
     {
+
+
+
         /// <summary>Базовая валюта.</summary>
         private CurrencyDto baseCurrency;
         private readonly Timer timer = new Timer();
 
 
-        public void SetBaseCurrency(CurrencyDto @base, IEnumerable<CurrencyDto> currencies)
+        public void SetBaseCurrency(CurrencyDto @base)
         {
-            rates.Clear();
+            timer.Stop();
             // Очистка коллекции
             ClearRates();
             baseCurrency = @base;
 
-            SetCurrencies(currencies);
-        }
+            currencies.Clear();
+            currencies.AddRange(AllCurrencies.Where(crr => crr != baseCurrency));
 
-        /// <summary>Метод задания прослушиваемых валют.</summary>
-        /// <param name="rates">Список валют.</param>
-        /// <remarks>В общем случае, здесь может быть подписка на канал сервера.
-        /// В этом случае просто установка списка  <see cref="currencies"/> и запуск таймера.</remarks>
-        private void SetCurrencies(IEnumerable<CurrencyDto> currencies)
-        {
-            timer.Stop();
-
-            this.currencies.Clear();
-            this.currencies.AddRange(currencies);
-
-            timer.Elapsed -= RenderRates;
-            timer.Elapsed += RenderRates;
-
-            
-
-            timer.AutoReset = true;
-            timer.Enabled = true;
-            
+            RenderRates();
         }
 
         /// <summary>Метод обновления курсов валют.</summary>
-        private void RenderRates(object sender, ElapsedEventArgs e)
+        private void RenderRates(object sender = null, ElapsedEventArgs e = null)
         {
-            timer.Interval = 1000 * 20;
-            var resultList = GetAllRatesOfCurrencyAsync(baseCurrency, currencies).Result;
+            timer.Stop();
+            IList<RateDto> resultList = GetAllRatesOfCurrency();
+
             // TODO : следующие строки до комментария черты добавляют рандомные значения к валютам только для демонстрации!
             // TODO : После теста их нужно будет удалить.
             Random rand = new Random(); int rand1 = rand.Next(0, resultList.Count); int rand2 = rand.Next(0, resultList.Count); int rand3 = rand.Next(0, resultList.Count);
@@ -66,6 +52,7 @@ namespace Repository.Rates
 
             //-----------------------------------------------
             AddRangeRates(resultList);
+            timer.Start();
         }
 
         #region Запросы
@@ -95,25 +82,35 @@ namespace Repository.Rates
 
         /// <summary> Метод получает список курсов заданных валют относительно базовой</summary>
         /// <param name="base"> Базовая валюта </param>
-        /// <param name="available"> Список доступных валют.</param>
+        /// <param name="currencies"> Список доступных валют.</param>
         /// <returns> Список валют с курсами </returns>
-        private async Task<List<RateDto>> GetAllRatesOfCurrencyAsync(CurrencyDto @base, IList<CurrencyDto> available)
+        public async Task<IList<RateDto>> GetAllRatesOfCurrencyAsync()
         {
-            if (available == null)
-                return null;
+            return await Task.Run(GetAllRatesOfCurrency);
+        }
+
+        /// <summary> Метод получает список курсов заданных валют относительно базовой</summary>
+        /// <param name="baseCurrency"> Базовая валюта </param>
+        /// <returns> Список валют с курсами </returns>
+        public IList<RateDto> GetAllRatesOfCurrency()
+        {
+            if (baseCurrency == null || currencies == null || !currencies.Any())
+                return new RateDto[0];
 
             HttpRequest request = new HttpRequest();
             RequestParams rParams = new RequestParams();
-            rParams["base"] = @base.Symbol;
-            string symbols = available.First().Symbol;
-            for (int i = 1; i < available.Count; i++)
-            {
-                symbols += "," + available[i].Symbol;
-            }
+            rParams["base"] = baseCurrency.Symbol;
+            //string symbols = available.First().Symbol;
+            //for (int i = 1; i < available.Count; i++)
+            //{
+            //    symbols += "," + available[i].Symbol;
+            //}
+            string symbols = string.Join(",", currencies.Select(crr => crr.Symbol));
+
             rParams["symbols"] = symbols;
             rParams["format"] = "XML";
-            HttpResponse response = await Task.Run(() => request.Get("https://api.exchangerate.host/latest", rParams));
-            string responseXmlResult = "";
+            HttpResponse response = request.Get("https://api.exchangerate.host/latest", rParams);
+            string responseXmlResult;
             using (StreamReader sr = new StreamReader(response.ToMemoryStream()))
             {
                 responseXmlResult = sr.ReadToEnd();
@@ -128,7 +125,7 @@ namespace Repository.Rates
             {
                 decimal rate = Convert.ToDecimal(item.Descendants("rate").Select(v => (string)v).FirstOrDefault());
                 string currencyName = item.Descendants("code").Select(v => (string)v).FirstOrDefault();
-                tempList.Add(new RateDto(available.First(x => x.Symbol == currencyName), @base, rate));
+                tempList.Add(new RateDto(currencies.First(x => x.Symbol == currencyName), baseCurrency, rate));
             }
             return tempList;
         }
@@ -148,9 +145,17 @@ namespace Repository.Rates
         #endregion
 
 
-        public RatesRepository(CurrencyDto baseCurrency, IList<CurrencyDto> available)
+        //public RatesRepository(CurrencyDto baseCurrency, IList<CurrencyDto> available)
+        //{
+        //    SetBaseCurrency(baseCurrency, available);
+        //}
+
+        public RatesRepository()
         {
-            SetBaseCurrency(baseCurrency, available);
+            timer.Elapsed += RenderRates;
+            timer.AutoReset = true;
+            //timer.Enabled = true;
+
         }
     }
 }

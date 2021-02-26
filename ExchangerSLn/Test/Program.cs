@@ -1,7 +1,9 @@
-﻿using DtoTypes;
+﻿using Common.Interfaces.Repository;
+using DtoTypes;
 using Repository.Rates;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Test
 {
@@ -9,6 +11,7 @@ namespace Test
     {
         private static IList<CurrencyDto> available { get; } = new List<CurrencyDto>()
         {
+            new CurrencyDto("UAH", "₴"),
             new CurrencyDto("USD", "$"),
             new CurrencyDto("EUR", "€"),
             new CurrencyDto("RUB", "₽"),
@@ -21,7 +24,14 @@ namespace Test
 
         static void Main(string[] args)
         {
-            RatesRepository exchangeRate = new RatesRepository(new CurrencyDto("UAH", "₴") , available);
+            RatesRepository exchangeRate = new RatesRepository();
+
+            ISupportInitializeRatesRepository initializeRates = exchangeRate;
+            initializeRates.BeginInit();
+            initializeRates.SetAllCurrencies(available);
+            exchangeRate.SetBaseCurrency(available.First());
+            initializeRates.EndInit();
+
             exchangeRate.RatesCnahged += ExchangeRate_RatesCnahged;
             Console.ReadKey();
         }
