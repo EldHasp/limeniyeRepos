@@ -50,5 +50,8 @@ namespace DtoTypes
         {
             Description = description;
         }
+
+        public override string ToString()
+            => $"{{\"{Symbol}\", \"{Sign}\"}}";
     }
 }

@@ -67,10 +67,60 @@ namespace Common
         /// <param name="collection">Исходная коллекция.</param>
         /// <returns>Последовательность элементов коллекции.</returns>
         /// <remarks>Используется для защиты исходной коллекции от изменений.</remarks>
-        public static IEnumerable<T> GetEnumerable<T> (this IEnumerable<T> collection)
+        public static IEnumerable<T> GetEnumerable<T>(this IEnumerable<T> collection)
         {
             foreach (T item in collection)
                 yield return item;
+        }
+
+        /// <summary>Добавляет элемент в конец последовательности.</summary>
+        /// <typeparam name="TSource">Тип элемента последовательности.</typeparam>
+        /// <param name="source">Исходная последовательность.</param>
+        /// <param name="element">Добавляемый элемент.</param>
+        /// <returns>Последовательность с добавленным элементом.</returns>
+        public static IEnumerable<TSource> Append<TSource>(this IEnumerable<TSource> source, TSource element)
+        {
+            foreach (var item in source)
+            {
+                yield return item;
+            }
+
+            yield return element;
+        }
+
+        /// <summary>Добавляет элемент в начало последовательности.</summary>
+        /// <typeparam name="TSource">Тип элемента последовательности.</typeparam>
+        /// <param name="source">Исходная последовательность.</param>
+        /// <param name="element">Добавляемый элемент.</param>
+        /// <returns>Последовательность с добавленным элементом.</returns>
+        public static IEnumerable<TSource> Prepend<TSource>(this IEnumerable<TSource> source, TSource element)
+        {
+            yield return element;
+            foreach (var item in source)
+            {
+                yield return item;
+            }
+
+        }
+
+        /// <summary>Удаляет из индексированной коллекции все элементы удобвлетворяющие условию.</summary>
+        /// <typeparam name="T">Тип элемента коллекции.</typeparam>
+        /// <param name="list">Индексированная коллекция.</param>
+        /// <param name="predicate">Предикат с условием.</param>
+        /// <returns>Количество удалённых элементов.</returns>
+        public static int RemoveAll<T>(this IList<T> list, Predicate<T> predicate)
+        {
+            int count = 0;
+            for (int i = list.Count - 1; i >= 0; i--)
+            {
+                if (predicate(list[i]))
+                {
+                    list.RemoveAt(i);
+                    count++;
+                }
+            }
+
+            return count;
         }
     }
 }

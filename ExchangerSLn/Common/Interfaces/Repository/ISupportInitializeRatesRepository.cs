@@ -10,6 +10,8 @@ namespace Common.Interfaces.Repository
         IReadOnlyList<CurrencyDto> AllCurrencies { get; }
         void SetAllCurrencies(IEnumerable<CurrencyDto> allCurrencies);
 
+        void Initialize(IEnumerable<CurrencyDto> available, CurrencyDto baseCurrency);
+
     }
 
 }

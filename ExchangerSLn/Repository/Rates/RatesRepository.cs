@@ -1,4 +1,5 @@
-﻿using Common.Interfaces.Repository;
+﻿using Common;
+using Common.Interfaces.Repository;
 using DtoTypes;
 using System;
 using System.Collections.Generic;
@@ -29,12 +30,16 @@ namespace Repository.Rates
             // Очистка коллекции
             ClearRates();
             baseCurrency = @base;
+            if (IsBeginInit)
+                return;
 
             currencies.Clear();
             currencies.AddRange(AllCurrencies.Where(crr => crr != baseCurrency));
 
             RenderRates();
         }
+
+        private static readonly Random rand = new Random();
 
         /// <summary>Метод обновления курсов валют.</summary>
         private void RenderRates(object sender = null, ElapsedEventArgs e = null)
@@ -44,13 +49,30 @@ namespace Repository.Rates
 
             // TODO : следующие строки до комментария черты добавляют рандомные значения к валютам только для демонстрации!
             // TODO : После теста их нужно будет удалить.
-            Random rand = new Random(); int rand1 = rand.Next(0, resultList.Count); int rand2 = rand.Next(0, resultList.Count); int rand3 = rand.Next(0, resultList.Count);
-            int valueRandom1 = rand.Next(1, 5); int valueRandom2 = rand.Next(1, 7); int valueRandom3 = rand.Next(1, 6);
+
+            var rands = Enumerable.Range(0, resultList.Count)
+                .OrderBy(x => rand.Next())
+                .ToArray();
+
+            int rand1 = rands[0];
+            int rand2 = rands[1];
+            int rand3 = rands[2];
+
+            if (rands.Distinct().Count() != 3)
+                Console.WriteLine("Совпадение");
+
+            int valueRandom1 = rand.Next(1, 5);
+            int valueRandom2 = rand.Next(1, 7);
+            int valueRandom3 = rand.Next(1, 6);
             resultList[rand1] = new RateDto(resultList[rand1].Currency, resultList[rand1].Base, resultList[rand1].Rate * valueRandom1);
             resultList[rand2] = new RateDto(resultList[rand2].Currency, resultList[rand2].Base, resultList[rand2].Rate * valueRandom2);
             resultList[rand3] = new RateDto(resultList[rand3].Currency, resultList[rand3].Base, resultList[rand3].Rate * valueRandom3);
 
             //-----------------------------------------------
+
+            // Удаление не изменившихся курсов
+            resultList.RemoveAll(rt => rates.FirstOrDefault(rate => rate.Base == rt.Base && rate.Currency == rt.Currency)?.Rate == rt.Rate);
+
             AddRangeRates(resultList);
             timer.Start();
         }
@@ -84,18 +106,20 @@ namespace Repository.Rates
         /// <param name="base"> Базовая валюта </param>
         /// <param name="currencies"> Список доступных валют.</param>
         /// <returns> Список валют с курсами </returns>
-        public async Task<IList<RateDto>> GetAllRatesOfCurrencyAsync()
+        private async Task<IList<RateDto>> GetAllRatesOfCurrencyAsync()
         {
             return await Task.Run(GetAllRatesOfCurrency);
         }
 
+        private static readonly RateDto[] emptyRates = new RateDto[0];
+
         /// <summary> Метод получает список курсов заданных валют относительно базовой</summary>
         /// <param name="baseCurrency"> Базовая валюта </param>
         /// <returns> Список валют с курсами </returns>
-        public IList<RateDto> GetAllRatesOfCurrency()
+        private IList<RateDto> GetAllRatesOfCurrency()
         {
             if (baseCurrency == null || currencies == null || !currencies.Any())
-                return new RateDto[0];
+                return emptyRates;
 
             string symbols = string.Join(",", currencies.Select(crr => crr.Symbol));
 
@@ -113,14 +137,14 @@ namespace Repository.Rates
 
 
             XDocument doc = XDocument.Parse(responseXmlResult);
-            var elements = doc.Descendants("data");
+            var elements = doc.Root.Elements("data");
 
             List<RateDto> tempList = new List<RateDto>();
             foreach (var item in elements)
             {
-                decimal rate = Convert.ToDecimal(item.Descendants("rate").Select(v => (string)v).FirstOrDefault());
-                string currencyName = item.Descendants("code").Select(v => (string)v).FirstOrDefault();
-                tempList.Add(new RateDto(currencies.First(x => x.Symbol == currencyName), baseCurrency, rate));
+                decimal rate = Convert.ToDecimal(item.Element("rate").Value) * commission;
+                CurrencyDto currency = AllCurrencies.FirstOrDefault(crr => crr.Symbol == item.Element("code").Value);
+                tempList.Add(new RateDto(currency, baseCurrency, rate));
             }
             return tempList;
         }
@@ -130,9 +154,9 @@ namespace Repository.Rates
         #region Для пользователя
         public IEnumerable<RateDto> GetAllRates()
         {
-            return rates;
+            return rates.GetEnumerable();
         }
-        public Task<RateDto> GetRates(CurrencyDto currency)
+        public Task<RateDto> GetRatesAsync(CurrencyDto currency)
         {
             var task = rates.Find(x => x.Base == baseCurrency && x.Currency == currency);
             return Task.Run(() => task);
@@ -140,16 +164,5 @@ namespace Repository.Rates
         #endregion
 
 
-        //public RatesRepository(CurrencyDto baseCurrency, IList<CurrencyDto> available)
-        //{
-        //    SetBaseCurrency(baseCurrency, available);
-        //}
-
-        public RatesRepository()
-        {
-            timer.Elapsed += RenderRates;
-            timer.AutoReset = true;
-            //timer.Enabled = true;
-        }
     }
 }

@@ -17,12 +17,12 @@ namespace Common.Interfaces.Repository
 
         /// <summary> Метод получает список курсов заданных валют относительно базовой.</summary>
         /// <returns> Список валют с курсами.</returns>
-        Task<IList<RateDto>> GetAllRatesOfCurrencyAsync();
+        IEnumerable<RateDto> GetAllRates();
 
-        /// <summary> Метод получает список курсов заданных валют относительно базовой.</summary>
-        /// <returns> Список валют с курсами.</returns>
-        IList<RateDto> GetAllRatesOfCurrency();
-
+        /// <summary>Асинхронный метод получения курса валюты по отношению к базовой.</summary>
+        /// <param name="currency">Оцениваемая валюта.</param>
+        /// <returns>Курс валюты.</returns>
+        Task<RateDto> GetRatesAsync(CurrencyDto currency);
     }
 
 }
