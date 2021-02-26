@@ -97,20 +97,15 @@ namespace Repository.Rates
             if (baseCurrency == null || currencies == null || !currencies.Any())
                 return new RateDto[0];
 
+            string symbols = string.Join(",", currencies.Select(crr => crr.Symbol));
+
             HttpRequest request = new HttpRequest();
             RequestParams rParams = new RequestParams();
             rParams["base"] = baseCurrency.Symbol;
-            //string symbols = available.First().Symbol;
-            //for (int i = 1; i < available.Count; i++)
-            //{
-            //    symbols += "," + available[i].Symbol;
-            //}
-            string symbols = string.Join(",", currencies.Select(crr => crr.Symbol));
-
             rParams["symbols"] = symbols;
             rParams["format"] = "XML";
             HttpResponse response = request.Get("https://api.exchangerate.host/latest", rParams);
-            string responseXmlResult;
+            string responseXmlResult = "";
             using (StreamReader sr = new StreamReader(response.ToMemoryStream()))
             {
                 responseXmlResult = sr.ReadToEnd();
@@ -155,7 +150,6 @@ namespace Repository.Rates
             timer.Elapsed += RenderRates;
             timer.AutoReset = true;
             //timer.Enabled = true;
-
         }
     }
 }

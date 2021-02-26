@@ -12,7 +12,7 @@ namespace ViewModel.Currency
 {
     public class ExchangerListViewModel : BaseInpc, IExchangerListViewModel
     {
-        private readonly IExchangerModel model;
+        //private readonly IExchangerModel model;
 
         private IExchangeViewModel _selectedExchange;
 
@@ -46,11 +46,13 @@ namespace ViewModel.Currency
 
         public ExchangerListViewModel(IExchangerModel model)
         {
-            this.model = model;
+            //this.model = model;
 
             // TODO: Отсутствует начальное заполение списка.
 
-            model.ChangedExchanges += ActionListChanged;
+            //model.ChangedExchanges += ActionListChanged;
         }
+
+        
     }
 }

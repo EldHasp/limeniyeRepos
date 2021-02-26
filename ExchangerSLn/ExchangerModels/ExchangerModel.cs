@@ -54,7 +54,7 @@ namespace ExchangerModels
             exchanges = new Dictionary<int, ExchangeDto>();
             Exchanges = new ReadOnlyDictionary<int, ExchangeDto>(exchanges);
 
-            api = new ExchangerateRepository();
+            //api = new ExchangerateRepository();
 
 
             //UpdateRates(600, (IList<CurrencyDto>)availableCurrency, Base);
