@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.EventsArgs;
 using Common.Interfaces.Repository;
 using DtoTypes;
 using System;
@@ -16,6 +17,18 @@ namespace Repository.Rates
     /// <summary>Класс репозитория для работы с сайтом ......</summary>
     public partial class RatesRepository : IRatesRepository
     {
+        /// <summary>Создаёт экземпляр репозитория.</summary>
+        /// <param name="commission">Комиссия за обмен.</param>
+        /// <param name="available">Список отслеживаемых валют.</param>
+        /// <param name="baseCurrency">Базовая валюта.</param>
+        /// <param name="onRatesCnahged">Прослушка события <see cref="RatesCnahged"/>.</param>
+        public RatesRepository(decimal commission, IEnumerable<CurrencyDto> available, RatesCnahgedHandler onRatesCnahged, CurrencyDto baseCurrency = null)
+            : this(commission)
+        {
+            RatesCnahged += onRatesCnahged;
+
+            ((ISupportInitializeRatesRepository)this).Initialize(available, baseCurrency);
+        }
         /// <summary>Создаёт экземпляр репозитория.</summary>
         /// <param name="commission">Комиссия за обмен.</param>
         /// <param name="available">Список отслеживаемых валют.</param>

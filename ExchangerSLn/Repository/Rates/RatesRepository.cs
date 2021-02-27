@@ -60,7 +60,7 @@ namespace Repository.Rates
             int rand2 = rands[1];
             int rand3 = rands[2];
 
-            if (rands.Distinct().Count() != 3)
+            if (new int[] { rand1, rand2, rand3}.Distinct().Count() != 3)
                 Console.WriteLine("Совпадение");
 
             int valueRandom1 = rand.Next(2, 5);

@@ -23,10 +23,39 @@ namespace Test
 
         static void Main(string[] args)
         {
-            RatesRepository exchangeRate = new RatesRepository(1.002m, available);
 
-            exchangeRate.RatesCnahged += ExchangeRate_RatesCnahged;
-            ((ISupportInitializeRatesRepository)exchangeRate).Initialize(available, new CurrencyDto("UAH", "₴"));
+            Console.WriteLine("Выберите вариант инициализации:");
+            Console.WriteLine("1 - Перврначальный вариант с иницализацией через конструтор;");
+            Console.WriteLine("2 - Второй вариант с иницализацией через транзакцию инициализации;");
+            Console.WriteLine("3 - Третий вариан вариант с иницализацией через конструтор с передачей ему прослушки;");
+            ConsoleKeyInfo key;
+            while (!"123".Contains((key = Console.ReadKey()).KeyChar))
+                Console.Write('\r');
+            Console.WriteLine();
+            Console.WriteLine();
+
+            if (key.KeyChar == '1')
+            {
+                // Перврначальный вариант с иницализацией через конструтор.
+                RatesRepository exchangeRate = new RatesRepository(1.002m, available, new CurrencyDto("UAH", "₴"));
+
+                exchangeRate.RatesCnahged += ExchangeRate_RatesCnahged;
+            }
+            else if (key.KeyChar == '2')
+            {
+                // Второй вариант с иницализацией через транзакцию инициализации.
+                RatesRepository exchangeRate = new RatesRepository(1.002m);
+
+                exchangeRate.RatesCnahged += ExchangeRate_RatesCnahged;
+                ((ISupportInitializeRatesRepository)exchangeRate).Initialize(available, new CurrencyDto("UAH", "₴"));
+            }
+            else
+            {
+                // Третий вариан вариант с иницализацией через конструтор с передачей ему прослушки.
+                RatesRepository exchangeRate = new RatesRepository(1.002m, available, ExchangeRate_RatesCnahged, new CurrencyDto("UAH", "₴"));
+
+                exchangeRate.RatesCnahged += ExchangeRate_RatesCnahged;
+            }
             Console.ReadKey();
         }
 
@@ -35,11 +64,14 @@ namespace Test
             switch (action)
             {
                 case Common.EventsArgs.RatesAction.AddedOrChanged:
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine($"Изменились или добавились новые значения - {DateTime.Now}:");
+                    Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine(string.Join(Environment.NewLine, newRates));
                     Console.WriteLine();
                     break;
                 case Common.EventsArgs.RatesAction.Clear:
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("\tСписок очистился.\t");
                     break;
             }
