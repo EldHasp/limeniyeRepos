@@ -1,63 +1,72 @@
-﻿using Common.Interfaces.Model;
-using Common.Interfaces.Repository;
+﻿using Common;
 using DtoTypes;
+using Repository.Rates;
+using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
+using System.Linq;
 
 namespace ExchangerModels
 {
-    public partial class ExchangerModel : IExchangerModel
+    public partial class ExchangerModel
     {
-        private IRatesRepository api;
-        private CurrencyDto Base;
+        private readonly RatesRepository repository;
+        private readonly IList<RateDto> rates;
+        private readonly IList<ExchangeDto> exchangers = new List<ExchangeDto>();
+
+
+        /// <summary>  </summary>
+        /// <param name="newSumm"> Новая полная сумма. Если пбыло 10 и пользователь внёс ещё 5, то <see cref="newSumm"/> будет 15. </param>
+        public void SetDepositedBalance(decimal newSumm)
+        {
+            for (int i = 0; i < exchangers.Count; i++)
+            {
+                decimal availableForExchange = (int)newSumm / exchangers[i].Rate.Rate;
+                decimal lack;
+                if (newSumm > exchangers[i].Rate.Rate)
+                    lack = newSumm - (int)exchangers[i].Rate.Rate * availableForExchange + (exchangers[i].Rate.Rate - (int)exchangers[i].Rate.Rate);
+                else
+                    lack = exchangers[i].Rate.Rate - newSumm;
+
+                exchangers[i] = new ExchangeDto(exchangers[i].Rate, newSumm, availableForExchange, lack);
+            }
+        }
+
+
+        public ExchangerModel(RatesRepository repository)
+        {
+            this.repository = repository;
+            rates = this.repository.GetCurrentRates().ToArray();
+            //первичное заполнение exchangers с эмуляцией внесения 30 грн.
+            decimal newSumm = 30;
+            
+            foreach (var item in rates)
+            {
+                decimal availableForExchange = (int)newSumm / item.Rate;
+                decimal lack;
+                if (newSumm > item.Rate)
+                    lack = newSumm - (int)item.Rate * availableForExchange + (item.Rate - (int)item.Rate);
+                else
+                    lack = item.Rate - newSumm;
+
+                exchangers.Add(new ExchangeDto(item, newSumm, availableForExchange, lack));
+            }
+
+            this.repository.RatesCnahged += Repository_RatesCnahged;
+        }
+
         
-        public Task SetBaseCurrency(CurrencyDto currency)
+        private void Repository_RatesCnahged(object sender, Common.EventsArgs.RatesAction action, System.Collections.Generic.IEnumerable<DtoTypes.RateDto> newRates)
         {
-            Base = currency;
-            bool result = false;
-            UpdateRates();
-            UpdateExchangeRates();
-            return null; 
-        }
-
-
-        public ExchangeDto GetExchange(CurrencyDto currency, CurrencyDto @base, decimal amounBase)
-        {
-            //RateDto pair = api.GetCurrencyRate(currency, @base).Result;
-            //var value = pair.Rate * amounBase;
-            //ExchangeDto exchange = new ExchangeDto(pair, amounBase, value, 999);
-            return null;
-        }
-
-        public IReadOnlyList<CurrencyDto> GetCurrencies()
-        {
-            return null;
-        }
-
-        public Task UpdateRates()
-        {
-            return null;
-        }
-        public Task UpdateExchangeRates()
-        {
-            return null;
-        }
-
-        private async void UpdateRates(int everySeconds, IList<CurrencyDto> availbleCurrenciew, CurrencyDto @base)
-        {
-           
-        }
-
-        public ExchangerModel()
-        {
-            exchanges = new Dictionary<int, ExchangeDto>();
-            Exchanges = new ReadOnlyDictionary<int, ExchangeDto>(exchanges);
-
-            //api = new ExchangerateRepository();
-
-
-            //UpdateRates(600, (IList<CurrencyDto>)availableCurrency, Base);
+            switch (action)
+            {
+                case Common.EventsArgs.RatesAction.AddedOrChanged:
+                    foreach (var rate in newRates)
+                        rates.ReplaceOrAdd(r => r.Base == rate.Base && r.Currency == rate.Currency, rate);
+                    break;
+                case Common.EventsArgs.RatesAction.Clear:
+                    rates.Clear();
+                    break;
+            }
         }
     }
 }

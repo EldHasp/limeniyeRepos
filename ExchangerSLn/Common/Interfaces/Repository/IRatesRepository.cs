@@ -17,7 +17,7 @@ namespace Common.Interfaces.Repository
 
         /// <summary> Метод получает список курсов заданных валют относительно базовой.</summary>
         /// <returns> Список валют с курсами.</returns>
-        IEnumerable<RateDto> GetAllRates();
+        IEnumerable<RateDto> GetCurrentRates();
 
         /// <summary>Асинхронный метод получения курса валюты по отношению к базовой.</summary>
         /// <param name="currency">Оцениваемая валюта.</param>

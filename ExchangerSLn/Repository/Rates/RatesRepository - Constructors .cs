@@ -1,15 +1,7 @@
-﻿using Common;
-using Common.EventsArgs;
+﻿using Common.EventsArgs;
 using Common.Interfaces.Repository;
 using DtoTypes;
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Timers;
-using System.Xml.Linq;
-using xNet;
 
 namespace Repository.Rates
 {
@@ -25,9 +17,8 @@ namespace Repository.Rates
         public RatesRepository(decimal commission, IEnumerable<CurrencyDto> available, RatesCnahgedHandler onRatesCnahged, CurrencyDto baseCurrency = null)
             : this(commission)
         {
-            RatesCnahged += onRatesCnahged;
-
             ((ISupportInitializeRatesRepository)this).Initialize(available, baseCurrency);
+            RatesCnahged += onRatesCnahged;
         }
         /// <summary>Создаёт экземпляр репозитория.</summary>
         /// <param name="commission">Комиссия за обмен.</param>
@@ -36,8 +27,6 @@ namespace Repository.Rates
         public RatesRepository(decimal commission, IEnumerable<CurrencyDto> available, CurrencyDto baseCurrency = null)
             : this(commission)
         {
-            //SetBaseCurrency(baseCurrency, available);
-
             ((ISupportInitializeRatesRepository)this).Initialize(available, baseCurrency);
         }
 
@@ -55,7 +44,6 @@ namespace Repository.Rates
             timer.Elapsed += RenderRates;
             timer.AutoReset = true;
             timer.Interval = 5000;
-            //timer.Enabled = true;
         }
     }
 }

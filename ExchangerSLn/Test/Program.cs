@@ -47,14 +47,16 @@ namespace Test
                 RatesRepository exchangeRate = new RatesRepository(1.002m);
 
                 exchangeRate.RatesCnahged += ExchangeRate_RatesCnahged;
+
                 ((ISupportInitializeRatesRepository)exchangeRate).Initialize(available, new CurrencyDto("UAH", "₴"));
             }
             else
             {
                 // Третий вариан вариант с иницализацией через конструтор с передачей ему прослушки.
                 RatesRepository exchangeRate = new RatesRepository(1.002m, available, ExchangeRate_RatesCnahged, new CurrencyDto("UAH", "₴"));
-
-                exchangeRate.RatesCnahged += ExchangeRate_RatesCnahged;
+                Console.WriteLine("Данные после инициализации: ");
+                Console.WriteLine(string.Join(Environment.NewLine, exchangeRate.GetCurrentRates()));
+                Console.WriteLine("Данные закончились. \n_________________________\n");
             }
             Console.ReadKey();
         }

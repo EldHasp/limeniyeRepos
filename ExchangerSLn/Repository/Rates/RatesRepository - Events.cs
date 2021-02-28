@@ -36,7 +36,6 @@ namespace Repository.Rates
 
             RatesCnahged?.Invoke(this, RatesAction.AddedOrChanged, addRates.GetEnumerable());
         }
-
         #endregion
     }
 }

@@ -55,11 +55,9 @@
     <Compile Include="Rates\RatesRepository - List.cs" />
     <Compile Include="Rates\RatesRepository - Constructors .cs" />
     <Compile Include="Rates\RatesRepository.cs" />
-    <Compile Include="Rates\XmlClasses.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Libs\xNet.dll" />
-    <Content Include="Rates\XMLFile1.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

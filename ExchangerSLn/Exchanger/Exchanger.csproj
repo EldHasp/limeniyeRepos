@@ -141,9 +141,17 @@
       <Project>{695994e1-2f7b-49b5-9e3d-4e2a41e41c9a}</Project>
       <Name>Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ExchangerModels\ExchangerModels.csproj">
+      <Project>{1416a06b-a764-48e8-9afb-6ce533060688}</Project>
+      <Name>ExchangerModels</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ExchangerViewModels\ExchangerViewModels.csproj">
       <Project>{1aff1525-ea50-4170-a599-10048c5b04b0}</Project>
       <Name>ExchangerViewModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Repository\Repository.csproj">
+      <Project>{37634e5e-00f9-4c86-91c0-82c404aacc6d}</Project>
+      <Name>Repository</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
