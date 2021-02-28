@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Simplified;
+using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Threading;
@@ -6,7 +7,7 @@ using System.Windows.Threading;
 namespace Common.Dispatchers
 {
     /// <summary>Базовый класс для ViewModel.</summary>
-    public abstract partial class BaseViewModel : IDispatcher
+    public abstract partial class BaseViewModel : BaseInpc, IDispatcher
     {
         public Dispatcher Dispatcher { get; }
 
@@ -20,7 +21,7 @@ namespace Common.Dispatchers
             : this(Application.Current.Dispatcher)
         { }
 
-        /// <summary>>Создаёт экземпляр ViewModel.
+        /// <summary>Создаёт экземпляр ViewModel.
         /// Значение для <see cref="IsDisignedMode"/> определяется методом <see cref="DesignerProperties.GetIsInDesignMode(DependencyObject)"/>.</summary>
         /// <param name="dispatcher">Диспетчер для экземпляра. Не может быть <see langword="null"/>.</param>
         /// <exception cref="NullDispatcherException">Если <paramref name="dispatcher"/> = <see langword="null"/>.</exception>
@@ -35,7 +36,7 @@ namespace Common.Dispatchers
                : this(Application.Current.Dispatcher, isDisignedMode)
         { }
 
-        /// <summary>>Создаёт экземпляр ViewModel.</summary>
+        /// <summary>Создаёт экземпляр ViewModel.</summary>
         /// <param name="dispatcher">Диспетчер для экземпляра. Не может быть <see langword="null"/>.</param>
         /// <param name="isDisignedMode">Задаёт режим Разработки.</param>
         /// <exception cref="NullDispatcherException">Если <paramref name="dispatcher"/> = <see langword="null"/>.</exception>
