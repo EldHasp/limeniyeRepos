@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common.Dispatchers;
+using System;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
@@ -14,7 +15,7 @@ namespace Simplified
     /// <summary>Класс реализующий <see cref="ICommand"/>.<br/>
     /// Реализация взята из <see href="https://www.cyberforum.ru/wpf-silverlight/thread2390714-page4.html#post13535649"/>
     /// и дополнена конструктором для методов без параметра.</summary>
-    public class RelayCommand : ICommand
+    public class RelayCommand : ICommand, IDispatcher
     {
         private readonly CanExecuteHandler canExecute;
         private readonly ExecuteHandler execute;
@@ -45,18 +46,22 @@ namespace Simplified
                 )
         { }
 
-        private RelayCommand()
-            => dispatcher = Application.Current.Dispatcher;
+        protected RelayCommand()
+            : this(Application.Current.Dispatcher)
+        { }
 
-        private readonly Dispatcher dispatcher;
+        protected RelayCommand(Dispatcher dispatcher)
+            => Dispatcher = dispatcher ?? throw new ArgumentNullException("Диспетчер не может быть null.", nameof(Dispatcher));
+
+        public Dispatcher Dispatcher { get; }
 
         /// <summary>Метод, подымающий событие <see cref="CanExecuteChanged"/>.</summary>
         public void RaiseCanExecuteChanged()
         {
-            if (dispatcher.CheckAccess())
+            if (Dispatcher.CheckAccess())
                 Invalidate();
             else
-                dispatcher.BeginInvoke((Action)Invalidate);
+                Dispatcher.BeginInvoke((Action)Invalidate);
         }
         private void Invalidate()
             => CanExecuteChanged?.Invoke(this, EventArgs.Empty);

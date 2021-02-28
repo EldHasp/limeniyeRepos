@@ -47,6 +47,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dispatchers\BaseViewModel.cs" />
+    <Compile Include="Dispatchers\IDispatcher.cs" />
     <Compile Include="DtoTypes\CurrencyDto.cs" />
     <Compile Include="DtoTypes\ExchangeDto.cs" />
     <Compile Include="DtoTypes\RateDto.cs" />
