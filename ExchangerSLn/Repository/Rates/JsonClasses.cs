@@ -1,20 +1,29 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Repository.Rates
 {
     public class RatesJson
     {
-        public Motd motd { get; set; }
-        public bool success { get; set; }
-        public string _base { get; set; }
-        public string date { get; set; }
-
-        public Dictionary<string, decimal> rates  { get; set; }
+        [JsonProperty("count")]
+        public string Count { get; set; }
+        [JsonProperty("results")]
+        public Dictionary<string, CurrencyResponse> rates { get; set; }
     }
 
-    public class Motd
+
+    public class CurrencyResponse
     {
-        public string msg { get; set; }
-        public string url { get; set; }
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
+        [JsonProperty("val")]
+        public decimal Val { get; set; }
+
+        [JsonProperty("to")]
+        public string To { get; set; }
+        [JsonProperty("fr")]
+        public string Fr { get; set; }
     }
 }
+//{"USD_UAH":{"id":"USD_UAH","val":27.948458,"to":"UAH","fr":"USD"}

@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Interfaces.Model;
 using DtoTypes;
 using Repository.Rates;
 using System;
@@ -7,7 +8,7 @@ using System.Linq;
 
 namespace ExchangerModels
 {
-    public partial class ExchangerModel
+    public partial class ExchangerModel : IExchangerModel
     {
         private readonly RatesRepository repository;
         private readonly IList<RateDto> rates;
@@ -18,6 +19,8 @@ namespace ExchangerModels
         /// <param name="newSumm"> Новая полная сумма. Если пбыло 10 и пользователь внёс ещё 5, то <see cref="newSumm"/> будет 15. </param>
         public void SetDepositedBalance(decimal newSumm)
         {
+            // TODO : добавить запрос обновления рейтингов ! 
+
             for (int i = 0; i < exchangers.Count; i++)
             {
                 decimal availableForExchange = (int)newSumm / exchangers[i].Rate.Rate;
@@ -36,25 +39,9 @@ namespace ExchangerModels
         {
             this.repository = repository;
             rates = this.repository.GetCurrentRates().ToArray();
-            //первичное заполнение exchangers с эмуляцией внесения 30 грн.
-            decimal newSumm = 30;
-            
-            foreach (var item in rates)
-            {
-                decimal availableForExchange = (int)newSumm / item.Rate;
-                decimal lack;
-                if (newSumm > item.Rate)
-                    lack = newSumm - (int)item.Rate * availableForExchange + (item.Rate - (int)item.Rate);
-                else
-                    lack = item.Rate - newSumm;
-
-                exchangers.Add(new ExchangeDto(item, newSumm, availableForExchange, lack));
-            }
-
             this.repository.RatesCnahged += Repository_RatesCnahged;
         }
 
-        
         private void Repository_RatesCnahged(object sender, Common.EventsArgs.RatesAction action, System.Collections.Generic.IEnumerable<DtoTypes.RateDto> newRates)
         {
             switch (action)

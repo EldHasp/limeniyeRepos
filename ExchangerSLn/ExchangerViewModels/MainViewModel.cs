@@ -7,7 +7,7 @@ using Simplified;
 
 namespace ExchangerViewModels
 {
-    public class MainExchengerViewModel : BaseInpc, IMainExchangerViewModel
+    public class MainViewModel : BaseInpc, IMainExchangerViewModel
     {
         private readonly IExchangerModel model;
 
@@ -41,7 +41,7 @@ namespace ExchangerViewModels
 
             foreach (var currency in Currencies.Where(cr => cr != BaseCurrency))
             {
-                Exchanges.Add((IExchangeViewModel)model.GetExchange(currency, BaseCurrency, AmounBase));
+                //Exchanges.Add((IExchangeViewModel)model.GetExchange(currency, BaseCurrency, AmounBase));
             }
         }
         /*---------------------------------------------------------------------------------------------------------------------*/
@@ -53,11 +53,11 @@ namespace ExchangerViewModels
         #endregion
 
 
-        public MainExchengerViewModel(IExchangerModel model)
+        public MainViewModel(IExchangerModel model)
         {
             this.model = model;
-            foreach (var currency in model.GetCurrencies())
-                Currencies.Add(currency);
+            //foreach (var currency in model.GetCurrencies())
+               // Currencies.Add(currency);
         }
 
     }

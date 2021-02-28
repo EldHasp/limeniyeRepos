@@ -1,6 +1,7 @@
 ﻿using Common;
 using Common.Interfaces.Repository;
 using DtoTypes;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,11 +13,12 @@ using xNet;
 
 namespace Repository.Rates
 {
-
-    /// <summary>Класс репозитория для работы с сайтом http://exchangerate.host </summary>
+    /// <summary>Класс репозитория для работы с сайтом currencyconverterapi.com </summary>
     public partial class RatesRepository : IRatesRepository
     {
         private CurrencyDto baseCurrency;
+        private readonly string api = "6db2795decb1d7bad58e";
+        private readonly string type = "free";
         private readonly Timer timer = new Timer();
         private static readonly Random rand = new Random();
         private static readonly RateDto[] emptyRates = new RateDto[0];
@@ -58,7 +60,7 @@ namespace Repository.Rates
             rParams["base"] = @base.Symbol;
             rParams["symbols"] = currency.Symbol;
             rParams["format"] = "json";
-            HttpResponse response = request.Get("https://api.exchangerate.host/latest", rParams);
+            HttpResponse response = request.Get("https://"+ type + ".exchangerate.host/latest", rParams);
             string responseXmlResult = "";
             using (StreamReader sr = new StreamReader(response.ToMemoryStream()))
             {
@@ -66,43 +68,34 @@ namespace Repository.Rates
             }
 
             RatesJson ratesJson = JsonSerializer.Deserialize<RatesJson>(responseXmlResult);
-            RateDto tempList = (RateDto)ratesJson.rates.Select(rt => new RateDto(AllCurrencies.FirstOrDefault(crr => crr.Symbol == rt.Key),baseCurrency,rt.Value));
+            RateDto tempList = null;
+              //  (RateDto)ratesJson.rates.Select(rt => new RateDto(AllCurrencies.FirstOrDefault(crr => crr.Symbol == rt.Key),baseCurrency,rt.Value));
 
             return tempList;
         }
 
         /// <summary> Метод получает список курсов заданных валют относительно базовой</summary>
-        /// <param name="baseCurrency"> Базовая валюта </param>
         /// <returns> Список валют с курсами </returns>
         private IList<RateDto> GetAllRatesOfCurrency()
         {
             if (baseCurrency == null || currencies == null || !currencies.Any())
                 return emptyRates;
 
-            string symbols = string.Join(",", currencies.Select(crr => crr.Symbol));
+            string symbols = string.Join(",", currencies.Select(crr => crr.Symbol + "_" + baseCurrency.Symbol));
 
             HttpRequest request = new HttpRequest();
             RequestParams rParams = new RequestParams();
-            rParams["base"] = baseCurrency.Symbol;
-            rParams["symbols"] = symbols;
-            rParams["format"] = "json";
-            HttpResponse response = request.Get("https://api.exchangerate.host/latest", rParams);
+            rParams["q"] = symbols;
+            rParams["apiKey"] = api;
+            HttpResponse response = request.Get("https://" + type + ".currconv.com/api/v7/Convert", rParams);
 
 
-            string responseXmlResult = "";
-            using (StreamReader sr = new StreamReader(response.ToMemoryStream()))
-            {
-                responseXmlResult = sr.ReadToEnd();
-            }
-
-            RatesJson ratesJson = JsonSerializer.Deserialize<RatesJson>(responseXmlResult);
-
-            List<RateDto> tempList = ratesJson.rates
-                .Select(rt => new RateDto(
-                    AllCurrencies.FirstOrDefault(crr => crr.Symbol == rt.Key),
-                    baseCurrency,
-                    rt.Value
-                )).ToList();
+            string responseJsonResult = response.ToString();
+            
+            var data = JObject.Parse(responseJsonResult)["results"].ToArray();
+            var test = data.Select(item => item.First.ToObject<CurrencyResponse>()).ToList();
+            
+            List<RateDto> tempList = test.Select(rt => new RateDto(AllCurrencies.FirstOrDefault(crr => crr.Symbol == rt.Fr), baseCurrency,rt.Val)).ToList();
             return tempList;
         }
         #endregion
@@ -111,8 +104,8 @@ namespace Repository.Rates
         private void RenderRates(object sender = null, ElapsedEventArgs e = null)
         {
             timer.Stop();
-            try
-            {
+            //try
+            //{
                 IList<RateDto> resultList = GetAllRatesOfCurrency();
 
                 // TODO : следующие строки до комментария черты добавляют рандомные значения к валютам только для демонстрации!
@@ -142,8 +135,8 @@ namespace Repository.Rates
                 resultList.RemoveAll(rt => rates.FirstOrDefault(rate => rate.Base == rt.Base && rate.Currency == rt.Currency)?.Rate == rt.Rate);
 
                 AddRangeRates(resultList);
-            }
-            catch { }
+            //}
+            //catch { }
 
             timer.Start();
         }

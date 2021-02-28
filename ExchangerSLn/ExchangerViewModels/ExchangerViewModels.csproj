@@ -42,9 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExchangerListViewModel.cs" />
+    <Compile Include="RatesViewModel.cs" />
     <Compile Include="ExchangeViewModel.cs" />
-    <Compile Include="MainExchengerViewModel.cs" />
+    <Compile Include="MainViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

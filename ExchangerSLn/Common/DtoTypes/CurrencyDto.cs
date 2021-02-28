@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DtoTypes
+﻿namespace DtoTypes
 {
     /// <summary>Тип для описания валюты.</summary>
     public class CurrencyDto

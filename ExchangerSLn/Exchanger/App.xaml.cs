@@ -1,16 +1,19 @@
 ﻿using Common.Interfaces.Repository;
 using DtoTypes;
+using Exchanger.Windows;
 using ExchangerModels;
 using Repository.Rates;
 using System.Collections.Generic;
 using System.Windows;
+using ViewModel.Currency;
 
 namespace Exchanger
 {
     public partial class App : Application
     {
-        private RatesRepository repository;
-        private ExchangerModel model;
+        private IRatesRepository repository;
+        private RatesViewModel ratesViewModel;
+
 
         private static IList<CurrencyDto> available { get; } = new List<CurrencyDto>()
         {
@@ -25,7 +28,15 @@ namespace Exchanger
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            model = new ExchangerModel(repository = new RatesRepository(1.002m, available, new CurrencyDto("UAH", "₴")));
+            repository = new RatesRepository(1.002m, available, new CurrencyDto("UAH", "₴"));
+
+            ratesViewModel = new RatesViewModel(repository);
+
+            MainWindow = new MainWindow() { DataContext = ratesViewModel };
+
+            MainWindow.Show();
+
+            //ratesViewModel.Load();
         }
 
     }
