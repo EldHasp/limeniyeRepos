@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Exchanger.UserControls.Currency.HomeViewUserControl" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d" 
+﻿<UserControl x:Class="Exchanger.UserControls.Currency.ExchangerViewUserControl" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d" 
              xmlns:uc="clr-namespace:Exchanger.UserControls.Currency"
              d:DesignHeight="800" d:DesignWidth="1800">
     <Grid>

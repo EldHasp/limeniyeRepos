@@ -63,8 +63,8 @@
     <Compile Include="UserControls\Currency\HeaderUserConstrol.xaml.cs">
       <DependentUpon>HeaderUserConstrol.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Currency\HomeViewUserControl.xaml.cs">
-      <DependentUpon>HomeViewUserControl.xaml</DependentUpon>
+    <Compile Include="UserControls\Currency\ExchangerViewUserControl.xaml.cs">
+      <DependentUpon>ExchangerViewUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Currency\ReturnMoneyUserControl.xaml.cs">
       <DependentUpon>ReturnMoneyUserControl.xaml</DependentUpon>
@@ -92,7 +92,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\Currency\HomeViewUserControl.xaml">
+    <Page Include="UserControls\Currency\ExchangerViewUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -1,23 +1,38 @@
-﻿using Common.Interfaces.ViewModel;
+﻿using System.Collections.ObjectModel;
+using Common.Interfaces.Model;
+using Common.Interfaces.ViewModel;
 using DtoTypes;
 using Simplified;
 
 namespace ExchangerViewModels
 {
-    public class ExchangeViewModel : BaseInpc, IExchangeViewModel
+    public class ExchangerViewModel : BaseInpc, IExchegerViewModel
     {
+        private readonly IExchangerModel model;
+
         #region Private Fields
-        private ExchangeDto _exchangeDto;
+        private CurrencyDto _baseCurrency;
+        private decimal _amounBase = 0;
+        private ExchangeDto _selectedExchange;
         #endregion
 
-        public ExchangeDto ExchangeDto { get => _exchangeDto; private set => Set(ref _exchangeDto, value); }
+        #region Public Properties
+        /// <summary> Главная валюта, по которой ориентируются все остальные. </summary>
+        public CurrencyDto BaseCurrency { get => _baseCurrency; private set => Set(ref _baseCurrency, value); }
 
-        public void SetNewExchange(ExchangeDto exchangeDto)
+        /// <summary> Внесённые средства. </summary>
+        public decimal AmounBase { get => _amounBase; private set => Set(ref _amounBase, value); }
+
+        /// <summary> Выбор валюты </summary>
+        public ExchangeDto SelectedExchange { get => _selectedExchange; private set => Set(ref _selectedExchange, value); }
+        #endregion
+
+        /// <summary> Список предложений по обмену </summary>
+        public ObservableCollection<ExchangeDto> Exchanges { get; } = new ObservableCollection<ExchangeDto>();
+
+        public ExchangerViewModel(IExchangerModel model)
         {
-            ExchangeDto = exchangeDto;
+            this.model = model;
         }
-
-        public ExchangeViewModel() { }
-        public ExchangeViewModel(ExchangeDto dto) => SetNewExchange(dto);
     }
 }

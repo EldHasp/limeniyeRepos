@@ -3,9 +3,9 @@
 namespace Common.Interfaces.ViewModel
 {
     /// <summary>Каждый доступный для обмена лот.</summary>
-    public interface IExchangeViewModel
+    public interface IExchegerViewModel : IExchangerListViewModel
     {
-        ExchangeDto ExchangeDto { get; }
-        void SetNewExchange(ExchangeDto rate);
+        CurrencyDto BaseCurrency { get; }
+        decimal AmounBase { get; }
     }
 }

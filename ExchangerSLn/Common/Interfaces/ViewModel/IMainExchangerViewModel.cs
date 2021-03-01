@@ -1,24 +1,10 @@
-﻿using DtoTypes;
-using Simplified;
-using System.Collections.ObjectModel;
-
-namespace Common.Interfaces.ViewModel
+﻿namespace Common.Interfaces.ViewModel
 {
 
-    /// <summary>ViewModel обменика.</summary>
-    public interface IMainExchangerViewModel : IExchangerListViewModel
+    /// <summary>Главная ViewModel программы.</summary>
+    public interface IMainExchangerViewModel
     {
-        /// <summary>Базовая валюта.</summary>
-        CurrencyDto BaseCurrency { get; }
-
-        /// <summary>Обмениваемое количество базовой валюты.</summary>
-        decimal AmounBase { get; }
-
-        /// <summary>Запрос предложений по обмену.</summary>
-        RelayCommand<CurrencyDto> SetBaseCurrencyCommand { get; }
-
-        /// <summary>Все валюты.</summary>
-        ObservableCollection<CurrencyDto> Currencies { get; }
-
+        IRatesViewModel RatesVM { get; }
+        IExchegerViewModel ExchegerVM { get; }
     }
 }

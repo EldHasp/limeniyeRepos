@@ -1,9 +1,10 @@
-﻿using System.Collections.ObjectModel;
+﻿using DtoTypes;
+using System.Collections.ObjectModel;
 
 namespace Common.Interfaces.ViewModel
 {
-    public interface IExchangerListViewModel : ISelectedExchangeViewModel
+    public interface IExchangerListViewModel : ISelectedExchangePairViewModel
     {
-        ObservableCollection<IExchangeViewModel> Exchanges { get; }
+        ObservableCollection<ExchangeDto> Exchanges { get; }
     }
 }

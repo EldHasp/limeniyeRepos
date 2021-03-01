@@ -6,10 +6,12 @@ using Common;
 using Common.Dispatchers;
 using System;
 using System.Collections.Generic;
+using Common.Interfaces.ViewModel;
+using Common.Enums;
 
 namespace ViewModel.Currency
 {
-    public class RatesViewModel : BaseViewModel
+    public class RatesViewModel : BaseViewModel, IRatesViewModel
     {
         private readonly IRatesRepository repository;
         public ObservableCollection<RateDto> Rates { get; private set; }
@@ -18,8 +20,6 @@ namespace ViewModel.Currency
         {
             this.repository = model;
             Rates = new ObservableCollection<RateDto>(this.repository.GetCurrentRates());
-
-
             model.RatesCnahged += Model_RatesCnahged;
         }
 

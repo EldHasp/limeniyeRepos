@@ -1,12 +1,12 @@
 ﻿using Common;
 using Common.Interfaces.Repository;
 using DtoTypes;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
 using System.Timers;
 using xNet;
@@ -61,13 +61,13 @@ namespace Repository.Rates
             rParams["symbols"] = currency.Symbol;
             rParams["format"] = "json";
             HttpResponse response = request.Get("https://"+ type + ".exchangerate.host/latest", rParams);
-            string responseXmlResult = "";
-            using (StreamReader sr = new StreamReader(response.ToMemoryStream()))
-            {
-                responseXmlResult = sr.ReadToEnd();
-            }
+            //string responseXmlResult = "";
+           // using (StreamReader sr = new StreamReader(response.ToMemoryStream()))
+           // {
+             //   responseXmlResult = sr.ReadToEnd();
+           // }
 
-            RatesJson ratesJson = JsonSerializer.Deserialize<RatesJson>(responseXmlResult);
+            //RatesJson ratesJson = JsonSerializer.Deserialize<RatesJson>(responseXmlResult);
             RateDto tempList = null;
               //  (RateDto)ratesJson.rates.Select(rt => new RateDto(AllCurrencies.FirstOrDefault(crr => crr.Symbol == rt.Key),baseCurrency,rt.Value));
 

@@ -2,9 +2,9 @@
 
 namespace Exchanger.UserControls.Currency
 {
-    public partial class HomeViewUserControl : UserControl
+    public partial class ExchangerViewUserControl : UserControl
     {
-        public HomeViewUserControl()
+        public ExchangerViewUserControl()
         {
             InitializeComponent();
         }

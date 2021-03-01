@@ -1,5 +1,8 @@
 ﻿using Common;
+using Common.Enums;
+using Common.EventsArgs;
 using Common.Interfaces.Model;
+using Common.Interfaces.Repository;
 using DtoTypes;
 using Repository.Rates;
 using System;
@@ -10,48 +13,55 @@ namespace ExchangerModels
 {
     public partial class ExchangerModel : IExchangerModel
     {
-        private readonly RatesRepository repository;
-        private readonly IList<RateDto> rates;
-        private readonly IList<ExchangeDto> exchangers = new List<ExchangeDto>();
+        private readonly IRatesRepository repository;
 
+        public decimal CurrentSumm { get; private set; } = 0;
 
         /// <summary>  </summary>
-        /// <param name="newSumm"> Новая полная сумма. Если пбыло 10 и пользователь внёс ещё 5, то <see cref="newSumm"/> будет 15. </param>
-        public void SetDepositedBalance(decimal newSumm)
+        /// <param name="newSumm"> Новая полная сумма. Если было 10 и пользователь внёс ещё 5, то <see cref="newSumm"/> будет 15. </param>
+        public void SetNewCurrencySumm(decimal newSumm)
         {
             // TODO : добавить запрос обновления рейтингов ! 
-
-            for (int i = 0; i < exchangers.Count; i++)
-            {
-                decimal availableForExchange = (int)newSumm / exchangers[i].Rate.Rate;
-                decimal lack;
-                if (newSumm > exchangers[i].Rate.Rate)
-                    lack = newSumm - (int)exchangers[i].Rate.Rate * availableForExchange + (exchangers[i].Rate.Rate - (int)exchangers[i].Rate.Rate);
-                else
-                    lack = exchangers[i].Rate.Rate - newSumm;
-
-                exchangers[i] = new ExchangeDto(exchangers[i].Rate, newSumm, availableForExchange, lack);
-            }
+            CurrentSumm = newSumm;
+            // TODO : временно без Обновления списков.
         }
 
+        private IEnumerable<ExchangeDto> RatesToExchenges(IEnumerable<RateDto> rates)
+        {
+            IEnumerable<ExchangeDto> resultExchenges = new List<ExchangeDto>();
 
-        public ExchangerModel(RatesRepository repository)
+            foreach (var rate in rates)
+            {
+                decimal availableForExchange = (int)CurrentSumm / rate.Rate;
+
+                decimal lack;
+                if (CurrentSumm > rate.Rate)
+                    lack = CurrentSumm - (int)rate.Rate * availableForExchange + (rate.Rate - (int)rate.Rate);
+                else
+                    lack = rate.Rate - CurrentSumm;
+
+                resultExchenges.Append(new ExchangeDto(rate, CurrentSumm, availableForExchange, lack));
+            }
+            return resultExchenges;
+        }
+
+        public ExchangerModel(IRatesRepository repository)
         {
             this.repository = repository;
-            rates = this.repository.GetCurrentRates().ToArray();
+            exchenges = RatesToExchenges(this.repository.GetCurrentRates()).ToList();
+
             this.repository.RatesCnahged += Repository_RatesCnahged;
         }
 
-        private void Repository_RatesCnahged(object sender, Common.EventsArgs.RatesAction action, System.Collections.Generic.IEnumerable<DtoTypes.RateDto> newRates)
+        private void Repository_RatesCnahged(object sender, RatesAction action, IEnumerable<RateDto> newRates)
         {
             switch (action)
             {
-                case Common.EventsArgs.RatesAction.AddedOrChanged:
-                    foreach (var rate in newRates)
-                        rates.ReplaceOrAdd(r => r.Base == rate.Base && r.Currency == rate.Currency, rate);
+                case RatesAction.AddedOrChanged:
+                    AddRangeExchenges(RatesToExchenges(newRates));
                     break;
-                case Common.EventsArgs.RatesAction.Clear:
-                    rates.Clear();
+                case RatesAction.Clear:
+                    ClearExchenges();
                     break;
             }
         }
