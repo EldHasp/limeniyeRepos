@@ -45,10 +45,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseCurrencyModel.cs" />
     <Compile Include="ExchangerModel - Events.cs" />
     <Compile Include="ExchangerModel - Lists.cs" />
     <Compile Include="ExchangerModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RatesModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

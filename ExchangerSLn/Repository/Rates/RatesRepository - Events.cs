@@ -17,7 +17,7 @@ namespace Repository.Rates
         private void ClearRates()
         {
             rates.Clear();
-            RatesCnahged?.Invoke(this, RatesAction.Clear, null);
+            RatesCnahged?.Invoke(this, ChangedAction.Clear, null);
         }
 
         /// <summary>Добавление или замена одного производного курса.</summary>
@@ -25,7 +25,7 @@ namespace Repository.Rates
         private void AddRates(RateDto addRate)
         {
             rates.ReplaceOrAdd(r => r.Base == addRate.Base && r.Currency == addRate.Currency, addRate);
-            RatesCnahged?.Invoke(this, RatesAction.AddedOrChanged, new RateDto[] { addRate });
+            RatesCnahged?.Invoke(this, ChangedAction.AddedOrChanged, new RateDto[] { addRate });
         }
 
         /// <summary>Добавление или замена нескольких производных курсов.</summary>
@@ -35,7 +35,7 @@ namespace Repository.Rates
             foreach (var rate in addRates)
                 rates.ReplaceOrAdd(r => r.Base == rate.Base && r.Currency == rate.Currency, rate);
 
-            RatesCnahged?.Invoke(this, RatesAction.AddedOrChanged, addRates.GetEnumerable());
+            RatesCnahged?.Invoke(this, ChangedAction.AddedOrChanged, addRates.GetEnumerable());
         }
         #endregion
     }

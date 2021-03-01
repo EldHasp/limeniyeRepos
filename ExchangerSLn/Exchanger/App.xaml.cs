@@ -16,6 +16,7 @@ namespace Exchanger
     {
         private IRatesRepository repositoryModel;
         private IExchangerModel exchangerModel;
+        private IMainModel model;
         private IMainExchangerViewModel mainViewModel;
 
 
@@ -33,9 +34,9 @@ namespace Exchanger
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             repositoryModel = new RatesRepository(1.002m, available, new CurrencyDto("UAH", "₴")); //Инициализация репозитория для первой страницы 
-            exchangerModel = new ExchangerModel(repositoryModel); //Инициализация exchenger для второй страницы 
-
-            mainViewModel = new MainViewModel(repositoryModel, exchangerModel);
+            //exchangerModel = new ExchangerModel(repositoryModel); //Инициализация exchenger для второй страницы 
+            model = new ExchangerModel(repositoryModel); //Инициализация общей Модели.
+            mainViewModel = new MainViewModel(model);
 
             MainWindow = new MainWindow() { DataContext = mainViewModel };
 

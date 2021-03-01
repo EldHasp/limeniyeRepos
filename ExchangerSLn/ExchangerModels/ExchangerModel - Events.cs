@@ -18,7 +18,7 @@ namespace ExchangerModels
         private void ClearExchenges()
         {
             exchenges.Clear();
-            ExchangesCnahged?.Invoke(this, RatesAction.Clear, null);
+            ExchangesCnahged?.Invoke(this, ChangedAction.Clear, null);
         }
 
         /// <summary>Добавление или замена одного производного предложения обмена.</summary>
@@ -26,7 +26,7 @@ namespace ExchangerModels
         private void AddExchanges(ExchangeDto addExchange)
         {
             exchenges.ReplaceOrAdd(r => r.Id == addExchange.Id, addExchange);
-            ExchangesCnahged?.Invoke(this, RatesAction.AddedOrChanged, new ExchangeDto[] { addExchange });
+            ExchangesCnahged?.Invoke(this, ChangedAction.AddedOrChanged, new ExchangeDto[] { addExchange });
         }
 
         /// <summary>Добавление или замена нескольких производных предложений обмена.</summary>
@@ -36,7 +36,7 @@ namespace ExchangerModels
             foreach (var exchange in addExchanges)
                 exchenges.ReplaceOrAdd(r => r.Id == exchange.Id, exchange);
 
-            ExchangesCnahged?.Invoke(this, RatesAction.AddedOrChanged, addExchanges.GetEnumerable());
+            ExchangesCnahged?.Invoke(this, ChangedAction.AddedOrChanged, addExchanges.GetEnumerable());
         }
         #endregion
     }

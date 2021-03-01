@@ -52,10 +52,13 @@
     <Compile Include="DtoTypes\CurrencyDto.cs" />
     <Compile Include="DtoTypes\ExchangeDto.cs" />
     <Compile Include="DtoTypes\RateDto.cs" />
-    <Compile Include="Enums\RatesAction.cs" />
+    <Compile Include="Enums\ChangedAction.cs" />
     <Compile Include="EventsArgs\RatesCnahgedHandler.cs" />
     <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="Interfaces\Model\IBaseCurrencyModel.cs" />
     <Compile Include="Interfaces\Model\IExchangerModel.cs" />
+    <Compile Include="Interfaces\Model\IMainModel.cs" />
+    <Compile Include="Interfaces\Model\IRatesModel.cs" />
     <Compile Include="Interfaces\Repository\IRatesRepository.cs" />
     <Compile Include="Interfaces\Repository\ISupportInitializeRatesRepository.cs" />
     <Compile Include="Interfaces\ViewModel\IExchangerListViewModel.cs" />

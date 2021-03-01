@@ -12,8 +12,8 @@ namespace ExchangerViewModels
     public class MainViewModel : BaseInpc, IMainExchangerViewModel
     {
         #region Models
-        private readonly IExchangerModel exchangerModel;
-        private readonly IRatesRepository repositoryModel;
+        private readonly IMainModel  model;
+        //private readonly IRatesRepository repositoryModel;
         #endregion
 
         #region ViewModels
@@ -22,13 +22,13 @@ namespace ExchangerViewModels
         #endregion
 
 
-        public MainViewModel( IRatesRepository repositoryModel, IExchangerModel exchangerModel )
+        public MainViewModel( IMainModel model)
         {
-            this.exchangerModel = exchangerModel;
-            this.repositoryModel = repositoryModel;
+            this.model = model;
+            //this.repositoryModel = repositoryModel;
 
-            RatesVM = new RatesViewModel(this.repositoryModel);
-            ExchegerVM = new ExchangerViewModel(this.exchangerModel);
+            RatesVM = new RatesViewModel(model);
+            ExchegerVM = new ExchangerViewModel(model);
         }       
     }
 }

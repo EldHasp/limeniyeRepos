@@ -8,32 +8,33 @@ using System;
 using System.Collections.Generic;
 using Common.Interfaces.ViewModel;
 using Common.Enums;
+using Common.Interfaces.Model;
 
 namespace ViewModel.Currency
 {
     public class RatesViewModel : BaseViewModel, IRatesViewModel
     {
-        private readonly IRatesRepository repository;
+        private readonly IRatesModel model;
         public ObservableCollection<RateDto> Rates { get; private set; }
 
-        public RatesViewModel(IRatesRepository model)
+        public RatesViewModel(IRatesModel model)
         {
-            this.repository = model;
-            Rates = new ObservableCollection<RateDto>(this.repository.GetCurrentRates());
-            model.RatesCnahged += Model_RatesCnahged;
+            this.model = model;
+            Rates = new ObservableCollection<RateDto>(this.model.Rates);
+            model.RatesCnahged += OnRatesCnahged;
         }
 
-        private void Model_RatesCnahged(object sender, RatesAction action, IEnumerable<RateDto> newRates)
+        private void OnRatesCnahged(object sender, ChangedAction action, IEnumerable<RateDto> newRates)
         {
             switch (action)
             {
-                case RatesAction.AddedOrChanged:
+                case ChangedAction.AddedOrChanged:
                     if (Dispatcher.CheckAccess())
                         AddToCollection(newRates);
                     else
                         Dispatcher.BeginInvoke((Action)(() => AddToCollection(newRates)));
                     break;
-                case RatesAction.Clear:
+                case ChangedAction.Clear:
                     if (Dispatcher.CheckAccess())
                         Rates.Clear();
                     else

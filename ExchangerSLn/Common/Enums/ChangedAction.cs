@@ -1,6 +1,6 @@
 ﻿namespace Common.Enums
 {
-    public enum RatesAction
+    public enum ChangedAction
     {
         Clear,
         AddedOrChanged
