@@ -1,9 +1,10 @@
 ﻿namespace TempDemostratedProject
 {
+    /// <summary>
+    /// Интерфейс каждой ячейки
+    /// </summary>
     public interface ICellViewModel
     {
-        int Row { get; }
-        int Column { get; }
         CellTypesEnum CellType { get; }
     }
 }

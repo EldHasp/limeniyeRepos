@@ -2,8 +2,7 @@
 {
     public enum CellTypesEnum
     {
-        Rate,
-        Exchenger,
+        Content,
         Back,
         Next,
         Empty
