@@ -63,17 +63,18 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ButtonTypesEnum.cs" />
-    <Compile Include="CellViewModel.cs" />
-    <Compile Include="ICellViewModel.cs" />
-    <Compile Include="MainViewModel.cs" />
+    <Compile Include="Enums\ButtonTypesEnum.cs" />
+    <Compile Include="Interfaces\ITestList.cs" />
+    <Compile Include="ViewModels\CellViewModel.cs" />
+    <Compile Include="Interfaces\ICellViewModel.cs" />
+    <Compile Include="ViewModels\MyTestListViewModel.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model.cs" />
+    <Compile Include="Models\Model.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -1,7 +1,9 @@
 ﻿using DtoTypes;
 using Simplified;
+using TempDemostratedProject.Enums;
+using TempDemostratedProject.Interfaces;
 
-namespace TempDemostratedProject
+namespace TempDemostratedProject.ViewModels
 {
     /// <summary>
     /// Класс описывающий ячейку

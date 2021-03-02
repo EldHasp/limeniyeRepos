@@ -1,7 +1,7 @@
 ﻿using DtoTypes;
 using System.Collections.Generic;
 
-namespace TempDemostratedProject
+namespace TempDemostratedProject.Models
 {
     public class Model
     {
@@ -26,10 +26,5 @@ namespace TempDemostratedProject
             new RateDto(new CurrencyDto("EUR", "€"), new CurrencyDto("UAH", "₴"), 33.75214124m)//17
             //17 элементов
         };
-
-        public Model()
-        {
-
-        }
     }
 }

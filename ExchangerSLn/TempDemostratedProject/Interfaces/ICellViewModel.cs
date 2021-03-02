@@ -1,4 +1,6 @@
-﻿namespace TempDemostratedProject
+﻿using TempDemostratedProject.Enums;
+
+namespace TempDemostratedProject.Interfaces
 {
     /// <summary>
     /// Интерфейс каждой ячейки

@@ -1,4 +1,4 @@
-﻿namespace TempDemostratedProject
+﻿namespace TempDemostratedProject.Enums
 {
     public enum CellTypesEnum
     {
