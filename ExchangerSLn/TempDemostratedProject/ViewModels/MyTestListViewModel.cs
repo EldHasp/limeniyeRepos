@@ -27,7 +27,7 @@ namespace TempDemostratedProject.ViewModels
         #region Collections
         private IList<RateDto> allRates => model.Rates.ToList();
         private IList<ICellViewModel[]> pages { get; }
-        public ObservableCollection<ICellViewModel> Page { get; private set; }
+        public ObservableCollection<ICellViewModel> Page { get; } = new ObservableCollection<ICellViewModel>();
         #endregion
 
         #region Methods
@@ -65,9 +65,10 @@ namespace TempDemostratedProject.ViewModels
         /// <summary> Берёт из всех готовых сраниц нужную.</summary>
         /// <param name="page"> Индекс страницы </param>
         /// <returns> Страница с индексом <see cref="page"/> </returns>
-        private ObservableCollection<ICellViewModel> GetPage(int page)
+        private ObservableCollection<CellViewModel> GetPage(int page)
         {
-            return new ObservableCollection<ICellViewModel>(pages[page]);
+            //явно указываю тип
+            return new ObservableCollection<CellViewModel>((CellViewModel[])pages[page]);
         }
 
         /// <summary> Метод обработки выбранной ячейки </summary>
@@ -81,14 +82,19 @@ namespace TempDemostratedProject.ViewModels
                         CurrentPageIndex = pages.Count - 1;
                     else
                         CurrentPageIndex--;
-                    Page = GetPage(CurrentPageIndex);
+                    //Page = new ObservableCollection<ICellViewModel>(pages[CurrentPageIndex]);
                     break;
                 case CellTypesEnum.Next:
                     if (CurrentPageIndex >= pages.Count - 1)
                         CurrentPageIndex = 0;
                     else
                         CurrentPageIndex++;
-                    Page = GetPage(CurrentPageIndex);
+                    Page.Clear();
+                    
+                    foreach (var item in GetPage(CurrentPageIndex))
+                    {
+                        Page.Add(item);
+                    }
                     break;
             }
         }
@@ -107,7 +113,11 @@ namespace TempDemostratedProject.ViewModels
             Rows = rows; Columns = columns;
             pages = GetAllPages(Rows, Columns).ToList(); // готовые, заполенные кнопками страницы. 
             CurrentPageIndex = 0;
-            Page = GetPage(CurrentPageIndex);
+
+            foreach (var item in GetPage(CurrentPageIndex))
+            {
+                Page.Add(item);
+            }
         }
     }
 }

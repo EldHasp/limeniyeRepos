@@ -1,4 +1,5 @@
-﻿using Common.Interfaces.Repository;
+﻿using Common.Enums;
+using Common.Interfaces.Repository;
 using DtoTypes;
 using Repository.Rates;
 using System;
@@ -61,18 +62,18 @@ namespace Test
             Console.ReadKey();
         }
 
-        private static void ExchangeRate_RatesCnahged(object sender, Common.EventsArgs.RatesAction action, IEnumerable<RateDto> newRates)
+        private static void ExchangeRate_RatesCnahged(object sender, ChangedAction action, IEnumerable<RateDto> newRates)
         {
             switch (action)
             {
-                case Common.EventsArgs.RatesAction.AddedOrChanged:
+                case ChangedAction.AddedOrChanged:
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine($"Изменились или добавились новые значения - {DateTime.Now}:");
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine(string.Join(Environment.NewLine, newRates));
                     Console.WriteLine();
                     break;
-                case Common.EventsArgs.RatesAction.Clear:
+                case ChangedAction.Clear:
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("\tСписок очистился.\t");
                     break;

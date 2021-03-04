@@ -68,6 +68,7 @@
     <Compile Include="Interfaces\ViewModel\ISelectedExchangePairViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Simplified\BaseInpc.cs" />
+    <Compile Include="Simplified\ContextHolder.cs" />
     <Compile Include="Simplified\RelayCommand.cs" />
     <Compile Include="Simplified\RelayCommandT.cs" />
   </ItemGroup>

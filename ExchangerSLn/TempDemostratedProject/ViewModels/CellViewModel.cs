@@ -11,9 +11,11 @@ namespace TempDemostratedProject.ViewModels
     public class CellViewModel : BaseInpc, ICellViewModel
     {
         private object _data;
+        private string _margin;
         private CellTypesEnum _type;
 
         public object Data { get => _data; set => Set(ref _data, value); }
+        public string Margin { get => _margin; set => Set(ref _margin, value); }
         public CellTypesEnum CellType { get => _type; set => Set(ref _type, value); }
 
         public CellViewModel()

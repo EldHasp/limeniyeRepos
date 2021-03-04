@@ -7,6 +7,7 @@ namespace TempDemostratedProject.Interfaces
     /// </summary>
     public interface ICellViewModel
     {
+        string Margin { get; }
         CellTypesEnum CellType { get; }
     }
 }

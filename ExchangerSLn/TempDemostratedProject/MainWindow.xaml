@@ -1,40 +1,60 @@
 ﻿<Window x:Class="TempDemostratedProject.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
         xmlns:ivm="clr-namespace:TempDemostratedProject.Interfaces"
+        xmlns:vm="clr-namespace:TempDemostratedProject.ViewModels"
+        xmlns:common="clr-namespace:Common.Simplified;assembly=Common"
         xmlns:enums="clr-namespace:TempDemostratedProject.Enums"
         d:DataContext="{x:Type ivm:ITestList}">
     
     <Grid Background="#1e1e1e">
-        <ItemsControl Grid.Row="1" ItemsSource="{Binding Page}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <UniformGrid Rows="{Binding Rows}" Columns="{Binding Columns}"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate DataType="{x:Type ivm:ICellViewModel}">
-                    <Button Command="{Binding SelectCellCommand}" CommandParameter="{Binding}">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Background" Value="Aqua"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding CellType}" Value="{x:Static enums:CellTypesEnum.Back}">
-                                        <Setter Property="Background" Value="Bisque"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding CellType}" Value="{x:Static enums:CellTypesEnum.Next}">
-                                        <Setter Property="Background" Value="Chartreuse"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                    </Button>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-            <ItemsControl.ItemContainerStyle>
-                <Style>
-                    <Setter Property="Control.HorizontalContentAlignment" Value="Stretch"/>
-                    <Setter Property="Control.VerticalContentAlignment" Value="Stretch"/>
-                </Style>
-            </ItemsControl.ItemContainerStyle>
-        </ItemsControl>
+        <Grid>
+            <common:ContextHolder>
+                <common:ContextHolder.Commands>
+                    <common:CommandBinding RoutedCommand="{x:Static ApplicationCommands.Find}" RelayCommand="{Binding SelectCellCommand}"/>
+                </common:ContextHolder.Commands>
+
+
+
+                <ItemsControl Grid.Row="1" ItemsSource="{Binding Page}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Rows="{Binding Rows}" Columns="{Binding Columns}"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type ivm:ICellViewModel}">
+
+
+
+                            <Button Command="{x:Static ApplicationCommands.Find}" CommandParameter="{Binding}">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="Aqua"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding CellType}" Value="{x:Static enums:CellTypesEnum.Back}">
+                                                <Setter Property="Background" Value="Bisque"/>
+                                                <Setter Property="Command" Value="{Binding SelectCellCommand, Mode=OneWay}"/>
+                                                <Setter Property="CommandParameter" Value="{Binding}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding CellType}" Value="{x:Static enums:CellTypesEnum.Next}">
+                                                <Setter Property="Background" Value="Chartreuse"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                            
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemContainerStyle>
+                        <Style>
+                            <Setter Property="Control.HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="Control.VerticalContentAlignment" Value="Stretch"/>
+                        </Style>
+                    </ItemsControl.ItemContainerStyle>
+                </ItemsControl>
+
+            </common:ContextHolder>
+           
+        </Grid>
     </Grid>
 </Window>
