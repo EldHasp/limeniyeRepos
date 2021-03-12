@@ -43,7 +43,7 @@ namespace Repository.Rates
 
             timer.Elapsed += RenderRates;
             timer.AutoReset = true;
-            timer.Interval = 5000;
+            timer.Interval = 600000;
         }
     }
 }

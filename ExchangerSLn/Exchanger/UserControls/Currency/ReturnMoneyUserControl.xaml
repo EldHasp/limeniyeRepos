@@ -15,15 +15,30 @@
                 </Grid.RowDefinitions>
 
                 <Grid>
-                    <TextBlock Text="Сумма, которую ВЫ можете вывести: 10грн."
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                        <TextBlock Text="Сумма для вывода: "
                                 Foreground="#ed8339" FontSize="40 pt"
                                 FontFamily="/Styles/Fonts/#mr_ApexMk3"
-                                TextWrapping="Wrap"
-                                HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                                TextWrapping="Wrap"/>
+                        <TextBlock Text="{Binding AmounBase}"
+                                Foreground="#ed8339" FontSize="40 pt"
+                                FontFamily="/Styles/Fonts/#mr_ApexMk3"
+                                TextWrapping="Wrap"/>
+                        <TextBlock Text=" "
+                                Foreground="#ed8339" FontSize="40 pt"
+                                FontFamily="/Styles/Fonts/#mr_ApexMk3"
+                                TextWrapping="Wrap"/>
+                        <TextBlock Text="{Binding BaseCurrency.Sign}"
+                                Foreground="#ed8339" FontSize="40 pt"
+                                FontFamily="/Styles/Fonts/#mr_ApexMk3"
+                                TextWrapping="Wrap"/>
+                    </StackPanel>
                 </Grid>
 
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="3*"/>
                         <ColumnDefinition/>
                         <ColumnDefinition Width="3*"/>
                         <ColumnDefinition/>
@@ -44,7 +59,7 @@
                     </customControls:RefundAmountItemButton>
 
 
-                    <customControls:RefundAmountItemButton Grid.Column="3" Text="Пополнить карту" Background="#1d3641">
+                    <customControls:RefundAmountItemButton Grid.Column="3" Text="Пополнить карту" Background="#23353d">
                         <Button.Resources>
                             <Geometry x:Key="Button.Path.Data">
                                 M20 4H4A2 2 0 0 0 2 6V18A2 2 0 0 0 4 20H20A2 2 0 0 0 22 18V6A2 2 0 0 0 20 4M20 11H4V8H20Z
@@ -52,15 +67,23 @@
                         </Button.Resources>
                     </customControls:RefundAmountItemButton>
 
-                    <customControls:RefundAmountItemButton Grid.Column="5" Text="Пополнить баланс" Background="#3d494e">
+                    <customControls:RefundAmountItemButton Grid.Column="5" Text="Пополнить баланс" Background="#23353d">
                         <Button.Resources>
                             <Geometry x:Key="Button.Path.Data">
                                 M11 8C11 10.21 9.21 12 7 12C4.79 12 3 10.21 3 8C3 5.79 4.79 4 7 4C9.21 4 11 5.79 11 8M11 14.72V20H0V18C0 15.79 3.13 14 7 14C8.5 14 9.87 14.27 11 14.72M24 20H13V3H24V20M16 11.5C16 10.12 17.12 9 18.5 9C19.88 9 21 10.12 21 11.5C21 12.88 19.88 14 18.5 14C17.12 14 16 12.88 16 11.5M22 7C20.9 7 20 6.11 20 5H17C17 6.11 16.11 7 15 7V16C16.11 16 17 16.9 17 18H20C20 16.9 20.9 16 22 16V7Z
                             </Geometry>
                         </Button.Resources>
                     </customControls:RefundAmountItemButton>
+                    
+                    <customControls:RefundAmountItemButton Grid.Column="7" Text="Вывести наличными" Background="#23353d">
+                        <Button.Resources>
+                            <Geometry x:Key="Button.Path.Data">
+                                M5,6H23V18H5V6M14,9A3,3 0 0,1 17,12A3,3 0 0,1 14,15A3,3 0 0,1 11,12A3,3 0 0,1 14,9M9,8A2,2 0 0,1 7,10V14A2,2 0 0,1 9,16H19A2,2 0 0,1 21,14V10A2,2 0 0,1 19,8H9M1,10H3V20H19V22H1V10Z
+                            </Geometry>
+                        </Button.Resources>
+                    </customControls:RefundAmountItemButton>
 
-                    <customControls:RefundAmountItemButton Grid.Column="7" Text="Вернуться" Background="#58686e"
+                    <customControls:RefundAmountItemButton Grid.Column="9" Text="Вернуться" Background="#58686e"
                                                            Command="{Binding BackCommand}">
                         <Button.Resources>
                             <Geometry x:Key="Button.Path.Data">

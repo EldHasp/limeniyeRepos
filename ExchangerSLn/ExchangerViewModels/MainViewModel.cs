@@ -1,9 +1,5 @@
-﻿using System.Collections.ObjectModel;
-using System.Linq;
-using Common.Interfaces.Model;
-using Common.Interfaces.Repository;
+﻿using Common.Interfaces.Model;
 using Common.Interfaces.ViewModel;
-using DtoTypes;
 using Simplified;
 using ViewModel.Currency;
 

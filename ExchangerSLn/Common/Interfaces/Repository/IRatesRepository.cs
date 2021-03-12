@@ -23,6 +23,9 @@ namespace Common.Interfaces.Repository
         /// <param name="currency">Оцениваемая валюта.</param>
         /// <returns>Курс валюты.</returns>
         Task<RateDto> GetRatesAsync(CurrencyDto currency);
+
+        /// <summary> Первичное получение текущей валюты </summary>
+        CurrencyDto GetBaseCurrency();
     }
 
 }

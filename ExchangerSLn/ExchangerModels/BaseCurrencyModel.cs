@@ -8,11 +8,14 @@ namespace ExchangerModels
     public abstract class BaseCurrencyModel : IBaseCurrencyModel
     {
         protected readonly IRatesRepository repository;
+        public CurrencyDto BaseCurrency { get; private set; }
+
         protected BaseCurrencyModel(IRatesRepository repository)
         {
             this.repository = repository;
+            BaseCurrency = this.repository.GetBaseCurrency();
         }
-        public CurrencyDto BaseCurrency { get; private set; }
+       
 
         public event BaseCurrencyCnahgedHandler BaseCurrencyCnahged;
 

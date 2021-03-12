@@ -7,50 +7,57 @@ using DtoTypes;
 using Repository.Rates;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace ExchangerModels
 {
-    public partial class ExchangerModel : RatesModel, IMainModel, IExchangerModel
+    public partial class ExchangerModel : RatesModel, IMainModel
     {
 
         public decimal BaseCurrencyAmount { get; private set; } = 0;
 
         public event BaseCurrencyAmountCnahgedHandler BaseCurrencyAmountCnahged;
 
-        /// <summary>  </summary>
-        /// <param name="newSumm"> Новая полная сумма. Если было 10 и пользователь внёс ещё 5, то <see cref="newSumm"/> будет 15. </param>
-        public void SetNewCurrencySumm(decimal newSumm)
-        {
-            // TODO : добавить запрос обновления рейтингов ! 
-            BaseCurrencyAmount = newSumm;
-            // TODO : временно без Обновления списков.
-        }
-
         private IEnumerable<ExchangeDto> RatesToExchenges(IEnumerable<RateDto> rates)
         {
-            IEnumerable<ExchangeDto> resultExchenges = new List<ExchangeDto>();
+            IList<ExchangeDto> resultExchenges = new List<ExchangeDto>();
 
             foreach (var rate in rates)
             {
-                decimal availableForExchange = (int)BaseCurrencyAmount / rate.Rate;
+                decimal availableForExchange = (int)(BaseCurrencyAmount / rate.Rate);
 
                 decimal lack;
+
+                decimal mustBe = rate.Rate * (availableForExchange + 1);
+                decimal test1 = (int)rate.Rate * availableForExchange;
+                decimal test2 = rate.Rate - (int)rate.Rate;
+
                 if (BaseCurrencyAmount > rate.Rate)
-                    lack = BaseCurrencyAmount - (int)rate.Rate * availableForExchange + (rate.Rate - (int)rate.Rate);
+                    lack = mustBe - (BaseCurrencyAmount);
                 else
                     lack = rate.Rate - BaseCurrencyAmount;
 
-                resultExchenges.Append(new ExchangeDto(rate, BaseCurrencyAmount, availableForExchange, lack));
+                resultExchenges.Add(new ExchangeDto(rate, BaseCurrencyAmount, availableForExchange, lack));
             }
             return resultExchenges;
         }
 
-        public ExchangerModel(IRatesRepository repository)
-            : base(repository)
+
+        public void SetBaseCurrencyAmount(decimal amount)
+        {
+            BaseCurrencyAmount = amount;
+
+            AddRangeExchenges(RatesToExchenges(this.repository.GetCurrentRates()).ToList());
+
+            BaseCurrencyAmountCnahged?.Invoke(this, BaseCurrencyAmount);
+        }
+
+
+        public ExchangerModel(IRatesRepository repository): base(repository)
         {
             exchenges = RatesToExchenges(this.repository.GetCurrentRates()).ToList();
-
+            Exchanges = new ReadOnlyCollection<ExchangeDto>(exchenges);
             this.repository.RatesCnahged += OnRatesCnahged;
         }
 
@@ -67,13 +74,6 @@ namespace ExchangerModels
             }
         }
 
-        public void SetBaseCurrencyAmount(decimal amount)
-        {
-
-            BaseCurrencyAmount = amount;
-            BaseCurrencyAmountCnahged?.Invoke(this, BaseCurrencyAmount);
-
-            throw new NotImplementedException();
-        }
+      
     }
 }

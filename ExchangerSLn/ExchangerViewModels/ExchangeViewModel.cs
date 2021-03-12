@@ -2,6 +2,7 @@
 using Common.Interfaces.Model;
 using Common.Interfaces.ViewModel;
 using DtoTypes;
+using ExchangerViewModels.ExchangerListViewModels;
 using Simplified;
 
 namespace ExchangerViewModels
@@ -9,6 +10,11 @@ namespace ExchangerViewModels
     public class ExchangerViewModel : BaseInpc, IExchegerViewModel
     {
         private readonly IExchangerModel model;
+
+
+
+        private IExchangerListViewModel _exchangerListVm;
+        public IExchangerListViewModel ExchangeList { get => _exchangerListVm; set => Set(ref _exchangerListVm, value); }
 
         #region Private Fields
         private CurrencyDto _baseCurrency;
@@ -30,9 +36,11 @@ namespace ExchangerViewModels
         /// <summary> Список предложений по обмену </summary>
         public ObservableCollection<ExchangeDto> Exchanges { get; } = new ObservableCollection<ExchangeDto>();
 
+
         public ExchangerViewModel(IExchangerModel model)
         {
             this.model = model;
+            ExchangeList = new ExchangeListViewModel(this.model, 2, 3);
         }
     }
 }

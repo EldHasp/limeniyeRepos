@@ -26,4 +26,9 @@ namespace Common.EventsArgs
     /// <param name="sender">Источник события.</param>
     /// <param name="newBaseCurrency">Новая сумма базовая валюта.</param>
     public delegate void BaseCurrencyAmountCnahgedHandler(object sender, decimal newAmount);
+
+    /// <summary>Делегат события извещающего об выборе валюты для вывода.</summary>
+    /// <param name="sender">Источник события.</param>
+    /// <param name="newBaseCurrency">Валюта, которую выбрали.</param>
+    public delegate void ExchangeSelectedHandler(object sender, ExchangeDto selectedExchange);
 }

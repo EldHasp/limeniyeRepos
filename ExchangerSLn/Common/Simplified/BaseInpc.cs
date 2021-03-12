@@ -10,52 +10,94 @@ namespace Simplified
     /// <summary>Базовый класс с реализацией <see cref="INotifyPropertyChanged"/>.</summary>
     public abstract class BaseInpc : INotifyPropertyChanged
     {
-        /// <inheritdoc cref="INotifyPropertyChanged"/>
+        #region Событие PropertyChanged
+        /// <summary>Событие для извещения об изменения свойства</summary>
         public event PropertyChangedEventHandler PropertyChanged;
+        #endregion
 
-        /// <summary>Защищённый метод для создания события <see cref="PropertyChanged"/>.</summary>
-        /// <param name="propertyName">Имя изменившегося свойства. 
-        /// Если значение не задано, то используется имя метода в котором был вызов.</param>
-        protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        #region Методы вызова события PropertyChanged
+        /// <summary>Метод для вызова события извещения об изменении свойства</summary>
+        /// <param name="propertyName">Изменившееся свойство</param>
+        public void OnPropertyChanged([CallerMemberName]string propertyName = "")
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+        /// <summary>Метод для вызова события извещения об изменении списка свойств</summary>
+        /// <param name="propList">Список имён свойств</param>
+        public void OnPropertyChanged(IEnumerable<string> propList)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            foreach (string propertyName in propList.Where(name => !string.IsNullOrWhiteSpace(name)))
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        /// <summary>Метод для вызова события извещения об изменении перечня свойств</summary>
+        /// <param name="propList">Список имён свойств</param>
+        public void OnPropertyChanged(params string[] propList)
+        {
+            foreach (string propertyName in propList.Where(name => !string.IsNullOrWhiteSpace(name)))
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        /// <summary>Защищённый метод для присвоения значения полю и
-        /// создания события <see cref="PropertyChanged"/>.</summary>
-        /// <typeparam name="T">Тип поля и присваиваемого значения.</typeparam>
-        /// <param name="propertyFiled">Ссылка на поле.</param>
-        /// <param name="newValue">Присваиваемое значение.</param>
-        /// <param name="propertyName">Имя изменившегося свойства. 
-        /// Если значение не задано, то используется имя метода в котором был вызов.</param>
-        /// <remarks>Метод предназначен для использования в сеттере свойства.<br/>
-        /// Для проверки на изменение используется метод <see cref="object.Equals(object, object)"/>.
-        /// Если присваиваемое значение не эквивалентно значению поля, то оно присваивается полю.<br/>
-        /// После присвоения создаётся событие <see cref="PropertyChanged"/> вызовом
-        /// метода <see cref="RaisePropertyChanged(string)"/>
-        /// с передачей ему параметра <paramref name="propertyName"/>.<br/>
-        /// После создания события вызывается метод <see cref="OnPropertyChanged(string, object, object)"/>.</remarks>
-        protected void Set<T>(ref T propertyFiled, T newValue, [CallerMemberName] string propertyName = null)
-        {
-            if (!object.Equals(propertyFiled, newValue))
-            {
-                T oldValue = propertyFiled;
-                propertyFiled = newValue;
-                RaisePropertyChanged(propertyName);
+        /// <summary>Метод для вызова события извещения об изменении всех свойств</summary>
+        /// <param name="propList">Список свойств</param>
+        public void OnAllPropertyChanged()
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(null));
 
-                OnPropertyChanged(propertyName, oldValue, newValue);
-            }
+        /// <summary>Перегрузка используемая для "сквозного проброса" 
+        /// события PropertyChanged</summary>
+        /// <param name="sender">Не используется</param>
+        /// <param name="e">Параметры от прослушиваемого события</param>
+        /// <remarks> Данный метод используется в случае получения свойствами свои значений из
+        /// другого экземпляра с INPC.
+        /// Пример:</remarks>
+        /// <code>
+        /// public class ViewModel : OnPropertyChangedClass
+        /// {
+        ///     INotifyPropertyChanged Other;
+        ///     public int Number
+        ///     {
+        ///         get => Other.Number;
+        ///         set => Other.Number = value;
+        ///     }
+        ///
+        ///     public ViewModel(INotifyPropertyChanged other)
+        ///     {
+        ///         Other = other;
+        ///         Other.PropertyChanged += OnPropertyChanged;
+        ///     }
+        /// }
+        /// </code>
+        public void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+             => PropertyChanged?.Invoke(this, e);
+
+        #endregion
+
+        #region Виртуальные защищённые методы для изменения значений свойств
+        /// <summary>Виртуальный метод определяющий изменения в значении поля значения свойства</summary>
+        /// <param name="fieldProperty">Ссылка на поле значения свойства</param>
+        /// <param name="newValue">Новое значение</param>
+        /// <param name="propertyName">Название свойства</param>
+
+
+
+
+        protected virtual void Set<T>(ref T fieldProperty, T newValue, [CallerMemberName]string propertyName = "")
+        {
+            if ((fieldProperty != null && !fieldProperty.Equals(newValue)) || (fieldProperty == null && newValue != null))
+                PropertyNewValue(ref fieldProperty, newValue, propertyName);
         }
 
-        /// <summary>Защищённый виртуальный метод вызывается после присвоения значения
-        /// свойству и после создания события <see cref="PropertyChanged"/>.</summary>
-        /// <param name="propertyName">Имя изменившегося свойства.</param>
-        /// <param name="oldValue">Старое значение свойства.</param>
-        /// <param name="newValue">Новое значение свойства.</param>
-        /// <remarks>Переопределяется в производных классах для реализации
-        /// реакции на изменение значения свойства.<br/>
-        /// Рекомендуется в переопределённом методе первым оператором вызывать базовый метод.<br/>
-        /// Если в переопределённом методе не будет вызова базового, то возможно нежелательное изменение логики базового класса.</remarks>
-        protected virtual void OnPropertyChanged(string propertyName, object oldValue, object newValue) { }
+
+
+
+
+        /// <summary>Виртуальный метод изменяющий значение поля значения свойства</summary>
+        /// <param name="fieldProperty">Ссылка на поле значения свойства</param>
+        /// <param name="newValue">Новое значение</param>
+        /// <param name="propertyName">Название свойства</param>
+        protected virtual void PropertyNewValue<T>(ref T fieldProperty, T newValue, string propertyName)
+        {
+            fieldProperty = newValue;
+            OnPropertyChanged(propertyName);
+        }
+        #endregion
     }
 }

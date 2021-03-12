@@ -47,11 +47,15 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\LongToShortConverter.cs" />
+    <Compile Include="Converters\RoundingNumberConverter.cs" />
+    <Compile Include="CurrencySettingsModel.cs" />
     <Compile Include="Dispatchers\BaseViewModel.cs" />
     <Compile Include="Dispatchers\IDispatcher.cs" />
     <Compile Include="DtoTypes\CurrencyDto.cs" />
     <Compile Include="DtoTypes\ExchangeDto.cs" />
     <Compile Include="DtoTypes\RateDto.cs" />
+    <Compile Include="Enums\ButtonTypesEnum.cs" />
     <Compile Include="Enums\ChangedAction.cs" />
     <Compile Include="EventsArgs\RatesCnahgedHandler.cs" />
     <Compile Include="ExtensionMethods.cs" />
@@ -61,6 +65,7 @@
     <Compile Include="Interfaces\Model\IRatesModel.cs" />
     <Compile Include="Interfaces\Repository\IRatesRepository.cs" />
     <Compile Include="Interfaces\Repository\ISupportInitializeRatesRepository.cs" />
+    <Compile Include="Interfaces\ViewModel\ICellViewModel.cs" />
     <Compile Include="Interfaces\ViewModel\IExchangerListViewModel.cs" />
     <Compile Include="Interfaces\ViewModel\IExchegerViewModel.cs" />
     <Compile Include="Interfaces\ViewModel\IMainExchangerViewModel.cs" />

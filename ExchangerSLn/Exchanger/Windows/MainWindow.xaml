@@ -4,6 +4,7 @@
         WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         xmlns:dto="clr-namespace:DtoTypes;assembly=Common"
         xmlns:customControls="clr-namespace:Exchanger.Styles.Xamls.Code"
+        xmlns:uc="clr-namespace:Exchanger.UserControls.Currency"
         Height="1080" Width="1920"
         d:DataContext="{x:Type ivm:IMainExchangerViewModel}">
 
@@ -22,27 +23,8 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <ItemsControl ItemsSource="{Binding RatesVM.Rates}" Grid.Column="1" Grid.Row="1">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <UniformGrid DockPanel.Dock="Top" HorizontalAlignment="Stretch" 
-                                             VerticalAlignment="Stretch" Grid.Row="1" 
-                                             Rows="{Binding RowCount}"
-                                             Columns="{Binding ColumnCount}"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemContainerStyle>
-                    <Style>
-                        <Setter Property="Grid.Row" Value="{Binding Row}"/>
-                        <Setter Property="Grid.Column" Value="{Binding Column}"/>
-                    </Style>
-                </ItemsControl.ItemContainerStyle>
-                <ItemsControl.Resources>
-                    <DataTemplate DataType="{x:Type dto:RateDto}">
-                        <customControls:CurrencyItemButton Symbol="{Binding Currency.Sign}" Type="{Binding Currency.Sign}" RateWithSymbol="{Binding Rate}"/>
-                    </DataTemplate>
-                </ItemsControl.Resources>
-            </ItemsControl>
+
+            <uc:ExchangerViewUserControl Grid.Column="1" Grid.Row="1"/>
 
         </Grid>
 

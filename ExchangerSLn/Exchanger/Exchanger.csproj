@@ -57,6 +57,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Styles\Xamls\Code\CurrencyItemButton.cs" />
+    <Compile Include="UserControls\Currency\AreYouSureUserControl.xaml.cs">
+      <DependentUpon>AreYouSureUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Currency\ChangeAnotherUserControl.xaml.cs">
+      <DependentUpon>ChangeAnotherUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Currency\CurrencyListUserControl.xaml.cs">
       <DependentUpon>CurrencyListUserControl.xaml</DependentUpon>
     </Compile>
@@ -81,6 +87,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles\Xamls\GenericButtons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\Currency\AreYouSureUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\Currency\ChangeAnotherUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -8,6 +8,29 @@ namespace Common
 {
     public static class ExtensionMethods
     {
+        /// <summary>Добавляет элементы последовательности <paramref name="source"/> в конец коллекции <paramref name="collection"/>.</summary>
+        /// <typeparam name="T">Тип элемента коллекции.</typeparam>
+        /// <param name="collection">Коллекция в которую добавляются элементы.</param>
+        /// <param name="source">Последовательность добавляемых элементов.</param>
+        public static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> source)
+        {
+            foreach (var item in source)
+                collection.Add(item);
+        }
+
+        /// <summary>Инициализирует коллекцию <paramref name="collection"/> элементами последовательности <paramref name="source"/>.</summary>
+        /// <typeparam name="T">Тип элемента коллекции.</typeparam>
+        /// <param name="collection">Инициализируемая коллекция.</param>
+        /// <param name="source">Последовательность элементов помещаемых в коллекцию <paramref name="collection"/>.</param>
+        /// <remarks>Коллекция <paramref name="collection"/> очищается методом <see cref="ICollection{T}.Clear"/>
+        /// после чего в неё добавляются все элементы последовательноссти <paramref name="source"/>.</remarks>
+        public static void Initial<T>(this ICollection<T> collection, IEnumerable<T> source)
+        {
+            collection.Clear();
+            collection.AddRange(source);
+        }
+
+
         /// <summary>Метод заменяющий элемент в индексированной коллекции.</summary>
         /// <typeparam name="T">Тип элемента коллекции.</typeparam>
         /// <param name="list">Индексированная коллекция.</param>

@@ -5,7 +5,7 @@
     </UserControl.Resources>
 
     <Grid>
-        <Border Background="#272d3b" CornerRadius="25,25,0,0"/>
+        <Border Background="#6e849d"  CornerRadius="25,25,0,0"/>
 
         <Grid>
             <Grid.ColumnDefinitions>

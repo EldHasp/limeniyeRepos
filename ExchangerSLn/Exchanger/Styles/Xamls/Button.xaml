@@ -9,8 +9,6 @@
                      Color="White" />
     <SolidColorBrush x:Key="ChromeBrush"
                      Color="#FF232323" />
-
-
     <ControlTemplate TargetType="Button" x:Key="ReturtButton">
         <Grid>
             <Rectangle RadiusX="20" RadiusY="20" Fill="#46876f" x:Name="MyBackgroundElement"/>
@@ -55,6 +53,55 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+
+
+    <ControlTemplate TargetType="Button" x:Key="OpenKeyboard">
+        <Grid>
+            <Rectangle RadiusX="20" RadiusY="20" Fill="#46876f" x:Name="MyBackgroundElement"/>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="1" Grid.Column="1" Text="{TemplateBinding Content}" x:Name="ReturnText"
+                           Foreground="#ffffff" FontSize="27 pt"
+                           FontFamily="/Styles/Fonts/#mr_ApexMk3"
+                           TextWrapping="Wrap"
+                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                <Viewbox Grid.Row="1" Grid.Column="3" Stretch="UniformToFill" VerticalAlignment="Center" Margin="0,0,0,0"
+                                         Width="{Binding ElementName=ReturnText, Path=ActualHeight}">
+                    <Canvas Width="20" Height="20">
+                        <Path Fill="#ffffff" Data="M19,10H17V8H19M19,13H17V11H19M16,10H14V8H16M16,13H14V11H16M16,17H8V15H16M7,10H5V8H7M7,13H5V11H7M8,11H10V13H8M8,8H10V10H8M11,11H13V13H11M11,8H13V10H11M20,5H4C2.89,5 2,5.89 2,7V17A2,2 0 0,0 4,19H20A2,2 0 0,0 22,17V7C22,5.89 21.1,5 20,5Z" />
+                    </Canvas>
+                </Viewbox>
+
+            </Grid>
+
+        </Grid>
+
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter TargetName="MyBackgroundElement" Property="Fill" Value="#474a52" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Foreground" Value="Gray"/>
+                <Setter TargetName="MyBackgroundElement" Property="Fill" Value="LightGray"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+
 
     <sys:String x:Key="Currency">Empty</sys:String>
     <sys:String x:Key="Value">Empty</sys:String>
@@ -111,7 +158,9 @@
 
 
 
-
+     
+    
+    
     <Geometry x:Key="Button.Path.Data">M 10,100 L 100,100 L 100,50 Z</Geometry>
     <ControlTemplate TargetType="Button" x:Key="WithLogo">
 
@@ -171,7 +220,42 @@
 
 
 
+    <ControlTemplate TargetType="Button" x:Key="ChangeCurrency">
+        <Grid>
+            <Rectangle Fill="{TemplateBinding Background}" RadiusX="10" RadiusY="10" x:Name="MyBackgroundElement"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
 
+                <TextBlock Grid.Column="1" Text="{TemplateBinding Content}"
+                           Foreground="#cad5eb" FontSize="27 pt"
+                           FontFamily="/Styles/Fonts/#mr_ApexMk3"
+                           TextWrapping="Wrap"
+                           HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                           x:Name="TextBlockContent"/>
+            </Grid>
+        </Grid>
+
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="FontWeight" Value="Bold" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter TargetName="MyBackgroundElement" Property="Fill" Value="Azure" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Foreground" Value="Gray"/>
+
+                <Setter TargetName="TextBlockContent" Property="Foreground" Value="#4a4a4a"/>
+                <Setter TargetName="MyBackgroundElement" Property="Fill" Value="#10192c"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    
+    
 
 
 
@@ -263,10 +347,28 @@
     
     <ControlTemplate TargetType="Button" x:Key="ButtonLogOutControlTemplate">
         <Grid>
-            <Rectangle Fill="#314052" RadiusX="10" RadiusY="10"/>
-            <TextBlock Text="Вийти" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40" Foreground="White"/>
-            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Rectangle Fill="#314052" RadiusX="10" RadiusY="10" x:Name="MyBackgroundElement"/>
+            <TextBlock Text="{TemplateBinding Content}" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center" 
+                       FontSize="40" Foreground="White"
+                       FontFamily="/Styles/Fonts/#mr_ApexMk3"
+                       x:Name="TextBlockContent"/>
         </Grid>
+
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="FontWeight" Value="Bold" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter TargetName="MyBackgroundElement" Property="Fill" Value="#273443" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Foreground" Value="Gray"/>
+                <Setter TargetName="TextBlockContent" Property="Foreground" Value="#fca66a"/>
+                <Setter TargetName="MyBackgroundElement" Property="Fill" Value="#1a6e71"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <ControlTemplate TargetType="Button" x:Key="Return">

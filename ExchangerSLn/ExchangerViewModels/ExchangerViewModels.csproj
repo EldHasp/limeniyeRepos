@@ -43,6 +43,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExchangerListViewModels\CellViewModel.cs" />
+    <Compile Include="ExchangerListViewModels\ExchangeListViewModel.cs" />
     <Compile Include="RatesViewModel.cs" />
     <Compile Include="ExchangeViewModel.cs" />
     <Compile Include="MainViewModel.cs" />
