@@ -1,262 +1,116 @@
-﻿using Common.Interfaces.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Diagnostics;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace Exchanger.Styles.Xamls.Code
 {
-    /// <summary>Creating CommandBinding on Received RoutedCommand and ICommand</summary>
-    public partial class RoutedCommandBinding : Freezable
-    {
-        #region Property Declaration
-        /// <summary>Binding for an popup RoutedCommand</summary>
-        public RoutedCommand RoutedCommand
-        {
-            get { return (RoutedCommand)GetValue(RoutedCommandProperty); }
-            set { SetValue(RoutedCommandProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for RoutedCommand.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty RoutedCommandProperty =
-            DependencyProperty.Register(nameof(RoutedCommand), typeof(RoutedCommand), typeof(RoutedCommandBinding),
-                new PropertyMetadata(null, RoutedCommandChanged));
-
-        /// <summary>Binding for an executable ICommand</summary>
-        public ICommand Command
-        {
-            get { return (ICommand)GetValue(CommandProperty); }
-            set { SetValue(CommandProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for Command.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty CommandProperty =
-            DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(RoutedCommandBinding),
-                new PropertyMetadata(null, CommandChanged));
-
-        /// <summary>Binding for an Handled completion</summary>
-        public bool Handled
-        {
-            get { return (bool)GetValue(HandledProperty); }
-            set { SetValue(HandledProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for Handled.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty HandledProperty =
-            DependencyProperty.Register(nameof(Handled), typeof(bool), typeof(RoutedCommandBinding), new PropertyMetadata(true));
-
-        /// <summary>Customized Instance CommandBinding</summary>
-        public CommandBinding CommandBinding { get; }
-        public static RoutedCommand EmptyCommand { get; } = new RoutedCommand("Empty", typeof(RoutedCommandBinding));
-
-        public RoutedCommandBinding()
-        {
-            CommandBinding = new CommandBinding(EmptyCommand, ExecuteRoutedMethod, CanExecuteRoutedMethod);
-        }
-
-        protected override Freezable CreateInstanceCore()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        #endregion
-    }
-
-    public partial class RoutedCommandBinding
-    {
-        #region Methods Declaration
-
-        /// <summary>Default CanExecute Method.</summary>
-        /// <param name="parameter">Command Parameter.</param>
-        /// <returns>Always <see langword="true"/>.</returns>
-        public static bool CanExecuteDefault(object parameter) => true;
-
-        /// <summary>Default Execute Method.</summary>
-        /// <param name="parameter">Command Parameter.</param>
-        /// <remarks>Empty body.</remarks>
-        public static void ExecuteDefault(object parameter) { }
-
-        /// <summary>Delegate for CanExecute.</summary>
-        protected Func<object, bool> canExecuteDelegate = CanExecuteDefault;
-
-        /// <summary>Delegate for Execute.</summary>
-        protected Action<object> executeDelegate = ExecuteDefault;
-
-        /// <summary>Method for CommandBinding.CanExecuteRouted.</summary>
-        /// <param name="sender">The command target that is invoking the handler.</param>
-        /// <param name="e">The event data.</param>
-        protected virtual void CanExecuteRoutedMethod(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.Handled = Handled;
-            e.CanExecute = canExecuteDelegate(e.Parameter);
-        }
-
-        /// <summary>Method for CommandBinding.ExecuteRouted.</summary>
-        /// <param name="sender">The command target that is invoking the handler.</param>
-        /// <param name="e">The event data.</param>
-        protected virtual void ExecuteRoutedMethod(object sender, ExecutedRoutedEventArgs e)
-        {
-            e.Handled = Handled;
-            executeDelegate(e.Parameter);
-        }
-        #endregion
-
-        #region Callback methods Declaration
-
-        /// <summary>Static Callback Method When Changing RoutedCommand Value</summary>
-        /// <param name="d">The object in which the value has changed</param>
-        /// <param name="e">Change parameters</param>
-        private static void RoutedCommandChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-            => ((RoutedCommandBinding)d).CommandBinding.Command = (RoutedCommand)e.NewValue;
-
-        /// <summary>Static Callback Method When Changing Command Value</summary>
-        /// <param name="d">The object in which the value has changed</param>
-        /// <param name="e">Change parameters</param>
-        private static void CommandChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            RoutedCommandBinding dd = (RoutedCommandBinding)d;
-            if (e.NewValue is ICommand newCommand)
-            {
-                dd.canExecuteDelegate = newCommand.CanExecute;
-                dd.executeDelegate = newCommand.Execute;
-            }
-            else
-            {
-                dd.canExecuteDelegate = CanExecuteDefault;
-                dd.executeDelegate = ExecuteDefault;
-            }
-        }
-        #endregion
-    }
-    /// <summary>Collection for RoutedCommandBinding</summary>
-    public class RoutedCommandBindingCollection : FreezableCollection<RoutedCommandBinding>
-    {
-        /// <summary>Linked CommandBindingCollection</summary>
-        public CommandBindingCollection CommandBindingCollection { get; }
-
-        /// <summary>The only constructor</summary>
-        /// <param name="commandBindingCollection">Linked CommandBindingCollection</param>
-        /// <exception cref="commandBindingCollection">Thrown when null</exception>
-        public RoutedCommandBindingCollection(CommandBindingCollection commandBindingCollection)
-        {
-            CommandBindingCollection = commandBindingCollection ?? throw new ArgumentNullException(nameof(commandBindingCollection));
-            INotifyCollectionChanged notifyCollection = this;
-            notifyCollection.CollectionChanged += CollectionChanged;
-        }
-
-        private void CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (e.OldItems?.Count > 0)
-                foreach (RoutedCommandBinding commandBinding in e.OldItems)
-                    CommandBindingCollection.Remove(commandBinding.CommandBinding);
-
-            if (e.NewItems?.Count > 0)
-                foreach (RoutedCommandBinding commandBinding in e.NewItems)
-                    CommandBindingCollection.Add(commandBinding.CommandBinding);
-        }
-
-    }
-    /// <summary>Class with Attachable Property for bound RoutedCommands</summary>
-    public class RoutedCommandBindings : Freezable
-    {
-        /// <summary>Getting the RoutedCommand Collection</summary>
-        /// <param name="obj">The object to which the property is attached</param>
-        /// <returns>RoutedCommandBinding Collection</returns>
-        /// <exception cref="obj">Thrown when not a UIElement or ContentElement</exception>
-        public static RoutedCommandBindingCollection GetRoutedCommandBindings(DependencyObject obj)
-        {
-            RoutedCommandBindingCollection routedCollection = (RoutedCommandBindingCollection)obj.GetValue(RoutedCommandBindingCollectionProperty);
-            if (routedCollection == null)
-            {
-                CommandBindingCollection commandCollection;
-                if (obj is UIElement element)
-                    commandCollection = element.CommandBindings;
-                else if (obj is ContentElement content)
-                    commandCollection = content.CommandBindings;
-                else
-                    throw new ArgumentException("There must be an UIElement or ContentElement", nameof(obj));
-
-                obj.SetValue(RoutedCommandBindingCollectionProperty, routedCollection = new RoutedCommandBindingCollection(commandCollection));
-            }
-
-            return routedCollection;
-        }
-
-        protected override Freezable CreateInstanceCore()
-        {
-            throw new NotImplementedException();
-        }
-
-        // Using a DependencyProperty as the backing store for RoutedCommandBindingCollection.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty RoutedCommandBindingCollectionProperty =
-            DependencyProperty.RegisterAttached("ShadowRoutedCommandBindings", typeof(RoutedCommandBindingCollection), typeof(RoutedCommandBindings), new PropertyMetadata(null));
-
-    }
-
 
     public class CustomItemsControl : ContentControl
     {
-        /// <summary> Максимальное количество элементов на одной странице. </summary>
-        private readonly string elementsMaxCount;
 
-        #region DependencyProperties 
-        public static readonly DependencyProperty RowsProperty = DependencyProperty.Register(nameof(Rows), typeof(int), typeof(CustomItemsControl), new PropertyMetadata(default(int)));
-        //public static readonly DependencyProperty ColumnsProperty = DependencyProperty.Register(nameof(Columns), typeof(int), typeof(CustomItemsControl),
-            //new FrameworkPropertyMetadata(default(int), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
-            //new PropertyChangedCallback(TextProperty_PropertyChanged)));
+        #region Public Properties
+        /// <summary>Количество строк плиток.
+        /// Минимальное значение - одна.</summary>
+        public int Rows
+        {
+            get { return (int)GetValue(RowsProperty); }
+            set { SetValue(RowsProperty, value); }
+        }
 
-        //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        private static readonly DependencyPropertyKey AllStandartElementsPropertyKey = DependencyProperty.RegisterReadOnly(nameof(AllStandartElements),
-           typeof(List<string>), typeof(CustomItemsControl),
-           new FrameworkPropertyMetadata(OnAInputItemsChanged) { BindsTwoWayByDefault = true });
+        /// <summary>Количество колонок плиток.
+        /// Минимальное значение - три.</summary>
+        public int Columns
+        {
+            get { return (int)GetValue(ColumnsProperty); }
+            set { SetValue(ColumnsProperty, value); }
+        }
 
-        public static readonly DependencyProperty AllStandartElementsProperty = AllStandartElementsPropertyKey.DependencyProperty;
-        //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        private static readonly DependencyPropertyKey CurrentIndexPagePropertyKey = DependencyProperty.RegisterReadOnly(nameof(CurrentIndexPage),
-            typeof(int), typeof(CustomItemsControl),
-            new FrameworkPropertyMetadata(default(int),FrameworkPropertyMetadataOptions.None));
-        /// <summary> DependencyProperty индекса текущей страницы. </summary>
-        public static readonly DependencyProperty CurrentIndexPageProperty = CurrentIndexPagePropertyKey.DependencyProperty;
+        /// <summary>Количество элемнтов одной страницы.</summary>
+        public int Length
+        {
+            get { return (int)GetValue(LengthProperty); }
+            private set { SetValue(LengthPropertyKey, value); }
+        }
+
+        /// <summary>Номер (индекс) страницы.</summary>
+        public int PageIndex
+        {
+            get { return (int)GetValue(PageIndexProperty); }
+            set { SetValue(PageIndexProperty, value); }
+        }
         #endregion
 
-        /// <summary> Количество строк </summary>
-        public int Rows { get => (int)GetValue(RowsProperty); set => SetValue(RowsProperty, value); }
-        /// <summary> Количество колонок </summary>
-        //public int Columns { get => (int)GetValue(ColumnsProperty); set => SetValue(ColumnsProperty, value); }
-        /// <summary> Свойство для передачи списка элементов. </summary>
-        public IReadOnlyList<ICellViewModel> AllStandartElements
+        #region Dependenci Property
+
+        /// <summary><see langword="DependencyProperty"/> для <see cref="Length"/>.</summary>
+        public static readonly DependencyProperty LengthProperty = LengthPropertyKey.DependencyProperty;
+
+        /// <summary><see langword="DependencyProperty"/> для <see cref="PageIndex"/>.</summary>
+        public static readonly DependencyProperty PageIndexProperty = DependencyProperty.Register(nameof(PageIndex), typeof(int), typeof(CustomItemsControl), new PropertyMetadata(0, PageIndexChanged, CoercePageIndex));
+
+        /// <summary><see langword="DependencyProperty"/> для <see cref="Rows"/>.</summary>
+        public static readonly DependencyProperty RowsProperty = DependencyProperty.Register(nameof(Rows), typeof(int), typeof(CustomItemsControl), new PropertyMetadata(0, RowsChanged, CoerceRows));
+
+        /// <summary><see langword="DependencyProperty"/> для <see cref="Columns"/>.</summary>
+        public static readonly DependencyProperty ColumnsProperty = DependencyProperty.Register("Columns", typeof(int), typeof(CustomItemsControl), new PropertyMetadata(0, ColumnsChanged, CoerceColumns));
+
+
+        private static readonly DependencyPropertyKey LengthPropertyKey = DependencyProperty.RegisterReadOnly(nameof(Length), typeof(int), typeof(CustomItemsControl), new PropertyMetadata(0, LengthChanged));
+
+        #endregion
+
+        #region Coerces
+        private static object CoerceRows(DependencyObject d, object baseValue)
         {
-            get { return (List<ICellViewModel>)this.GetValue(AllStandartElementsProperty); }
-            set { this.SetValue(AllStandartElementsProperty, value); }
+            if ((baseValue is int rows) && rows > 0)
+                return rows;
+            return 1;
         }
-        /// <summary> Свойство для передачи текущей страницы. </summary>
-        public int CurrentIndexPage{get => (int)GetValue(CurrentIndexPageProperty); protected set { SetValue(CurrentIndexPagePropertyKey, value); }}
-
-        public static RoutedCommand Next { get; } = new RoutedUICommand("Next", nameof(Next), typeof(CustomItemsControl));
-
-
-        private void TextProperty_PropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
+        private static object CoerceColumns(DependencyObject d, object baseValue)
         {
-           // Columns = (int)e.NewValue;
+            if ((baseValue is int columns) && columns > 2)
+                return columns;
+            return 3;
         }
-
-        public static void OnAInputItemsChanged(
-           DependencyObject sender,
-           DependencyPropertyChangedEventArgs e)
+        private static object CoercePageIndex(DependencyObject d, object baseValue)
         {
-            // Breakpoint here to see if the new value is being set
-            var newValue = e.NewValue;
-            Debugger.Break();
-        }
+            if (!(baseValue is int index) || index < 0)
+                return -1;
 
-        static CustomItemsControl()
-        {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(CurrencyItemButton),
-             new FrameworkPropertyMetadata(typeof(CurrencyItemButton)));
+            // Здесь нужна проверка максимального индекса.
+            return 33333333;
         }
+        #endregion
+
+        #region Values Changed
+        private static void RowsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            CustomItemsControl customControl = (CustomItemsControl)d;
+            customControl.RenderPage();
+        }
+        private static void LengthChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            // Переинициализация свойства-коллекции с данными плиток
+        }
+        private static void PageIndexChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            CustomItemsControl customControl = (CustomItemsControl)d;
+            customControl.RenderPage();
+        }
+        private static void ColumnsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            CustomItemsControl customControl = (CustomItemsControl)d;
+
+            customControl.RenderPage();
+        }
+        #endregion
+
+        #region Private Methods
+        private void RenderPage()
+        {
+            // Получаем из Контекста Данных VM по её итерфейсу
+            // и заполняем коллекцию данных плиток актуальной страницы
+        }
+        #endregion
     }
 
     public class CurrencyItemButton : Button
