@@ -1,4 +1,6 @@
-﻿namespace DtoTypes
+﻿using System.Collections.Generic;
+
+namespace DtoTypes
 {
     /// <summary>Тип для описания валюты.</summary>
     public class CurrencyDto
@@ -47,5 +49,15 @@
 
         public override string ToString()
             => $"{{\"{Symbol}\", \"{Sign}\"}}";
+
+        public override int GetHashCode()
+        {
+            var hashCode = 1038968261;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Symbol);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Sign);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(FullName);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Description);
+            return hashCode;
+        }
     }
 }

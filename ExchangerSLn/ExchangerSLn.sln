@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExchangerViewModels", "Exch
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{37634E5E-00F9-4C86-91C0-82C404AACC6D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomControls", "CustomControls\CustomControls.csproj", "{566DDD6C-D558-4786-A042-3B6520B20104}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{37634E5E-00F9-4C86-91C0-82C404AACC6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37634E5E-00F9-4C86-91C0-82C404AACC6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37634E5E-00F9-4C86-91C0-82C404AACC6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{566DDD6C-D558-4786-A042-3B6520B20104}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{566DDD6C-D558-4786-A042-3B6520B20104}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{566DDD6C-D558-4786-A042-3B6520B20104}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{566DDD6C-D558-4786-A042-3B6520B20104}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

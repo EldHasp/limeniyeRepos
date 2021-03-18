@@ -25,11 +25,19 @@ namespace DtoTypes
             Base = @base;
             Rate = rate;
 
-            Id =  12651974 + EqualityComparer<CurrencyDto>.Default.GetHashCode(Currency) + EqualityComparer<CurrencyDto>.Default.GetHashCode(Base);
+            Id = GetHashCode();
         }
 
         public override string ToString()
             => $"{{{Rate} {Currency.Symbol}/{Base.Symbol}}}";
+
+        public override int GetHashCode()
+        {
+            var hashCode = -1518519874;
+            hashCode = hashCode * -1521134295 + EqualityComparer<CurrencyDto>.Default.GetHashCode(Currency);
+            hashCode = hashCode * -1521134295 + EqualityComparer<CurrencyDto>.Default.GetHashCode(Base);
+            return hashCode;
+        }
     }
 
 }
