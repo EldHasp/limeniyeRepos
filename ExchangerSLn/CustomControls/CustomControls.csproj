@@ -48,13 +48,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Themes\Generic.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="Code\ChocolateBarCustomControl.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Code\CurrencyItemButton.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -83,10 +77,12 @@
       <Project>{695994e1-2f7b-49b5-9e3d-4e2a41e41c9a}</Project>
       <Name>Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Exchanger\Exchanger.csproj">
-      <Project>{28c5bba2-175b-4590-911f-21a894e72398}</Project>
-      <Name>Exchanger</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

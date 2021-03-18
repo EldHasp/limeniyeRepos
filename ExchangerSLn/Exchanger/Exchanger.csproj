@@ -56,6 +56,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Styles\Xamls\Code\CurrencyItemButton.cs" />
     <Compile Include="UserControls\Currency\AreYouSureUserControl.xaml.cs">
       <DependentUpon>AreYouSureUserControl.xaml</DependentUpon>
@@ -66,18 +70,14 @@
     <Compile Include="UserControls\Currency\CurrencyListUserControl.xaml.cs">
       <DependentUpon>CurrencyListUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Currency\HeaderUserConstrol.xaml.cs">
-      <DependentUpon>HeaderUserConstrol.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\Currency\ExchangerViewUserControl.xaml.cs">
       <DependentUpon>ExchangerViewUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Currency\HeaderUserConstrol.xaml.cs">
+      <DependentUpon>HeaderUserConstrol.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Currency\ReturnMoneyUserControl.xaml.cs">
       <DependentUpon>ReturnMoneyUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -102,11 +102,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\Currency\HeaderUserConstrol.xaml">
+    <Page Include="UserControls\Currency\ExchangerViewUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\Currency\ExchangerViewUserControl.xaml">
+    <Page Include="UserControls\Currency\HeaderUserConstrol.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -154,6 +154,10 @@
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{695994e1-2f7b-49b5-9e3d-4e2a41e41c9a}</Project>
       <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CustomControls\CustomControls.csproj">
+      <Project>{566ddd6c-d558-4786-a042-3b6520b20104}</Project>
+      <Name>CustomControls</Name>
     </ProjectReference>
     <ProjectReference Include="..\ExchangerModels\ExchangerModels.csproj">
       <Project>{1416a06b-a764-48e8-9afb-6ce533060688}</Project>

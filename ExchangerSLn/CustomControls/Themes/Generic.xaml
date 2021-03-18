@@ -1,126 +1,117 @@
-﻿<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:common="clr-namespace:Common.Simplified;assembly=Common"
-    xmlns:enums="clr-namespace:Common.Enums;assembly=Common"
-    xmlns:code="clr-namespace:CustomControls.Code"
-    xmlns:customControls="clr-namespace:Exchanger.Styles.Xamls.Code;assembly=Exchanger"
-    xmlns:converter="clr-namespace:Common.Converters;assembly=Common">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:common="clr-namespace:Common.Simplified;assembly=Common"
+                    xmlns:ivm="clr-namespace:Common.Interfaces.ViewModel;assembly=Common"
+                    xmlns:enums="clr-namespace:Common.Enums;assembly=Common"
+                    xmlns:code="clr-namespace:CustomControls.Code"
+                    xmlns:converter="clr-namespace:Common.Converters;assembly=Common">
 
 
     <Style TargetType="{x:Type code:ChocolateBarCustomControl}">
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type code:CustomControl1}">
+                <ControlTemplate TargetType="{x:Type code:ChocolateBarCustomControl}">
                     <Grid>
-                        <common:ContextHolder>
-                            <common:ContextHolder.Commands>
-                                <common:CommandBinding RoutedCommand="{x:Static ApplicationCommands.Find}" RelayCommand="{TemplateBinding SelectCellCommand}"/>
-                            </common:ContextHolder.Commands>
+                        <ItemsControl ItemsSource="{TemplateBinding CurrentPage}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Rows="{Binding Columns}" Columns="{Binding Columns}" Margin="-20"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
 
+                            <ItemsControl.ItemTemplate>
+                                <!-- Тут костыль ivm:ICellViewModel, который буду исправлять в дальше -->
+                                <DataTemplate DataType="{x:Type ivm:ICellViewModel}">
+                                    <Grid>
+                                        <!-- Тут ещё парочку костылей с выбранием стиля кнопки. Можно, думаю, было бы сделать более правильно  -->
 
+                                        <!-- Content -->
+                                        <Grid Margin="20">
+                                            <Grid.Style>
+                                                <Style TargetType="{x:Type Grid}">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding CellType}" Value="{x:Static enums:CellTypesEnum.Content}">
+                                                            <Setter Property="Visibility" Value="Visible" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Grid.Style>
 
-                            <ItemsControl Grid.Row="1" ItemsSource="{TemplateBinding CurrentPage}"> <!-- Должен быть "только для чтения" -->
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <UniformGrid Rows="{TemplateBinding Rows}" Columns="{TemplateBinding Columns}" Margin="-20"/>
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate DataType="{x:Type ivm:ICellViewModel}">
-                                        <Grid>
-
-                                            <!-- Тут костыль -->
-
-
-                                            <!-- Content -->
-                                            <Grid Margin="20">
-                                                <Grid.Style>
-                                                    <Style TargetType="{x:Type Grid}">
-                                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding CellType}" Value="{x:Static enums:CellTypesEnum.Content}">
-                                                                <Setter Property="Visibility" Value="Visible" />
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </Grid.Style>
-                                                
-                                                <customControls:CurrencyItemButton  Symbol="{Binding Data.Rate.Currency.Symbol}" 
+                                            <code:CurrencyItemButton  Symbol="{Binding Data.Rate.Currency.Symbol}" 
                                                                         Sign="{Binding Data.Rate.Currency.Sign}" 
                                                                         Rate="{Binding Data.Rate.Rate}"
                                                                         Available="{Binding Data.Available}"
                                                                         Lack="{Binding Data.Lack}"
                                                                         BaseSign="{Binding Data.Rate.Base.Sign}"
                                                                         Command="{x:Static ApplicationCommands.Find}" CommandParameter="{Binding}"/>
-                                            </Grid>
-
-                                            <!-- Next -->
-                                            <Grid Margin="20">
-                                                <Grid.Style>
-                                                    <Style TargetType="{x:Type Grid}">
-                                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding CellType}" Value="{x:Static enums:CellTypesEnum.Next}">
-                                                                <Setter Property="Visibility" Value="Visible" />
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </Grid.Style>
-
-                                                <Button Grid.Column="4" Grid.Row="2" Template="{StaticResource WithLogo}"
-                                                        Content="Next" Background="{x:Null}"
-                                                        Command="{x:Static ApplicationCommands.Find}" CommandParameter="{Binding}"> 
-                                                    <Button.Resources>
-                                                        <Geometry x:Key="Button.Path.Data">
-                                                            M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z
-                                                        </Geometry>
-                                                    </Button.Resources>
-                                                </Button>
-                                            </Grid>
-
-                                            <!-- Back -->
-                                            <Grid Margin="20">
-                                                <Grid.Style>
-                                                    <Style TargetType="{x:Type Grid}">
-                                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding CellType}" Value="{x:Static enums:CellTypesEnum.Back}">
-                                                                <Setter Property="Visibility" Value="Visible" />
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </Grid.Style>
-
-                                                <Button Grid.Column="4" Grid.Row="2" Template="{StaticResource WithLogo}"
-                                            Content="Back" Background="{x:Null}"
-                                            Command="{x:Static ApplicationCommands.Find}" CommandParameter="{Binding}">
-                                                    <Button.Resources>
-                                                        <Geometry x:Key="Button.Path.Data">
-                                                            M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z
-                                                        </Geometry>
-                                                    </Button.Resources>
-                                                </Button>
-                                            </Grid>
                                         </Grid>
 
+                                        <!-- Next -->
+                                        <Grid Margin="20">
+                                            <Grid.Style>
+                                                <Style TargetType="{x:Type Grid}">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding CellType}" Value="{x:Static enums:CellTypesEnum.Next}">
+                                                            <Setter Property="Visibility" Value="Visible" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Grid.Style>
 
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                                <ItemsControl.ItemContainerStyle>
-                                    <Style>
-                                        <Setter Property="Control.HorizontalContentAlignment" Value="Stretch"/>
-                                        <Setter Property="Control.VerticalContentAlignment" Value="Stretch"/>
-                                    </Style>
-                                </ItemsControl.ItemContainerStyle>
-                            </ItemsControl>
+                                            <Button Grid.Column="4" Grid.Row="2" Template="{StaticResource WithLogo}"
+                                                        Content="Next" Background="{x:Null}"
+                                                        Command="{x:Static ApplicationCommands.Find}" CommandParameter="{Binding}">
+                                                <Button.Resources>
+                                                    <Geometry x:Key="Button.Path.Data">
+                                                        M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z
+                                                    </Geometry>
+                                                </Button.Resources>
+                                            </Button>
+                                        </Grid>
 
-                        </common:ContextHolder>
+                                        <!-- Back -->
+                                        <Grid Margin="20">
+                                            <Grid.Style>
+                                                <Style TargetType="{x:Type Grid}">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding CellType}" Value="{x:Static enums:CellTypesEnum.Back}">
+                                                            <Setter Property="Visibility" Value="Visible" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Grid.Style>
+
+                                            <Button Grid.Column="4" Grid.Row="2" Template="{StaticResource WithLogo}"
+                                            Content="Back" Background="{x:Null}"
+                                            Command="{x:Static ApplicationCommands.Find}" CommandParameter="{Binding}">
+                                                <Button.Resources>
+                                                    <Geometry x:Key="Button.Path.Data">
+                                                        M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z
+                                                    </Geometry>
+                                                </Button.Resources>
+                                            </Button>
+                                        </Grid>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+
+
+                            <ItemsControl.ItemContainerStyle>
+                                <Style>
+                                    <Setter Property="Control.HorizontalContentAlignment" Value="Stretch"/>
+                                    <Setter Property="Control.VerticalContentAlignment" Value="Stretch"/>
+                                </Style>
+                            </ItemsControl.ItemContainerStyle>
+                        </ItemsControl>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
+
 
 
     <converter:LongToShortConverter x:Key="LongToShortConverter"/>
@@ -268,6 +259,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+
 
     <Geometry x:Key="Button.Path.Data">M 10,100 L 100,100 L 100,50 Z</Geometry>
     <Style TargetType="{x:Type code:RefundAmountItemButton}">
