@@ -3,29 +3,39 @@
       xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
       d:DataContext="{d:DesignInstance local:SomeViewModel, IsDesignTimeCreatable=True}">
 
-    <ItemsControl Name="baseListView" ItemsSource="{Binding Types}">
+    <Grid>
+        <!--Обязательно должна должна быть кисть фона.
+        Нулевая кисть  означает что в этом месте не элемент прозрачен для мыши.
+        Но здесь какой-то баг: кисть задаю, но фона не видно. И значит он остаётся прозрачным для мыши.
+        Удалось устранить это заданием кисти Canvas. -->
+        <ItemsControl Name="baseListView" ItemsSource="{Binding Types}">
 
-        <ItemsControl.ItemsPanel>
-            <ItemsPanelTemplate>
-                <Canvas/>
-            </ItemsPanelTemplate>
-        </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas Background="SkyBlue"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
 
-        <ItemsControl.ItemTemplate>
-            <DataTemplate x:DataType="local:SomeType">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="local:SomeType">
 
-                <Border Width="250" Height="400" Background="Orange">
-                    <Border.RenderTransform>
-                        <TranslateTransform X="{Binding PositionX}" Y="{Binding PositionY}"/>
-                    </Border.RenderTransform>
+                    <Border Width="250" Height="400" Background="Orange">
+                        <Border.RenderTransform>
+                            <TranslateTransform X="{Binding PositionX}" Y="{Binding PositionY}"/>
+                        </Border.RenderTransform>
 
-                    <interactivity:Interaction.Behaviors>
-                        <local:DragPositionBehavior ZoomFactor="1" BaseParent="{Binding ElementName=baseListView}"/>
-                    </interactivity:Interaction.Behaviors>
-                </Border>
-      
-            </DataTemplate>
-        </ItemsControl.ItemTemplate>
+                        <interactivity:Interaction.Behaviors>
+                            <local:DragPositionBehavior ZoomFactor="1" BaseParent="{Binding ElementName=baseListView}"/>
+                        </interactivity:Interaction.Behaviors>
+                    </Border>
 
-    </ItemsControl>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+
+        </ItemsControl>
+        <StackPanel IsHitTestVisible="False">
+            <TextBlock Text="{Binding ActualWidth, ElementName=baseListView}"/>
+            <TextBlock Text="{Binding ActualHeight, ElementName=baseListView}"/>
+        </StackPanel>
+    </Grid>
 </Page>

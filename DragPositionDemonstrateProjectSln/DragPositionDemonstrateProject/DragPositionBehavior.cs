@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xaml.Interactivity;
 using System;
+using System.Diagnostics;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
@@ -10,7 +11,7 @@ namespace DragPositionDemonstrateProject
     public partial class DragPositionBehavior : DependencyObject, IBehavior
     {
         public DependencyObject AssociatedObject { get; set; }
-        public UIElement AssociateUIElement { get; private set; }
+        public UIElement AssociatedUIElement { get; private set; }
 
         private Point prevPoint;
         private int pointerId = -1;
@@ -31,46 +32,57 @@ namespace DragPositionDemonstrateProject
                 return;
             }
 
-            if (!(associatedObject is UIElement associateUIElement))
+            if (!(associatedObject is UIElement associatedUIElement))
             {
                 throw new ArgumentException("Только для UIElement", nameof(associatedObject));
             }
 
-            if ((associatedObject != AssociatedObject))
+            if (associatedObject != AssociatedObject)
             {
                 AssociatedObject = associatedObject;
-                AssociateUIElement = associateUIElement;
+                AssociatedUIElement = associatedUIElement;
 
-                associateUIElement.PointerPressed += OnElementPointerPressed;
-                BaseParent.PointerReleased += OnElementPointerReleased;
+                associatedUIElement.PointerPressed += OnElementPointerPressed;
+                // BaseParent.PointerReleased += OnElementPointerReleased; Регистрацию отпускания надо делать после нажатия.
             }
         }
 
         public void Detach()
         {
-            if (BaseParent != null)
-            {
-                BaseParent.PointerPressed -= OnElementPointerPressed;
-                BaseParent.PointerReleased -= OnElementPointerReleased;
-                BaseParent.PointerMoved -= OnMove;
-            }
+            //if (BaseParent != null)
+            //{
+            //    BaseParent.PointerPressed -= OnElementPointerPressed;
+            //    BaseParent.PointerReleased -= OnElementPointerReleased;
+            //    BaseParent.PointerMoved -= OnMove;
+            //}
 
-            BaseParent = null;
+            //BaseParent = null;
+            AssociatedUIElement.PointerPressed -= OnElementPointerPressed;
             AssociatedObject = null;
+            AssociatedUIElement = null;
         }
         #endregion
 
         #region Handle pointer input
         private void OnElementPointerPressed(object sender, PointerRoutedEventArgs e)
         {
-            var element = AssociatedObject as FrameworkElement;
-
-            if (element == null)
+            if (BaseParent == null)
                 return;
 
-            if (!(element.RenderTransform is TranslateTransform))
-                element.RenderTransform = new TranslateTransform();
+            BaseParent.PointerReleased += OnElementPointerReleased;
+            // Возможно здесь ещё нужно прописать событие выхода за пределы панели
 
+            //var element = AssociatedObject as FrameworkElement;
+
+            if (AssociatedUIElement == null)
+                return;
+
+            // Это очень криво. Может в элемента есть своя друга трансформация?
+            // Это нужно ОБЯЗАТЕЛЬНО заменить на AP-свойства.
+            if (!(AssociatedUIElement.RenderTransform is TranslateTransform))
+                AssociatedUIElement.RenderTransform = new TranslateTransform();
+
+            countMove = 0;
             BaseParent.PointerMoved += OnMove;
 
             prevPoint = e.GetCurrentPoint(BaseParent).Position;
@@ -79,28 +91,32 @@ namespace DragPositionDemonstrateProject
 
         private void OnElementPointerReleased(object sender, PointerRoutedEventArgs e)
         {
+            var basePanel = (UIElement)sender;
+            basePanel.PointerReleased -= OnElementPointerReleased;
+            basePanel.PointerMoved -= OnMove;
+
             if (e.Pointer.PointerId != pointerId)
                 return;
 
-            var element = AssociatedObject as FrameworkElement;
-            if (element == null)
+            // var element = AssociatedObject as FrameworkElement;
+            if (AssociatedUIElement == null)
                 return;
 
-            BaseParent.PointerMoved -= OnMove;
             pointerId = -1;
         }
 
-        private void OnMove(object o, PointerRoutedEventArgs e)
+        int countMove;
+        private void OnMove(object sender, PointerRoutedEventArgs e)
         {
-            var zommFactor = ZoomFactor;
-            var element = AssociatedObject as FrameworkElement;
+            Debug.WriteLine($"{countMove++}: {sender}" );
+            double zommFactor = ZoomFactor;
 
-            if (e.Pointer.PointerId != pointerId || element is null)
+            if (/*e.Pointer.PointerId != pointerId ||*/ AssociatedUIElement is null)
                 return;
 
             var pos = e.GetCurrentPoint(BaseParent).Position;
-            ((TranslateTransform)element.RenderTransform).X += (pos.X - prevPoint.X) / zommFactor;
-            ((TranslateTransform)element.RenderTransform).Y += (pos.Y - prevPoint.Y) / zommFactor;
+            ((TranslateTransform)AssociatedUIElement.RenderTransform).X += (pos.X - prevPoint.X) / zommFactor;
+            ((TranslateTransform)AssociatedUIElement.RenderTransform).Y += (pos.Y - prevPoint.Y) / zommFactor;
             prevPoint = pos;
         }
         #endregion
