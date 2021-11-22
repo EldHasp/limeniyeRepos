@@ -1,0 +1,27 @@
+﻿<Window x:Class="Examples.TilesPageWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Examples"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:tb="clr-namespace:TilesBox;assembly=TilesBox"
+        mc:Ignorable="d"
+        Title="TilesPageWindow" Height="450" Width="800" Loaded="Window_Loaded">
+    <Window.Resources>
+        <x:Array Type="sys:Int32" x:Key="numbers">
+            <sys:Int32>0</sys:Int32>
+            <sys:Int32>1</sys:Int32>
+            <sys:Int32>2</sys:Int32>
+            <sys:Int32>3</sys:Int32>
+            <sys:Int32>4</sys:Int32>
+            <sys:Int32>5</sys:Int32>
+            <sys:Int32>6</sys:Int32>
+            <sys:Int32>7</sys:Int32>
+            <sys:Int32>8</sys:Int32>
+            <sys:Int32>9</sys:Int32>
+        </x:Array>
+    </Window.Resources>
+    <Grid>
+        <tb:TilesPage Rows="2" Columns="1" ItemsSource="{DynamicResource numbers}" PageIndex="0"/>
+    </Grid>
+</Window>

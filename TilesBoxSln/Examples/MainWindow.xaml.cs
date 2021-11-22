@@ -36,7 +36,7 @@ namespace Examples
         TilesPageItem tile = new TilesPageItem();
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            TilesPage.SetItemIndex(tile, 20);
+            //TilesPage.SetItemIndex(tile, 20);
             int? ind = TilesPage.GetItemIndex(tile);
 
             TilesPage.ClearItemIndex(tile);

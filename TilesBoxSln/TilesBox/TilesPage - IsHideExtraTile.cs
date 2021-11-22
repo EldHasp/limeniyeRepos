@@ -12,6 +12,8 @@ namespace TilesBox
 {
     public partial class TilesPage : ContentControl
     {
+        /// <summary>Скрыть плитки для элементов с индексом
+        /// больше последнего в коллекции <see cref="ItemsSource"/>.</summary>
         public bool IsHideExtraTile
         {
             get { return (bool)GetValue(IsHideExtraTileProperty); }

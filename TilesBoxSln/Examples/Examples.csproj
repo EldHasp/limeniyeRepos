@@ -55,6 +55,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CustomControlWindow.xaml.cs">
+      <DependentUpon>CustomControlWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TilesPageWindow.xaml.cs">
+      <DependentUpon>TilesPageWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="CustomControlWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ListBoxTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -74,6 +84,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="TilesPageWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -102,6 +116,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ExamleCustomControl\ExamleCustomControl.csproj">
+      <Project>{9d734ee9-90fa-4042-a2fb-d1cfaa57ae83}</Project>
+      <Name>ExamleCustomControl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TilesBox\TilesBox.csproj">
       <Project>{6CECC2E3-2B0B-44FD-8EA6-363A8AC80F54}</Project>
       <Name>TilesBox</Name>

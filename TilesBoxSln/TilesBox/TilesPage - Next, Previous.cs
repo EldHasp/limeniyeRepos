@@ -9,27 +9,31 @@ namespace TilesBox
     public partial class TilesPage : ContentControl
     {
 
-        /// <summary>Визуальный контент для плитки "Следующая страница".</summary>
-        public UIElement NextTileContent
+        /// <summary>Шаблон для плитки "Следующая страница".
+        /// Контент плятки <see langword="true"/>, если 
+        /// это не последняя страница.</summary>
+        public DataTemplate NextTileTemplate
         {
-            get { return (UIElement)GetValue(NextTileContentProperty); }
-            set { SetValue(NextTileContentProperty, value); }
+            get { return (DataTemplate)GetValue(NextTileTemplateProperty); }
+            set { SetValue(NextTileTemplateProperty, value); }
         }
 
         /// <summary>DependencyProperty для <see cref="PageIndex"/>.</summary>
-        public static readonly DependencyProperty NextTileContentProperty =
-            DependencyProperty.Register(nameof(NextTileContent), typeof(UIElement), typeof(TilesPage), new PropertyMetadata(null));
+        public static readonly DependencyProperty NextTileTemplateProperty =
+            DependencyProperty.Register(nameof(NextTileTemplate), typeof(DataTemplate), typeof(TilesPage), new PropertyMetadata(null));
 
-        /// <summary>Визуальный контент для плитки "Предыдушая страница".</summary>
-        public UIElement PreviousTileContent
+        /// <summary>Шаблон для плитки "Предыдушая страница".
+        /// Контент плятки <see langword="true"/>, если 
+        /// это не первая страница.</summary>
+        public DataTemplate PreviousTileTemplate
         {
-            get { return (UIElement)GetValue(PreviousTileContentProperty); }
-            set { SetValue(PreviousTileContentProperty, value); }
+            get { return (DataTemplate)GetValue(PreviousTileTemplateProperty); }
+            set { SetValue(PreviousTileTemplateProperty, value); }
         }
 
         /// <summary>DependencyProperty для <see cref="PageIndex"/>.</summary>
-        public static readonly DependencyProperty PreviousTileContentProperty =
-            DependencyProperty.Register(nameof(PreviousTileContent), typeof(UIElement), typeof(TilesPage), new PropertyMetadata(null));
+        public static readonly DependencyProperty PreviousTileTemplateProperty =
+            DependencyProperty.Register(nameof(PreviousTileTemplate), typeof(DataTemplate), typeof(TilesPage), new PropertyMetadata(null));
 
 
     }

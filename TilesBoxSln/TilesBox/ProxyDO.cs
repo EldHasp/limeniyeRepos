@@ -17,16 +17,7 @@ namespace TilesBox
 
         // Using a DependencyProperty as the backing store for Value.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register(nameof(Value), typeof(object), typeof(ProxyDO), new PropertyMetadata(null, changed, coerce));
-
-        private static object coerce(DependencyObject d, object baseValue)
-        {
-            return baseValue;
-        }
-
-        private static void changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-        }
+            DependencyProperty.Register(nameof(Value), typeof(object), typeof(ProxyDO), new PropertyMetadata(null));
 
         protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
         {
@@ -55,8 +46,11 @@ namespace TilesBox
             
         }
 
+        /// <summary><see langword="true"/> если свойству задана Привязка.</summary>
         public bool IsValueBinding => BindingOperations.GetBindingExpressionBase(this, ValueProperty) != null;
 
+        /// <summary><see langword="true"/> если свойству задана привязка
+        /// и она в состоянии <see cref="BindingStatus.Active"/>.</summary>
         public bool IsActiveValueBinding
         {
             get
@@ -68,6 +62,9 @@ namespace TilesBox
                 return status == BindingStatus.Active;
             }
         }
+
+        public void SetValueBinding(BindingBase binding)
+            => BindingOperations.SetBinding(this, ValueProperty, binding);
     }
 
 }

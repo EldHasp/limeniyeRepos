@@ -1,0 +1,72 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:tb="clr-namespace:TilesBox">
+    <SolidColorBrush x:Key="TileButton.Stroke.Enabled" Color="Blue"/>
+    <SolidColorBrush x:Key="TileButton.Stroke.Disabled" Color="DeepSkyBlue"/>
+    <SolidColorBrush x:Key="TileButton.Fill.Enabled" Color="DeepSkyBlue"/>
+    <SolidColorBrush x:Key="TileButton.Fill.Disabled" Color="LightBlue"/>
+    <DataTemplate x:Key="TileNextTemplate" DataType="{x:Type sys:Boolean}">
+        <Viewbox>
+            <Path Data="M0,0 100,50 0,100 Z"
+                  Margin="10"
+                  StrokeThickness="4">
+                <Path.Style>
+                    <Style TargetType="Path">
+                        <Setter Property="Stroke" Value="{DynamicResource TileButton.Stroke.Enabled}"/>
+                        <Setter Property="Fill" Value="{DynamicResource TileButton.Fill.Enabled}"/>
+                        <Style.Triggers>
+
+                            <DataTrigger Binding="{Binding}" Value="False">
+                                <Setter Property="Stroke" Value="{DynamicResource TileButton.Stroke.Disabled}"/>
+                                <Setter Property="Fill" Value="{DynamicResource TileButton.Fill.Disabled}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Path.Style>
+            </Path>
+        </Viewbox>
+    </DataTemplate>
+    <DataTemplate x:Key="TilePreviousTemplate" DataType="{x:Type sys:Boolean}">
+        <Viewbox>
+            <Path Data="M0,50 100,0 100,100 Z"
+                  Margin="10"
+                  StrokeThickness="4">
+                <Path.Style>
+                    <Style TargetType="Path">
+                        <Setter Property="Stroke" Value="{DynamicResource TileButton.Stroke.Enabled}"/>
+                        <Setter Property="Fill" Value="{DynamicResource TileButton.Fill.Enabled}"/>
+                        <Style.Triggers>
+
+                            <DataTrigger Binding="{Binding}" Value="False">
+                                <Setter Property="Stroke" Value="{DynamicResource TileButton.Stroke.Disabled}"/>
+                                <Setter Property="Fill" Value="{DynamicResource TileButton.Fill.Disabled}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Path.Style>
+            </Path>
+        </Viewbox>
+    </DataTemplate>
+    <Style TargetType="{x:Type tb:TilesPage}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <ListBox ItemsSource="{DynamicResource tiles}">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Grid tb:TilesPage.Rows="{Binding Rows, RelativeSource={RelativeSource AncestorType={x:Type tb:TilesPage}}}"
+                                      tb:TilesPage.Columns="{Binding Columns, RelativeSource={RelativeSource AncestorType={x:Type tb:TilesPage}}}"/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="{x:Type tb:TilesPageItem}">
+                                <Setter Property="Grid.Row" Value="{Binding Row, RelativeSource={RelativeSource Self}}"/>
+                                <Setter Property="Grid.Column" Value="{Binding Column, RelativeSource={RelativeSource Self}}"/>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                    </ListBox>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

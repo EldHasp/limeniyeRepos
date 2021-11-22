@@ -13,17 +13,31 @@ namespace TilesBox
     public partial class TilesPage : ContentControl
     {
 
-
+        /// <summary>Видимость отключенных кнопок смены страницы.</summary>
         public Visibility DisabledButtonVisibility
         {
             get { return (Visibility)GetValue(DisabledButtonVisibilityProperty); }
             set { SetValue(DisabledButtonVisibilityProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for DisabledButtonVisibility.  This enables animation, styling, binding, etc...
+        private Visibility disabledButtonVisibility;
+
+
+        /// <summary><see cref="DependencyProperty"/> для свойства <see cref="DisabledButtonVisibility"/>.</summary>
         public static readonly DependencyProperty DisabledButtonVisibilityProperty =
-            DependencyProperty.Register(nameof(DisabledButtonVisibility), typeof(Visibility), typeof(TilesPage), new PropertyMetadata(Visibility.Visible));
+            DependencyProperty.Register(nameof(DisabledButtonVisibility), typeof(Visibility), typeof(TilesPage), new PropertyMetadata(Visibility.Visible, DisabledButtonVisibilityChanged, CoerceDisabledButtonVisibility));
 
+        private static object CoerceDisabledButtonVisibility(DependencyObject d, object baseValue)
+        {
+            if (Enum.IsDefined(typeof(Visibility), baseValue))
+                return baseValue;
+            return Visibility.Visible;
+        }
 
+        private static void DisabledButtonVisibilityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            TilesPage tilesPage = (TilesPage)d;
+            tilesPage.disabledButtonVisibility = (Visibility)e.NewValue;
+        }
     }
 }

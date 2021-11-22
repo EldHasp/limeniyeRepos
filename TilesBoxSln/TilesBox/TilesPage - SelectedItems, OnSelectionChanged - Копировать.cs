@@ -15,7 +15,7 @@ namespace TilesBox
         /// <summary>Обработка всплывающего события <see cref="Selector.SelectionChanged"/></summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected virtual void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        protected virtual void OnSelectedTile(object sender, RoutedEventArgs e)
         {
             //foreach (TilesBoxItem tilesBoxItem in e.RemovedItems.OfType<TilesBoxItem>())
             //    SelectedTiles.Remove(tilesBoxItem);

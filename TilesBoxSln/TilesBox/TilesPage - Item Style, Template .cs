@@ -21,16 +21,16 @@ namespace TilesBox
             DependencyProperty.Register(nameof(TileStyle), typeof(Style), typeof(TilesPage), new PropertyMetadata(null));
 
 
-        /// <summary>Шаблон данных для плитки.</summary>
-        public DataTemplate TileTemplate
+        /// <summary>Шаблон данных для плитки c элементом коллекции.</summary>
+        public DataTemplate ItemTileTemplate
         {
-            get { return (DataTemplate)GetValue(TileTemplateProperty); }
-            set { SetValue(TileTemplateProperty, value); }
+            get { return (DataTemplate)GetValue(ItemTileTemplateProperty); }
+            set { SetValue(ItemTileTemplateProperty, value); }
         }
 
-        /// <summary>DependencyProperty для <see cref="TileTemplate"/>.</summary>
-        public static readonly DependencyProperty TileTemplateProperty =
-            DependencyProperty.Register(nameof(TileTemplate), typeof(DataTemplate), typeof(TilesPage), new PropertyMetadata(null));
+        /// <summary>DependencyProperty для <see cref="ItemTileTemplate"/>.</summary>
+        public static readonly DependencyProperty ItemTileTemplateProperty =
+            DependencyProperty.Register(nameof(ItemTileTemplate), typeof(DataTemplate), typeof(TilesPage), new PropertyMetadata(null));
 
 
 

@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6CECC2E3-2B0B-44FD-8EA6-363A8AC80F54}</ProjectGuid>
+    <ProjectGuid>{9D734EE9-90FA-4042-A2FB-D1CFAA57AE83}</ProjectGuid>
     <OutputType>library</OutputType>
-    <RootNamespace>TilesBox</RootNamespace>
-    <AssemblyName>TilesBox</AssemblyName>
+    <RootNamespace>ExamleCustomControl</RootNamespace>
+    <AssemblyName>ExamleCustomControl</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -48,42 +48,17 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Converters\AllEqualsConverter.cs" />
-    <Compile Include="Converters\ListGetValueConverter.cs" />
-    <Compile Include="ProxyDO.cs" />
-    <Compile Include="TilesPage - First-LastItemIndex.cs" />
-    <Compile Include="TilesPage - TileType, IsTileEnabled.cs" />
-    <Compile Include="TilesPage - PagesCount.cs" />
-    <Compile Include="TilesPageItem.cs" />
+    <EmbeddedResource Include="Themes\CustomControl1Template.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="TilesPage - IsHideExtraTile.cs" />
-    <Compile Include="TilesPage - ItemIndex.cs" />
-    <Compile Include="TilesPage - SelectedItems, OnSelectionChanged - Копировать.cs" />
-    <Compile Include="TilesPage - DisabledButtonVisibility.cs" />
-    <Compile Include="TilesPage - Next, Previous.cs" />
-    <Compile Include="TilesPage - Item Style, Template .cs" />
-    <Compile Include="TilesPage - PageIndex.cs" />
-    <Compile Include="TilesPage - ItemsSource.cs" />
-    <Compile Include="TilesPage - RenderTilesBinding.cs" />
-    <Compile Include="TilesPage - Rows, Columns.cs" />
-    <Compile Include="TilesPage.cs">
+    <Compile Include="CustomControl1.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Themes\TilesPageItemTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\TilesPageItemTemplate1.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\TilesPageTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
