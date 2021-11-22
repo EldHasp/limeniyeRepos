@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xaml.Interactivity;
+using System;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
@@ -9,6 +10,7 @@ namespace DragPositionDemonstrateProject
     public partial class DragPositionBehavior : DependencyObject, IBehavior
     {
         public DependencyObject AssociatedObject { get; set; }
+        public UIElement AssociateUIElement { get; private set; }
 
         private Point prevPoint;
         private int pointerId = -1;
@@ -24,16 +26,23 @@ namespace DragPositionDemonstrateProject
         #region Life circle
         public void Attach(DependencyObject associatedObject)
         {
-            if ((associatedObject != AssociatedObject) && !Windows.ApplicationModel.DesignMode.DesignModeEnabled)
+            if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
+            {
+                return;
+            }
+
+            if (!(associatedObject is UIElement associateUIElement))
+            {
+                throw new ArgumentException("Только для UIElement", nameof(associatedObject));
+            }
+
+            if ((associatedObject != AssociatedObject))
             {
                 AssociatedObject = associatedObject;
+                AssociateUIElement = associateUIElement;
 
-                var element = AssociatedObject as FrameworkElement;
-                if (element != null)
-                {
-                    BaseParent.PointerPressed += OnElementPointerPressed;
-                    BaseParent.PointerReleased += OnElementPointerReleased;
-                }
+                associateUIElement.PointerPressed += OnElementPointerPressed;
+                BaseParent.PointerReleased += OnElementPointerReleased;
             }
         }
 
