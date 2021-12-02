@@ -27,6 +27,52 @@
                         <interactivity:Interaction.Behaviors>
                             <local:DragPositionBehavior ZoomFactor="1" BaseParent="{Binding ElementName=baseListView}"/>
                         </interactivity:Interaction.Behaviors>
+
+
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="80*"/>
+                                <RowDefinition Height="20*"/>
+                            </Grid.RowDefinitions>
+
+                            <ItemsControl Margin="5"
+                                          ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                                          ScrollViewer.VerticalScrollBarVisibility="Hidden">
+
+                                <ItemsControl.Template>
+                                    <ControlTemplate TargetType="ItemsControl">
+                                        <ScrollViewer CanBeScrollAnchor="True">
+                                            <ItemsPresenter/>
+                                        </ScrollViewer>
+                                    </ControlTemplate>
+                                </ItemsControl.Template>
+
+
+                                <Grid Background="White" Height="50" CornerRadius="10" Margin="2"/>
+                                <Grid Background="White" Height="50" CornerRadius="10" Margin="2"/>
+                                <Grid Background="White" Height="50" CornerRadius="10" Margin="2"/>
+                                <Grid Background="White" Height="50" CornerRadius="10" Margin="2"/>
+                                <Grid Background="White" Height="50" CornerRadius="10" Margin="2"/>
+                                <Grid Background="White" Height="50" CornerRadius="10" Margin="2"/>
+                                <Grid Background="White" Height="50" CornerRadius="10" Margin="2"/>
+                                <Grid Background="White" Height="50" CornerRadius="10" Margin="2"/>
+                                <Grid Background="White" Height="50" CornerRadius="10" Margin="2"/>
+                                <Grid Background="White" Height="50" CornerRadius="10" Margin="2"/>
+                                <Grid Background="White" Height="50" CornerRadius="10" Margin="2"/>
+                                <Grid Background="White" Height="50" CornerRadius="10" Margin="2"/>
+                                <Grid Background="White" Height="50" CornerRadius="10" Margin="2"/>
+                                <Grid Background="White" Height="50" CornerRadius="10" Margin="2"/>
+                                <Grid Background="White" Height="50" CornerRadius="10" Margin="2"/>
+                                <Grid Background="White" Height="50" CornerRadius="10" Margin="2"/>
+                            </ItemsControl>
+
+                            <Button Grid.Row="1" Margin="20" CornerRadius="10" Background="#2e2e2e" 
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    Content="Зажать колёсиком мыши"/>
+
+                        </Grid>
                     </Border>
 
                 </DataTemplate>
