@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
@@ -12,14 +13,32 @@ namespace DragPositionDemonstrateProject
         private object _offsetX;
         private object _offsetY;
 
+        private static readonly DoubleConverter doubleConverter = new DoubleConverter();
+        public static bool doubleTryParse(object value, out object result)
+        {
+            if (value is double dble)
+            {
+                result = dble;
+                return true;
+            }
+
+            if (value == null || !doubleConverter.IsValid(value))
+            {
+                result = null;
+                return false;
+            }
+
+            result = doubleConverter.ConvertFrom(value);
+            return true;
+        }
+
         public object ZoomFactor
         {
             get => _zoomFactor;
             set
             {
-                if ((value ?? 0.0) is double ||
-                    value is BindingBase ||
-                    (double.TryParse(value.ToString(), out double val) && (value = val) != null))
+                if (value is BindingBase ||
+                    doubleTryParse(value, out value))
                     _zoomFactor = value;
                 else
                     throw new ArgumentException(nameof(value));
@@ -41,9 +60,8 @@ namespace DragPositionDemonstrateProject
             get => _offsetX;
             set
             {
-                if ((value ?? 0.0) is double ||
-                    value is BindingBase ||
-                    (double.TryParse(value.ToString(), out double val) && (value = val) != null))
+                if (value is BindingBase ||
+                    doubleTryParse(value, out value))
                     _offsetX = value;
                 else
                     throw new ArgumentException(nameof(value));
@@ -54,9 +72,8 @@ namespace DragPositionDemonstrateProject
             get => _offsetY;
             set
             {
-                if ((value ?? 0.0) is double ||
-                    value is BindingBase ||
-                    (double.TryParse(value.ToString(), out double val) && (value = val) != null))
+                if (value is BindingBase ||
+                    doubleTryParse(value, out value))
                     _offsetY = value;
                 else
                     throw new ArgumentException(nameof(value));
