@@ -10,6 +10,14 @@ namespace DragPositionDemonstrateProject
 {
     public partial class DragPositionBehavior : DependencyObject, IBehavior
     {
+
+    }
+    public partial class DragPositionBehavior : DependencyObject, IBehavior
+    {
+        private static int count;
+        /// <summary>Для отладки.</summary>
+        public int Number { get; } = count++;
+
         public DependencyObject AssociatedObject { get; set; }
         public UIElement AssociatedUIElement { get; private set; }
 

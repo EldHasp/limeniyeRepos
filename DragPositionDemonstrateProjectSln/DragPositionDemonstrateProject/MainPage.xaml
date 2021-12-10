@@ -24,14 +24,22 @@
                             <TranslateTransform X="{Binding PositionX}" Y="{Binding PositionY}"/>
                         </Border.RenderTransform>
 
-                        <interactivity:Interaction.Behaviors>
+                        <!--<interactivity:Interaction.Behaviors>
                             <local:DragPositionBehavior ZoomFactor="1" BaseParent="{Binding ElementName=baseListView}"/>
-                        </interactivity:Interaction.Behaviors>
+                        </interactivity:Interaction.Behaviors>-->
                     </Border>
 
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
-
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="local:DragPositionBehavior.DragPosition">
+                        <Setter.Value>
+                            <local:DragPositionData ZoomFactor="1" BaseParent="{Binding ElementName=baseListView}"/>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ItemsControl.ItemContainerStyle>
         </ItemsControl>
         <StackPanel IsHitTestVisible="False">
             <TextBlock Text="{Binding ActualWidth, ElementName=baseListView}"/>
