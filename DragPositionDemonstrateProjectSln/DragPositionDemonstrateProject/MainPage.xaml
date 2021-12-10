@@ -1,13 +1,16 @@
 ﻿<Page x:Class="DragPositionDemonstrateProject.MainPage" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
       xmlns:local="using:DragPositionDemonstrateProject"
-      xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:interactivity="using:Microsoft.Xaml.Interactivity" xmlns:system="using:System"
       d:DataContext="{d:DesignInstance local:SomeViewModel, IsDesignTimeCreatable=True}">
+    
+    <FrameworkElement.DataContext>
+        <local:SomeViewModel/>
+    </FrameworkElement.DataContext>
+    <FrameworkElement.Resources>
+        <local:SomeType x:Key="someType" PositionX="200" PositionY="400"/>
+    </FrameworkElement.Resources>
 
     <Grid>
-        <!--Обязательно должна должна быть кисть фона.
-        Нулевая кисть  означает что в этом месте не элемент прозрачен для мыши.
-        Но здесь какой-то баг: кисть задаю, но фона не видно. И значит он остаётся прозрачным для мыши.
-        Удалось устранить это заданием кисти Canvas. -->
         <ItemsControl Name="baseListView" ItemsSource="{Binding Types}">
 
             <ItemsControl.ItemsPanel>
@@ -19,33 +22,28 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate x:DataType="local:SomeType">
 
-                    <Border Width="250" Height="400" Background="Orange">
-                        <!--<Border.RenderTransform>
-                            <TranslateTransform X="{Binding PositionX}" Y="{Binding PositionY}"/>
-                        </Border.RenderTransform>-->
-
-                        <!--<interactivity:Interaction.Behaviors>
-                            <local:DragPositionBehavior ZoomFactor="1" BaseParent="{Binding ElementName=baseListView}"/>
-                        </interactivity:Interaction.Behaviors>-->
+                    <Button Width="250" Height="400" Background="Orange">
                         <TextBlock VerticalAlignment="Center">
                             <Run Text="{Binding PositionX}"/>
-                             <Run Text="{Binding PositionY}"/>
+                            <Run Text="{Binding PositionY}"/>
                         </TextBlock>
-                    </Border>
+                    </Button>
 
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
             <ItemsControl.ItemContainerStyle>
                 <Style TargetType="ContentPresenter">
-                    <!--<Setter Property="local:DragPositionBehavior.DragPosition">
+                    <Setter Property="local:DragPositionBehavior.DragPosition">
                         <Setter.Value>
-                            <local:DragPositionData ZoomFactor="1" BaseParent="{Binding ElementName=baseListView}"/>
+                            <local:DragPositionDataBindingCanvas
+                                ZoomFactor="1"
+                                BaseParent="{Binding ElementName=baseListView}"
+                                OffsetX="{Binding PositionX, Mode=TwoWay}"
+                                OffsetY="{Binding PositionY, Mode=TwoWay}"
+                                LeftBinding="{Binding PositionX, Mode=OneWay}"
+                                TopBinding="{Binding PositionY, Mode=OneWay}"/>
                         </Setter.Value>
-                    </Setter>-->
-                    <!--<Setter Property="local:DragPositionBehavior.OffsetX" Value="{Binding PositionX}"/>
-                    <Setter Property="local:DragPositionBehavior.OffsetY" Value="{Binding PositionY}"/>-->
-                    <Setter Property="Canvas.Left" Value="{Binding PositionX, Mode=OneWay}"/>
-                    <Setter Property="Canvas.Top" Value="{Binding PositionY, Mode=OneWay}"/>
+                    </Setter>
                 </Style>
             </ItemsControl.ItemContainerStyle>
         </ItemsControl>

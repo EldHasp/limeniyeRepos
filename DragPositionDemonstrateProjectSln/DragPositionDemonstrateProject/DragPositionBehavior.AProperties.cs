@@ -25,12 +25,6 @@ namespace DragPositionDemonstrateProject
 
         private static void DragPositionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            /*
-                        <interactivity:Interaction.Behaviors>
-                            <local:DragPositionBehavior ZoomFactor="1" BaseParent="{Binding ElementName=baseListView}"/>
-                        </interactivity:Interaction.Behaviors>
-             */
-
             var behaviors = Interaction.GetBehaviors(d);
 
             var dragPositionBehavior = behaviors.OfType<DragPositionBehavior>().FirstOrDefault();
@@ -48,8 +42,22 @@ namespace DragPositionDemonstrateProject
             else
                 BindingOperations.SetBinding(behavior, BaseParentProperty, (BindingBase)data.BaseParent);
 
+            if (data.OffsetX is double x)
+                SetOffsetX(d, x);
+            else
+                BindingOperations.SetBinding(d, OffsetXProperty, (BindingBase)data.OffsetX);
+
+            if (data.OffsetY is double y)
+                SetOffsetY(d, y);
+            else
+                BindingOperations.SetBinding(d, OffsetYProperty, (BindingBase)data.OffsetY);
+
             behaviors.Add(behavior);
+
+            data.BindingAction?.Invoke(d);
         }
+
+
         #endregion
 
 
@@ -84,6 +92,6 @@ namespace DragPositionDemonstrateProject
         public static readonly DependencyProperty OffsetYProperty =
             DependencyProperty.RegisterAttached("OffsetY", typeof(double), typeof(DragPositionData), new PropertyMetadata(0.0));
 
-        #endregion 
+        #endregion
     }
 }

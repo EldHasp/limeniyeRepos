@@ -122,11 +122,16 @@
     <Compile Include="DragPositionBehavior.AProperties.cs" />
     <Compile Include="DragPositionBehavior.cs" />
     <Compile Include="DragPositionData.cs" />
+    <Compile Include="DragPositionDataBindingCanvas.cs" />
     <Compile Include="ICloneable.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="OffsetBinding.cs" />
     <Compile Include="OnNotifyPropertyChanged.cs" />
+    <Compile Include="PointsPage.xaml.cs">
+      <DependentUpon>PointsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -152,6 +157,10 @@
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PointsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

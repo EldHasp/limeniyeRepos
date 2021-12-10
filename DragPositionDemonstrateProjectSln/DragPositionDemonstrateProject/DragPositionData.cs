@@ -4,34 +4,66 @@ using Windows.UI.Xaml.Data;
 
 namespace DragPositionDemonstrateProject
 {
+    /// <summary>Основные данные для создания привязок в DragPositionBehavior.</summary>
     public class DragPositionData
     {
-        private object zoomFactor;
-        private object baseParent;
+        private object _zoomFactor;
+        private object _baseParent;
+        private object _offsetX;
+        private object _offsetY;
 
         public object ZoomFactor
         {
-            get => zoomFactor;
+            get => _zoomFactor;
             set
             {
                 if ((value ?? 0.0) is double ||
                     value is BindingBase ||
                     (double.TryParse(value.ToString(), out double val) && (value = val) != null))
-                    zoomFactor = value;
+                    _zoomFactor = value;
                 else
                     throw new ArgumentException(nameof(value));
             }
         }
         public object BaseParent
         {
-            get => baseParent;
+            get => _baseParent;
             set
             {
                 if (value is UIElement || value is BindingBase)
-                    baseParent = value;
+                    _baseParent = value;
                 else
                     throw new ArgumentException(nameof(value));
             }
         }
+        public object OffsetX
+        {
+            get => _offsetX;
+            set
+            {
+                if ((value ?? 0.0) is double ||
+                    value is BindingBase ||
+                    (double.TryParse(value.ToString(), out double val) && (value = val) != null))
+                    _offsetX = value;
+                else
+                    throw new ArgumentException(nameof(value));
+            }
+        }
+        public object OffsetY
+        {
+            get => _offsetY;
+            set
+            {
+                if ((value ?? 0.0) is double ||
+                    value is BindingBase ||
+                    (double.TryParse(value.ToString(), out double val) && (value = val) != null))
+                    _offsetY = value;
+                else
+                    throw new ArgumentException(nameof(value));
+            }
+        }
+
+        public Action<DependencyObject> BindingAction { get; set; }
     }
+
 }

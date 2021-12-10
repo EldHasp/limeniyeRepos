@@ -16,7 +16,8 @@ namespace DragPositionDemonstrateProject
     {
         public ObservableCollection<SomeType> Types { get; } = new ObservableCollection<SomeType>()
         {
-            new SomeType() { PositionX = 10, PositionY = 60}, new SomeType() { PositionX = 280, PositionY = 60}
+            new SomeType() { PositionX = 10, PositionY = 60},
+            new SomeType() { PositionX = 280, PositionY = 60}
         };
     }
 
@@ -27,7 +28,7 @@ namespace DragPositionDemonstrateProject
         {
             this.InitializeComponent();
 
-            DataContext = new SomeViewModel();
+            //DataContext = new SomeViewModel();
         }
     }
 }
