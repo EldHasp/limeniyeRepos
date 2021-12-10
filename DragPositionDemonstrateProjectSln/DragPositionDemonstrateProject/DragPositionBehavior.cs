@@ -85,10 +85,10 @@ namespace DragPositionDemonstrateProject
             if (AssociatedUIElement == null)
                 return;
 
-            // Это очень криво. Может в элемента есть своя друга трансформация?
-            // Это нужно ОБЯЗАТЕЛЬНО заменить на AP-свойства.
-            if (!(AssociatedUIElement.RenderTransform is TranslateTransform))
-                AssociatedUIElement.RenderTransform = new TranslateTransform();
+            //// Это очень криво. Может в элемента есть своя друга трансформация?
+            //// Это нужно ОБЯЗАТЕЛЬНО заменить на AP-свойства.
+            //if (!(AssociatedUIElement.RenderTransform is TranslateTransform))
+            //    AssociatedUIElement.RenderTransform = new TranslateTransform();
 
             countMove = 0;
             BaseParent.PointerMoved += OnMove;
@@ -123,8 +123,12 @@ namespace DragPositionDemonstrateProject
                 return;
 
             var pos = e.GetCurrentPoint(BaseParent).Position;
-            ((TranslateTransform)AssociatedUIElement.RenderTransform).X += (pos.X - prevPoint.X) / zommFactor;
-            ((TranslateTransform)AssociatedUIElement.RenderTransform).Y += (pos.Y - prevPoint.Y) / zommFactor;
+            //((TranslateTransform)AssociatedUIElement.RenderTransform).X += (pos.X - prevPoint.X) / zommFactor;
+            //((TranslateTransform)AssociatedUIElement.RenderTransform).Y += (pos.Y - prevPoint.Y) / zommFactor;
+
+            SetOffsetX(AssociatedUIElement, GetOffsetX(AssociatedUIElement) + (pos.X - prevPoint.X) / zommFactor);
+            SetOffsetY(AssociatedUIElement, GetOffsetY(AssociatedUIElement) + (pos.Y - prevPoint.Y) / zommFactor);
+
             prevPoint = pos;
         }
         #endregion

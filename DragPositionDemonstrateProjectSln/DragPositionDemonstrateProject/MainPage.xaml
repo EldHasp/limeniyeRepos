@@ -20,24 +20,32 @@
                 <DataTemplate x:DataType="local:SomeType">
 
                     <Border Width="250" Height="400" Background="Orange">
-                        <Border.RenderTransform>
+                        <!--<Border.RenderTransform>
                             <TranslateTransform X="{Binding PositionX}" Y="{Binding PositionY}"/>
-                        </Border.RenderTransform>
+                        </Border.RenderTransform>-->
 
                         <!--<interactivity:Interaction.Behaviors>
                             <local:DragPositionBehavior ZoomFactor="1" BaseParent="{Binding ElementName=baseListView}"/>
                         </interactivity:Interaction.Behaviors>-->
+                        <TextBlock VerticalAlignment="Center">
+                            <Run Text="{Binding PositionX}"/>
+                             <Run Text="{Binding PositionY}"/>
+                        </TextBlock>
                     </Border>
 
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
             <ItemsControl.ItemContainerStyle>
                 <Style TargetType="ContentPresenter">
-                    <Setter Property="local:DragPositionBehavior.DragPosition">
+                    <!--<Setter Property="local:DragPositionBehavior.DragPosition">
                         <Setter.Value>
                             <local:DragPositionData ZoomFactor="1" BaseParent="{Binding ElementName=baseListView}"/>
                         </Setter.Value>
-                    </Setter>
+                    </Setter>-->
+                    <!--<Setter Property="local:DragPositionBehavior.OffsetX" Value="{Binding PositionX}"/>
+                    <Setter Property="local:DragPositionBehavior.OffsetY" Value="{Binding PositionY}"/>-->
+                    <Setter Property="Canvas.Left" Value="{Binding PositionX, Mode=OneWay}"/>
+                    <Setter Property="Canvas.Top" Value="{Binding PositionY, Mode=OneWay}"/>
                 </Style>
             </ItemsControl.ItemContainerStyle>
         </ItemsControl>

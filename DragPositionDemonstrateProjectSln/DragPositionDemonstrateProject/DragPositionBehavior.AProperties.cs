@@ -1,17 +1,14 @@
 ﻿using Microsoft.Xaml.Interactivity;
-using System;
-using System.Diagnostics;
 using System.Linq;
-using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 
 namespace DragPositionDemonstrateProject
 {
+    [Bindable]
     public partial class DragPositionBehavior
     {
+        #region DragPosition
         public static DragPositionData GetDragPosition(DependencyObject obj)
         {
             return (DragPositionData)obj.GetValue(DragPositionProperty);
@@ -53,37 +50,40 @@ namespace DragPositionDemonstrateProject
 
             behaviors.Add(behavior);
         }
+        #endregion
 
-    }
 
-    public class DragPositionData
-    {
-        private object zoomFactor;
-        private object baseParent;
-
-        public object ZoomFactor
+        #region Offset properties
+        public static double GetOffsetX(DependencyObject obj)
         {
-            get => zoomFactor;
-            set
-            {
-                if ((value ?? 0.0) is double ||
-                    value is BindingBase ||
-                    (double.TryParse(value.ToString(), out double val) && (value = val) != null))
-                    zoomFactor = value;
-                else
-                    throw new ArgumentException(nameof(value));
-            }
+            return (double)obj.GetValue(OffsetXProperty);
         }
-        public object BaseParent
+
+        public static void SetOffsetX(DependencyObject obj, double value)
         {
-            get => baseParent;
-            set
-            {
-                if (value is UIElement || value is BindingBase)
-                    baseParent = value;
-                else
-                    throw new ArgumentException(nameof(value));
-            }
+            obj.SetValue(OffsetXProperty, value);
         }
+
+        // Using a DependencyProperty as the backing store for OffsetX.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty OffsetXProperty =
+            DependencyProperty.RegisterAttached("OffsetX", typeof(double), typeof(DragPositionBehavior), new PropertyMetadata(0.0));
+
+
+
+        public static double GetOffsetY(DependencyObject obj)
+        {
+            return (double)obj.GetValue(OffsetYProperty);
+        }
+
+        public static void SetOffsetY(DependencyObject obj, double value)
+        {
+            obj.SetValue(OffsetYProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for OffsetY.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty OffsetYProperty =
+            DependencyProperty.RegisterAttached("OffsetY", typeof(double), typeof(DragPositionData), new PropertyMetadata(0.0));
+
+        #endregion 
     }
 }

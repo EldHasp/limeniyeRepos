@@ -121,6 +121,7 @@
     </Compile>
     <Compile Include="DragPositionBehavior.AProperties.cs" />
     <Compile Include="DragPositionBehavior.cs" />
+    <Compile Include="DragPositionData.cs" />
     <Compile Include="ICloneable.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
