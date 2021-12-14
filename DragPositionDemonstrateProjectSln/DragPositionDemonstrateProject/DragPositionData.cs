@@ -8,13 +8,12 @@ namespace DragPositionDemonstrateProject
     /// <summary>Основные данные для создания привязок в DragPositionBehavior.</summary>
     public class DragPositionData
     {
-        private object _zoomFactor;
         private object _baseParent;
         private object _offsetX;
         private object _offsetY;
 
         private static readonly DoubleConverter doubleConverter = new DoubleConverter();
-        public static bool doubleTryParse(object value, out object result)
+        public static bool DoubleTryParse(object value, out object result)
         {
             if (value is double dble)
             {
@@ -49,7 +48,7 @@ namespace DragPositionDemonstrateProject
             set
             {
                 if (value is BindingBase ||
-                    doubleTryParse(value, out value))
+                    DoubleTryParse(value, out value))
                     _offsetX = value;
                 else
                     throw new ArgumentException(nameof(value));
@@ -61,7 +60,7 @@ namespace DragPositionDemonstrateProject
             set
             {
                 if (value is BindingBase ||
-                    doubleTryParse(value, out value))
+                    DoubleTryParse(value, out value))
                     _offsetY = value;
                 else
                     throw new ArgumentException(nameof(value));

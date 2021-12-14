@@ -1,49 +1,9 @@
-﻿using Microsoft.Xaml.Interactivity;
-using System;
-using System.Diagnostics;
-using Windows.Foundation;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
+﻿using Windows.UI.Xaml;
 
 namespace DragPositionDemonstrateProject
 {
-    public partial class DragPositionBehavior : DependencyObject, IBehavior
+    public partial class DragPosition 
     {
-
-        public DependencyObject AssociatedObject { get; set; }
-        public UIElement AssociatedUIElement { get; private set; }
-
-        private Point prevPoint;
-        private int pointerId = -1;
-
-        #region Life circle
-        public void Attach(DependencyObject associatedObject)
-        {
-            //if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
-            //{
-            //    return;
-            //}
-
-            //if (!(associatedObject is UIElement associatedUIElement))
-            //{
-            //    throw new ArgumentException("Только для UIElement", nameof(associatedObject));
-            //}
-
-            //HandlersData handlersData = new HandlersData(associatedUIElement, GetBaseParent(associatedUIElement));
-
-
-        }
-        public void Detach()
-        {
-            ////BaseParent = null;
-            //AssociatedUIElement.PointerPressed -= OnElementPointerPressed;
-            //AssociatedObject = null;
-            //AssociatedUIElement = null;
-        }
-        #endregion
-
-
 
         /// <summary>Возвращает значение присоединённого свойства HandlersData для <paramref name="element"/>.</summary>
         /// <param name="element"><see cref="UIElement"/> значение свойства которого будет возвращено.</param>
@@ -63,7 +23,7 @@ namespace DragPositionDemonstrateProject
 
         /// <summary><see cref="DependencyProperty"/> для методов <see cref="GetHandlersData(UIElement)"/> и <see cref="SetHandlersData(UIElement, HandlersData)"/>.</summary>
         private static readonly DependencyProperty HandlersDataProperty =
-            DependencyProperty.RegisterAttached(nameof(GetHandlersData).Substring(3), typeof(HandlersData), typeof(DragPositionBehavior),
+            DependencyProperty.RegisterAttached(nameof(GetHandlersData).Substring(3), typeof(HandlersData), typeof(DragPosition),
                 new PropertyMetadata(null, HandlersDataChanged));
 
         private static void HandlersDataChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

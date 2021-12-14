@@ -6,53 +6,44 @@ using Windows.UI.Xaml.Data;
 namespace DragPositionDemonstrateProject
 {
     [Bindable]
-    public partial class DragPositionBehavior
+    public partial class DragPosition
     {
         #region DragPosition
-        public static DragPositionData GetDragPosition(DependencyObject obj)
+        public static DragPositionData GetDragPosition(UIElement element)
         {
-            return (DragPositionData)obj.GetValue(DragPositionProperty);
+            return (DragPositionData)element.GetValue(DragPositionProperty);
         }
 
-        public static void SetDragPosition(DependencyObject obj, DragPositionData value)
+        public static void SetDragPosition(UIElement element, DragPositionData value)
         {
-            obj.SetValue(DragPositionProperty, value);
+            element.SetValue(DragPositionProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for DragPosition.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty DragPositionProperty =
-            DependencyProperty.RegisterAttached("DragPosition", typeof(DragPositionData), typeof(DragPositionBehavior), new PropertyMetadata(null, DragPositionChanged));
+            DependencyProperty.RegisterAttached("DragPosition", typeof(DragPositionData), typeof(DragPosition), new PropertyMetadata(null, DragPositionChanged));
 
         private static void DragPositionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var behaviors = Interaction.GetBehaviors(d);
-
-            var dragPositionBehavior = behaviors.OfType<DragPositionBehavior>().FirstOrDefault();
-            if (dragPositionBehavior != null)
-                behaviors.Remove(dragPositionBehavior);
-
+            UIElement element = (UIElement)d;
             DragPositionData data = (DragPositionData)e.NewValue;
-            DragPositionBehavior behavior = new DragPositionBehavior();
             if (data.BaseParent is UIElement parent)
-                SetBaseParent((UIElement)d, parent);
+                SetBaseParent(element, parent);
             else
-                BindingOperations.SetBinding(d, BaseParentProperty, (BindingBase)data.BaseParent);
+                BindingOperations.SetBinding(element, BaseParentProperty, (BindingBase)data.BaseParent);
 
             if (data.OffsetX is double x)
-                SetOffsetX(d, x);
+                SetOffsetX(element, x);
             else
-                BindingOperations.SetBinding(d, OffsetXProperty, (BindingBase)data.OffsetX);
+                BindingOperations.SetBinding(element, OffsetXProperty, (BindingBase)data.OffsetX);
 
             if (data.OffsetY is double y)
-                SetOffsetY(d, y);
+                SetOffsetY(element, y);
             else
-                BindingOperations.SetBinding(d, OffsetYProperty, (BindingBase)data.OffsetY);
+                BindingOperations.SetBinding(element, OffsetYProperty, (BindingBase)data.OffsetY);
 
-            behaviors.Add(behavior);
+            data.BindingAction?.Invoke(element);
 
-            data.BindingAction?.Invoke(d);
-
-            UIElement element = (UIElement)d;
             HandlersData handlersData = new HandlersData(element, GetBaseParent(element));
             SetHandlersData(element, handlersData);
         }
@@ -62,30 +53,30 @@ namespace DragPositionDemonstrateProject
 
 
         #region Offset properties
-        public static double GetOffsetX(DependencyObject obj)
+        public static double GetOffsetX(UIElement element)
         {
-            return (double)obj.GetValue(OffsetXProperty);
+            return (double)element.GetValue(OffsetXProperty);
         }
 
-        public static void SetOffsetX(DependencyObject obj, double value)
+        public static void SetOffsetX(UIElement element, double value)
         {
-            obj.SetValue(OffsetXProperty, value);
+            element.SetValue(OffsetXProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for OffsetX.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty OffsetXProperty =
-            DependencyProperty.RegisterAttached("OffsetX", typeof(double), typeof(DragPositionBehavior), new PropertyMetadata(0.0));
+            DependencyProperty.RegisterAttached("OffsetX", typeof(double), typeof(DragPosition), new PropertyMetadata(0.0));
 
 
 
-        public static double GetOffsetY(DependencyObject obj)
+        public static double GetOffsetY(UIElement element)
         {
-            return (double)obj.GetValue(OffsetYProperty);
+            return (double)element.GetValue(OffsetYProperty);
         }
 
-        public static void SetOffsetY(DependencyObject obj, double value)
+        public static void SetOffsetY(UIElement element, double value)
         {
-            obj.SetValue(OffsetYProperty, value);
+            element.SetValue(OffsetYProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for OffsetY.  This enables animation, styling, binding, etc...
@@ -115,7 +106,7 @@ namespace DragPositionDemonstrateProject
 
         /// <summary><see cref="DependencyProperty"/> для методов <see cref="GetBaseParent(UIElement)"/> и <see cref="SetBaseParent(UIElement, UIElement)"/>.</summary>
         public static readonly DependencyProperty BaseParentProperty =
-            DependencyProperty.RegisterAttached(nameof(GetBaseParent).Substring(3), typeof(UIElement), typeof(DragPositionBehavior), new PropertyMetadata(null));
+            DependencyProperty.RegisterAttached(nameof(GetBaseParent).Substring(3), typeof(UIElement), typeof(DragPosition), new PropertyMetadata(null));
 
 
         #endregion

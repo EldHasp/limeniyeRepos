@@ -10,13 +10,13 @@ namespace DragPositionDemonstrateProject
     {
         public DragPositionDataBindingCanvas()
         {
-            BindingAction = bindingAction;
+            BindingAction = PrivateBindingAction;
         }
 
         public Binding LeftBinding { get; set; }
         public Binding TopBinding { get; set; }
 
-        private void bindingAction(DependencyObject d)
+        private void PrivateBindingAction(DependencyObject d)
         {
             BindingOperations.SetBinding(d, Canvas.LeftProperty, LeftBinding);
             BindingOperations.SetBinding(d, Canvas.TopProperty, TopBinding);

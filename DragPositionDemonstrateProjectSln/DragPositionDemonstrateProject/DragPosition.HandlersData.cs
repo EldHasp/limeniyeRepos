@@ -6,7 +6,7 @@ using Windows.UI.Xaml.Input;
 
 namespace DragPositionDemonstrateProject
 {
-    public partial class DragPositionBehavior
+    public partial class DragPosition
     {
 
         private class HandlersData : IDisposable
