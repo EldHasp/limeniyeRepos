@@ -8,8 +8,19 @@ namespace DragPositionDemonstrateProject
 {
     public partial class DragPositionBehavior
     {
-        private class HandlersData
+
+        private class HandlersData : IDisposable
         {
+            public void Dispose()
+            {
+                IsDispose = true;
+                element.RemoveHandler(UIElement.PointerPressedEvent, (PointerEventHandler)OnElementPointerPressed);
+                parent.RemoveHandler(UIElement.PointerReleasedEvent, (PointerEventHandler)OnElementPointerReleased);
+                parent.PointerMoved -= OnMove;
+            }
+
+            public bool IsDispose { get; private set; }
+
             private Point prevPoint;
             private int pointerId = -1;
             int countMove;

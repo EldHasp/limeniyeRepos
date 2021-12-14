@@ -10,9 +10,6 @@ namespace DragPositionDemonstrateProject
 {
     public partial class DragPositionBehavior : DependencyObject, IBehavior
     {
-        private static int count;
-        /// <summary>Для отладки.</summary>
-        public int Number { get; } = count++;
 
         public DependencyObject AssociatedObject { get; set; }
         public UIElement AssociatedUIElement { get; private set; }
@@ -23,98 +20,59 @@ namespace DragPositionDemonstrateProject
         #region Life circle
         public void Attach(DependencyObject associatedObject)
         {
-            if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
-            {
-                return;
-            }
-
-            if (!(associatedObject is UIElement associatedUIElement))
-            {
-                throw new ArgumentException("Только для UIElement", nameof(associatedObject));
-            }
-
-            HandlersData handlersData = new HandlersData(associatedUIElement, GetBaseParent(associatedUIElement));
-
-            //if (associatedObject != AssociatedObject)
+            //if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
             //{
-            //    AssociatedObject = associatedObject;
-            //    AssociatedUIElement = associatedUIElement;
-
-            //    //associatedUIElement.PointerPressed += OnElementPointerPressed;
-            //    associatedUIElement.AddHandler(UIElement.PointerPressedEvent, (PointerEventHandler)OnElementPointerPressed, true);
+            //    return;
             //}
+
+            //if (!(associatedObject is UIElement associatedUIElement))
+            //{
+            //    throw new ArgumentException("Только для UIElement", nameof(associatedObject));
+            //}
+
+            //HandlersData handlersData = new HandlersData(associatedUIElement, GetBaseParent(associatedUIElement));
 
 
         }
         public void Detach()
         {
-            //BaseParent = null;
-            AssociatedUIElement.PointerPressed -= OnElementPointerPressed;
-            AssociatedObject = null;
-            AssociatedUIElement = null;
+            ////BaseParent = null;
+            //AssociatedUIElement.PointerPressed -= OnElementPointerPressed;
+            //AssociatedObject = null;
+            //AssociatedUIElement = null;
         }
         #endregion
 
-        #region Handle pointer input
-        private void OnElementPointerPressed(object sender, PointerRoutedEventArgs e)
+
+
+        /// <summary>Возвращает значение присоединённого свойства HandlersData для <paramref name="element"/>.</summary>
+        /// <param name="element"><see cref="UIElement"/> значение свойства которого будет возвращено.</param>
+        /// <returns><see cref="HandlersData"/> значение свойства.</returns>
+        private static HandlersData GetHandlersData(UIElement element)
         {
-            UIElement element = (UIElement)sender;
-            UIElement BaseParent = GetBaseParent(element);
-            if (BaseParent == null)
-                return;
-
-            //BaseParent.PointerReleased += OnElementPointerReleased;
-            BaseParent.AddHandler(UIElement.PointerReleasedEvent, (PointerEventHandler)OnElementPointerReleased, true);
-
-            // Возможно здесь ещё нужно прописать событие выхода за пределы панели
-
-            //var element = AssociatedObject as FrameworkElement;
-
-            if (AssociatedUIElement == null)
-                return;
-
-            countMove = 0;
-            BaseParent.PointerMoved += OnMove;
-
-            prevPoint = e.GetCurrentPoint(BaseParent).Position;
-            pointerId = (int)e.Pointer.PointerId;
+            return (HandlersData)element.GetValue(HandlersDataProperty);
         }
 
-        private void OnElementPointerReleased(object sender, PointerRoutedEventArgs e)
+        /// <summary>Задаёт значение присоединённого свойства HandlersData для <paramref name="element"/>.</summary>
+        /// <param name="element"><see cref="UIElement"/> значение свойства которого будет возвращено.</param>
+        /// <param name="value"><see cref="HandlersData"/> значение для свойства.</param>
+        private static void SetHandlersData(UIElement element, HandlersData value)
         {
-            var basePanel = (UIElement)sender;
-            //basePanel.PointerReleased -= OnElementPointerReleased;
-            basePanel.RemoveHandler(UIElement.PointerReleasedEvent, (PointerEventHandler)OnElementPointerReleased);
-
-            basePanel.PointerMoved -= OnMove;
-
-            if (e.Pointer.PointerId != pointerId)
-                return;
-
-            // var element = AssociatedObject as FrameworkElement;
-            if (AssociatedUIElement == null)
-                return;
-
-            pointerId = -1;
+            element.SetValue(HandlersDataProperty, value);
         }
 
-        int countMove;
-        private void OnMove(object sender, PointerRoutedEventArgs e)
+        /// <summary><see cref="DependencyProperty"/> для методов <see cref="GetHandlersData(UIElement)"/> и <see cref="SetHandlersData(UIElement, HandlersData)"/>.</summary>
+        private static readonly DependencyProperty HandlersDataProperty =
+            DependencyProperty.RegisterAttached(nameof(GetHandlersData).Substring(3), typeof(HandlersData), typeof(DragPositionBehavior),
+                new PropertyMetadata(null, HandlersDataChanged));
+
+        private static void HandlersDataChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Debug.WriteLine($"{countMove++}: {sender}");
-            double zommFactor = 1;
-
-            if (/*e.Pointer.PointerId != pointerId ||*/ AssociatedUIElement is null)
-                return;
-
-            var pos = e.GetCurrentPoint(null).Position;
-
-            SetOffsetX(AssociatedUIElement, GetOffsetX(AssociatedUIElement) + (pos.X - prevPoint.X) / zommFactor);
-            SetOffsetY(AssociatedUIElement, GetOffsetY(AssociatedUIElement) + (pos.Y - prevPoint.Y) / zommFactor);
-
-            prevPoint = pos;
+            UIElement element = (UIElement)d;
+            if(e.OldValue is HandlersData handlersData)
+            {
+                handlersData.Dispose();
+            }
         }
-
-#endregion
     }
 }

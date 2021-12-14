@@ -51,6 +51,10 @@ namespace DragPositionDemonstrateProject
             behaviors.Add(behavior);
 
             data.BindingAction?.Invoke(d);
+
+            UIElement element = (UIElement)d;
+            HandlersData handlersData = new HandlersData(element, GetBaseParent(element));
+            SetHandlersData(element, handlersData);
         }
 
 
