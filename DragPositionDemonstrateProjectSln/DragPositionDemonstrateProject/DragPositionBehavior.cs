@@ -33,14 +33,16 @@ namespace DragPositionDemonstrateProject
                 throw new ArgumentException("Только для UIElement", nameof(associatedObject));
             }
 
-            if (associatedObject != AssociatedObject)
-            {
-                AssociatedObject = associatedObject;
-                AssociatedUIElement = associatedUIElement;
+            HandlersData handlersData = new HandlersData(associatedUIElement, GetBaseParent(associatedUIElement));
 
-                //associatedUIElement.PointerPressed += OnElementPointerPressed;
-                associatedUIElement.AddHandler(UIElement.PointerPressedEvent, (PointerEventHandler)OnElementPointerPressed, true);
-            }
+            //if (associatedObject != AssociatedObject)
+            //{
+            //    AssociatedObject = associatedObject;
+            //    AssociatedUIElement = associatedUIElement;
+
+            //    //associatedUIElement.PointerPressed += OnElementPointerPressed;
+            //    associatedUIElement.AddHandler(UIElement.PointerPressedEvent, (PointerEventHandler)OnElementPointerPressed, true);
+            //}
 
 
         }
@@ -99,7 +101,7 @@ namespace DragPositionDemonstrateProject
         int countMove;
         private void OnMove(object sender, PointerRoutedEventArgs e)
         {
-            Debug.WriteLine($"{countMove++}: {sender}" );
+            Debug.WriteLine($"{countMove++}: {sender}");
             double zommFactor = 1;
 
             if (/*e.Pointer.PointerId != pointerId ||*/ AssociatedUIElement is null)
@@ -112,6 +114,7 @@ namespace DragPositionDemonstrateProject
 
             prevPoint = pos;
         }
-        #endregion
+
+#endregion
     }
 }
