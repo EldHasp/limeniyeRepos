@@ -36,7 +36,6 @@
                     <Setter Property="local:DragPositionBehavior.DragPosition">
                         <Setter.Value>
                             <local:DragPositionDataBindingCanvas
-                                ZoomFactor="1"
                                 BaseParent="{Binding ElementName=baseListView}"
                                 OffsetX="{Binding PositionX, Mode=TwoWay}"
                                 OffsetY="{Binding PositionY, Mode=TwoWay}"

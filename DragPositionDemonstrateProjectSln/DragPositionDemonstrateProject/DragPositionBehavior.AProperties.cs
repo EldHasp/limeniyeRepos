@@ -33,14 +33,10 @@ namespace DragPositionDemonstrateProject
 
             DragPositionData data = (DragPositionData)e.NewValue;
             DragPositionBehavior behavior = new DragPositionBehavior();
-            if (data.ZoomFactor is double zoom)
-                behavior.ZoomFactor = zoom;
-            else
-                BindingOperations.SetBinding(behavior, ZoomFactorProperty, (BindingBase)data.ZoomFactor);
             if (data.BaseParent is UIElement parent)
-                behavior.BaseParent = parent;
+                SetBaseParent((UIElement)d, parent);
             else
-                BindingOperations.SetBinding(behavior, BaseParentProperty, (BindingBase)data.BaseParent);
+                BindingOperations.SetBinding(d, BaseParentProperty, (BindingBase)data.BaseParent);
 
             if (data.OffsetX is double x)
                 SetOffsetX(d, x);
@@ -91,6 +87,32 @@ namespace DragPositionDemonstrateProject
         // Using a DependencyProperty as the backing store for OffsetY.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty OffsetYProperty =
             DependencyProperty.RegisterAttached("OffsetY", typeof(double), typeof(DragPositionData), new PropertyMetadata(0.0));
+
+        #endregion
+
+        #region BaseParent
+
+
+        /// <summary>Возвращает значение присоединённого свойства BaseParent для <paramref name="element"/>.</summary>
+        /// <param name="element"><see cref="UIElement"/> значение свойства которого будет возвращено.</param>
+        /// <returns><see cref="UIElement"/> значение свойства.</returns>
+        public static UIElement GetBaseParent(UIElement element)
+        {
+            return (UIElement)element.GetValue(BaseParentProperty);
+        }
+
+        /// <summary>Задаёт значение присоединённого свойства BaseParent для <paramref name="element"/>.</summary>
+        /// <param name="element"><see cref="UIElement"/> значение свойства которого будет возвращено.</param>
+        /// <param name="value"><see cref="UIElement"/> значение для свойства.</param>
+        public static void SetBaseParent(UIElement element, UIElement value)
+        {
+            element.SetValue(BaseParentProperty, value);
+        }
+
+        /// <summary><see cref="DependencyProperty"/> для методов <see cref="GetBaseParent(UIElement)"/> и <see cref="SetBaseParent(UIElement, UIElement)"/>.</summary>
+        public static readonly DependencyProperty BaseParentProperty =
+            DependencyProperty.RegisterAttached(nameof(GetBaseParent).Substring(3), typeof(UIElement), typeof(DragPositionBehavior), new PropertyMetadata(null));
+
 
         #endregion
     }

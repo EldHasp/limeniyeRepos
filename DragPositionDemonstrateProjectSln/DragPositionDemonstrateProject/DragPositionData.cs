@@ -32,18 +32,6 @@ namespace DragPositionDemonstrateProject
             return true;
         }
 
-        public object ZoomFactor
-        {
-            get => _zoomFactor;
-            set
-            {
-                if (value is BindingBase ||
-                    doubleTryParse(value, out value))
-                    _zoomFactor = value;
-                else
-                    throw new ArgumentException(nameof(value));
-            }
-        }
         public object BaseParent
         {
             get => _baseParent;

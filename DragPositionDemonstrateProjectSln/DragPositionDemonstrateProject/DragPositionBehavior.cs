@@ -10,10 +10,6 @@ namespace DragPositionDemonstrateProject
 {
     public partial class DragPositionBehavior : DependencyObject, IBehavior
     {
-
-    }
-    public partial class DragPositionBehavior : DependencyObject, IBehavior
-    {
         private static int count;
         /// <summary>Для отладки.</summary>
         public int Number { get; } = count++;
@@ -23,14 +19,6 @@ namespace DragPositionDemonstrateProject
 
         private Point prevPoint;
         private int pointerId = -1;
-
-        public static readonly DependencyProperty ZoomFactorProperty = DependencyProperty.Register(nameof(ZoomFactor), typeof(double), typeof(DragPositionBehavior), new PropertyMetadata(0));
-        public double ZoomFactor { get => (double)GetValue(ZoomFactorProperty); set => SetValue(ZoomFactorProperty, value); }
-
-
-        public static readonly DependencyProperty BaseParentProperty = DependencyProperty.Register(nameof(BaseParent), typeof(UIElement), typeof(DragPositionBehavior), new PropertyMetadata(null));
-        public UIElement BaseParent { get => (UIElement)GetValue(BaseParentProperty); set => SetValue(BaseParentProperty, value); }
-
 
         #region Life circle
         public void Attach(DependencyObject associatedObject)
@@ -68,6 +56,8 @@ namespace DragPositionDemonstrateProject
         #region Handle pointer input
         private void OnElementPointerPressed(object sender, PointerRoutedEventArgs e)
         {
+            UIElement element = (UIElement)sender;
+            UIElement BaseParent = GetBaseParent(element);
             if (BaseParent == null)
                 return;
 
@@ -110,12 +100,12 @@ namespace DragPositionDemonstrateProject
         private void OnMove(object sender, PointerRoutedEventArgs e)
         {
             Debug.WriteLine($"{countMove++}: {sender}" );
-            double zommFactor = ZoomFactor;
+            double zommFactor = 1;
 
             if (/*e.Pointer.PointerId != pointerId ||*/ AssociatedUIElement is null)
                 return;
 
-            var pos = e.GetCurrentPoint(BaseParent).Position;
+            var pos = e.GetCurrentPoint(null).Position;
 
             SetOffsetX(AssociatedUIElement, GetOffsetX(AssociatedUIElement) + (pos.X - prevPoint.X) / zommFactor);
             SetOffsetY(AssociatedUIElement, GetOffsetY(AssociatedUIElement) + (pos.Y - prevPoint.Y) / zommFactor);
