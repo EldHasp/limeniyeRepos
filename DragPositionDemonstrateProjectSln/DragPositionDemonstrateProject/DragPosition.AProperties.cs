@@ -9,58 +9,60 @@ namespace DragPositionDemonstrateProject
     public partial class DragPosition
     {
         #region DragPosition
-        public static DragPositionData GetDragPosition(UIElement element)
+        public static DragPositionData GetData(DependencyObject obj)
         {
-            return (DragPositionData)element.GetValue(DragPositionProperty);
+            return (DragPositionData)obj.GetValue(DataProperty);
         }
 
-        public static void SetDragPosition(UIElement element, DragPositionData value)
+        public static void SetData(DependencyObject obj, DragPositionData value)
         {
-            element.SetValue(DragPositionProperty, value);
+            obj.SetValue(DataProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for DragPosition.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty DragPositionProperty =
-            DependencyProperty.RegisterAttached("DragPosition", typeof(DragPositionData), typeof(DragPosition), new PropertyMetadata(null, DragPositionChanged));
+        public static readonly DependencyProperty DataProperty =
+            DependencyProperty.RegisterAttached("Data", typeof(DragPositionData), typeof(DragPosition), new PropertyMetadata(null, OnDataChanged));
 
-        private static void DragPositionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnDataChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            UIElement element = (UIElement)d;
             DragPositionData data = (DragPositionData)e.NewValue;
-            if (data.BaseParent is UIElement parent)
-                SetBaseParent(element, parent);
+
+            DragPosition local = new DragPosition();
+
+            if (data.ZoomFactor is double zoom)
+                SetZoomFactor(d, zoom);
             else
-                BindingOperations.SetBinding(element, BaseParentProperty, (BindingBase)data.BaseParent);
+                BindingOperations.SetBinding(local, ZoomFactorProperty, (BindingBase)data.ZoomFactor);
+            if (data.BaseParent is UIElement parent)
+                SetBaseParent(d, parent);
+            else
+                BindingOperations.SetBinding(local, BaseParentProperty, (BindingBase)data.BaseParent);
 
             if (data.OffsetX is double x)
-                SetOffsetX(element, x);
+                SetOffsetX(d, x);
             else
-                BindingOperations.SetBinding(element, OffsetXProperty, (BindingBase)data.OffsetX);
+                BindingOperations.SetBinding(d, OffsetXProperty, (BindingBase)data.OffsetX);
 
             if (data.OffsetY is double y)
-                SetOffsetY(element, y);
+                SetOffsetY(d, y);
             else
-                BindingOperations.SetBinding(element, OffsetYProperty, (BindingBase)data.OffsetY);
+                BindingOperations.SetBinding(d, OffsetYProperty, (BindingBase)data.OffsetY);
 
-            data.BindingAction?.Invoke(element);
+            data.BindingAction?.Invoke(d);
 
-            HandlersData handlersData = new HandlersData(element, GetBaseParent(element));
-            SetHandlersData(element, handlersData);
+            Initizlize(d);
         }
-
-
         #endregion
 
-
         #region Offset properties
-        public static double GetOffsetX(UIElement element)
+        public static double GetOffsetX(DependencyObject obj)
         {
-            return (double)element.GetValue(OffsetXProperty);
+            return (double)obj.GetValue(OffsetXProperty);
         }
 
-        public static void SetOffsetX(UIElement element, double value)
+        public static void SetOffsetX(DependencyObject obj, double value)
         {
-            element.SetValue(OffsetXProperty, value);
+            obj.SetValue(OffsetXProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for OffsetX.  This enables animation, styling, binding, etc...
@@ -69,14 +71,14 @@ namespace DragPositionDemonstrateProject
 
 
 
-        public static double GetOffsetY(UIElement element)
+        public static double GetOffsetY(DependencyObject obj)
         {
-            return (double)element.GetValue(OffsetYProperty);
+            return (double)obj.GetValue(OffsetYProperty);
         }
 
-        public static void SetOffsetY(UIElement element, double value)
+        public static void SetOffsetY(DependencyObject obj, double value)
         {
-            element.SetValue(OffsetYProperty, value);
+            obj.SetValue(OffsetYProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for OffsetY.  This enables animation, styling, binding, etc...
@@ -85,30 +87,36 @@ namespace DragPositionDemonstrateProject
 
         #endregion
 
-        #region BaseParent
-
-
-        /// <summary>Возвращает значение присоединённого свойства BaseParent для <paramref name="element"/>.</summary>
-        /// <param name="element"><see cref="UIElement"/> значение свойства которого будет возвращено.</param>
-        /// <returns><see cref="UIElement"/> значение свойства.</returns>
-        public static UIElement GetBaseParent(UIElement element)
+        #region Parent
+        public static UIElement GetBaseParent(DependencyObject obj)
         {
-            return (UIElement)element.GetValue(BaseParentProperty);
+            return (UIElement)obj.GetValue(BaseParentProperty);
         }
 
-        /// <summary>Задаёт значение присоединённого свойства BaseParent для <paramref name="element"/>.</summary>
-        /// <param name="element"><see cref="UIElement"/> значение свойства которого будет возвращено.</param>
-        /// <param name="value"><see cref="UIElement"/> значение для свойства.</param>
-        public static void SetBaseParent(UIElement element, UIElement value)
+        public static void SetBaseParent(DependencyObject obj, UIElement value)
         {
-            element.SetValue(BaseParentProperty, value);
+            obj.SetValue(BaseParentProperty, value);
         }
 
-        /// <summary><see cref="DependencyProperty"/> для методов <see cref="GetBaseParent(UIElement)"/> и <see cref="SetBaseParent(UIElement, UIElement)"/>.</summary>
+        // Using a DependencyProperty as the backing store for DragPosition.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty BaseParentProperty =
-            DependencyProperty.RegisterAttached(nameof(GetBaseParent).Substring(3), typeof(UIElement), typeof(DragPosition), new PropertyMetadata(null));
+            DependencyProperty.RegisterAttached("BaseParent", typeof(UIElement), typeof(DragPosition), new PropertyMetadata(null));
+        #endregion
 
+        #region ZoomFactor
+        public static double GetZoomFactor(DependencyObject obj)
+        {
+            return (double)obj.GetValue(ZoomFactorProperty);
+        }
 
+        public static void SetZoomFactor(DependencyObject obj, double value)
+        {
+            obj.SetValue(ZoomFactorProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for DragPosition.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ZoomFactorProperty =
+            DependencyProperty.RegisterAttached("ZoomFactor", typeof(double), typeof(DragPosition), new PropertyMetadata(null));
         #endregion
     }
 }

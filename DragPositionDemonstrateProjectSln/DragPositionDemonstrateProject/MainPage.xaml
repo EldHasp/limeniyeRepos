@@ -33,9 +33,12 @@
             </ItemsControl.ItemTemplate>
             <ItemsControl.ItemContainerStyle>
                 <Style TargetType="ContentPresenter">
-                    <Setter Property="local:DragPosition.DragPosition">
+                    <Setter Property="local:DragPosition.BaseParent" Value="{Binding ElementName=baseListView}"/>
+                    <Setter Property="local:DragPosition.ZoomFactor" Value="1"/>
+                    <Setter Property="local:DragPosition.Data">
                         <Setter.Value>
                             <local:DragPositionDataBindingCanvas
+                                ZoomFactor="1"
                                 BaseParent="{Binding ElementName=baseListView}"
                                 OffsetX="{Binding PositionX, Mode=TwoWay}"
                                 OffsetY="{Binding PositionY, Mode=TwoWay}"

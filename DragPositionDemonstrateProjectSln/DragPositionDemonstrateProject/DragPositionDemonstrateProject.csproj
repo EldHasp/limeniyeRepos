@@ -123,7 +123,6 @@
     <Compile Include="DragPosition.cs" />
     <Compile Include="DragPositionData.cs" />
     <Compile Include="DragPositionDataBindingCanvas.cs" />
-    <Compile Include="DragPosition.HandlersData.cs" />
     <Compile Include="ICloneable.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
