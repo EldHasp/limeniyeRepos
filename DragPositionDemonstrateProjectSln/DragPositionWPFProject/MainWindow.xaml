@@ -7,6 +7,9 @@
         xmlns:dragPosition="clr-namespace:DragPositionWPFSolution.DragPosition"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <local:SomeViewModel/>
+    </Window.DataContext>
     <Grid>
         <ItemsControl Name="baseListView" ItemsSource="{Binding Types}">
 
@@ -29,7 +32,12 @@
 
             <ItemsControl.ItemContainerStyle>
                 <Style TargetType="ContentPresenter">
-                    <Setter Property="dragPosition:DragPosition.DragPosition">
+                    <Setter Property="dragPosition:DragPosition.BaseParent" Value="{Binding ElementName=baseListView}"/>
+                    <Setter Property="dragPosition:DragPosition.OffsetX" Value="{Binding PositionX, Mode=TwoWay}"/>
+                    <Setter Property="dragPosition:DragPosition.OffsetY" Value="{Binding PositionY, Mode=TwoWay}"/>
+                    <Setter Property="Canvas.Left" Value="{Binding PositionX, Mode=TwoWay}"/>
+                    <Setter Property="Canvas.Top" Value="{Binding PositionY, Mode=TwoWay}"/>
+                    <!--<Setter Property="dragPosition:DragPosition.DragPosition">
                         <Setter.Value>
                             <dragPosition:DragPositionDataBindingCanvas
                                 BaseParent="{Binding ElementName=baseListView}"
@@ -38,7 +46,7 @@
                                 LeftBinding="{Binding PositionX, Mode=OneWay}"
                                 TopBinding="{Binding PositionY, Mode=OneWay}"/>
                         </Setter.Value>
-                    </Setter>
+                    </Setter>-->
                 </Style>
             </ItemsControl.ItemContainerStyle>
 

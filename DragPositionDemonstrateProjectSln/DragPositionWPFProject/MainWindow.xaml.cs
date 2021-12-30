@@ -25,7 +25,7 @@ namespace DragPositionWPFSolution
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new SomeViewModel();
+            //DataContext = new SomeViewModel();
         }
     }
 }
