@@ -5,18 +5,25 @@ VisualStudioVersion = 17.1.31911.260
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DragPositionDemonstrateProject", "DragPositionDemonstrateProject\DragPositionDemonstrateProject.csproj", "{7B956EEB-F9D8-48DF-AF3A-4B850EE0433A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DragPositionWPFProject", "DragPositionWPFProject\DragPositionWPFProject.csproj", "{47BC57D6-CC57-4324-8F21-A3C07928C9E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
 		Debug|ARM = Debug|ARM
 		Debug|ARM64 = Debug|ARM64
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
 		Release|ARM = Release|ARM
 		Release|ARM64 = Release|ARM64
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7B956EEB-F9D8-48DF-AF3A-4B850EE0433A}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{7B956EEB-F9D8-48DF-AF3A-4B850EE0433A}.Debug|Any CPU.Build.0 = Debug|x64
+		{7B956EEB-F9D8-48DF-AF3A-4B850EE0433A}.Debug|Any CPU.Deploy.0 = Debug|x64
 		{7B956EEB-F9D8-48DF-AF3A-4B850EE0433A}.Debug|ARM.ActiveCfg = Debug|ARM
 		{7B956EEB-F9D8-48DF-AF3A-4B850EE0433A}.Debug|ARM.Build.0 = Debug|ARM
 		{7B956EEB-F9D8-48DF-AF3A-4B850EE0433A}.Debug|ARM.Deploy.0 = Debug|ARM
@@ -29,6 +36,9 @@ Global
 		{7B956EEB-F9D8-48DF-AF3A-4B850EE0433A}.Debug|x86.ActiveCfg = Debug|x86
 		{7B956EEB-F9D8-48DF-AF3A-4B850EE0433A}.Debug|x86.Build.0 = Debug|x86
 		{7B956EEB-F9D8-48DF-AF3A-4B850EE0433A}.Debug|x86.Deploy.0 = Debug|x86
+		{7B956EEB-F9D8-48DF-AF3A-4B850EE0433A}.Release|Any CPU.ActiveCfg = Release|x64
+		{7B956EEB-F9D8-48DF-AF3A-4B850EE0433A}.Release|Any CPU.Build.0 = Release|x64
+		{7B956EEB-F9D8-48DF-AF3A-4B850EE0433A}.Release|Any CPU.Deploy.0 = Release|x64
 		{7B956EEB-F9D8-48DF-AF3A-4B850EE0433A}.Release|ARM.ActiveCfg = Release|ARM
 		{7B956EEB-F9D8-48DF-AF3A-4B850EE0433A}.Release|ARM.Build.0 = Release|ARM
 		{7B956EEB-F9D8-48DF-AF3A-4B850EE0433A}.Release|ARM.Deploy.0 = Release|ARM
@@ -41,6 +51,26 @@ Global
 		{7B956EEB-F9D8-48DF-AF3A-4B850EE0433A}.Release|x86.ActiveCfg = Release|x86
 		{7B956EEB-F9D8-48DF-AF3A-4B850EE0433A}.Release|x86.Build.0 = Release|x86
 		{7B956EEB-F9D8-48DF-AF3A-4B850EE0433A}.Release|x86.Deploy.0 = Release|x86
+		{47BC57D6-CC57-4324-8F21-A3C07928C9E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47BC57D6-CC57-4324-8F21-A3C07928C9E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47BC57D6-CC57-4324-8F21-A3C07928C9E1}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{47BC57D6-CC57-4324-8F21-A3C07928C9E1}.Debug|ARM.Build.0 = Debug|Any CPU
+		{47BC57D6-CC57-4324-8F21-A3C07928C9E1}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{47BC57D6-CC57-4324-8F21-A3C07928C9E1}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{47BC57D6-CC57-4324-8F21-A3C07928C9E1}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{47BC57D6-CC57-4324-8F21-A3C07928C9E1}.Debug|x64.Build.0 = Debug|Any CPU
+		{47BC57D6-CC57-4324-8F21-A3C07928C9E1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{47BC57D6-CC57-4324-8F21-A3C07928C9E1}.Debug|x86.Build.0 = Debug|Any CPU
+		{47BC57D6-CC57-4324-8F21-A3C07928C9E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47BC57D6-CC57-4324-8F21-A3C07928C9E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47BC57D6-CC57-4324-8F21-A3C07928C9E1}.Release|ARM.ActiveCfg = Release|Any CPU
+		{47BC57D6-CC57-4324-8F21-A3C07928C9E1}.Release|ARM.Build.0 = Release|Any CPU
+		{47BC57D6-CC57-4324-8F21-A3C07928C9E1}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{47BC57D6-CC57-4324-8F21-A3C07928C9E1}.Release|ARM64.Build.0 = Release|Any CPU
+		{47BC57D6-CC57-4324-8F21-A3C07928C9E1}.Release|x64.ActiveCfg = Release|Any CPU
+		{47BC57D6-CC57-4324-8F21-A3C07928C9E1}.Release|x64.Build.0 = Release|Any CPU
+		{47BC57D6-CC57-4324-8F21-A3C07928C9E1}.Release|x86.ActiveCfg = Release|Any CPU
+		{47BC57D6-CC57-4324-8F21-A3C07928C9E1}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
