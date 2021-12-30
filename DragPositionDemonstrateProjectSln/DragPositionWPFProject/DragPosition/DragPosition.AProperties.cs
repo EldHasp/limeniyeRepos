@@ -82,7 +82,7 @@ namespace DragPositionWPFSolution.DragPosition
 
         // Using a DependencyProperty as the backing store for OffsetY.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty OffsetYProperty =
-            DependencyProperty.RegisterAttached("OffsetY", typeof(double), typeof(DragPositionData), new PropertyMetadata(0.0));
+            DependencyProperty.RegisterAttached("OffsetY", typeof(double), typeof(DragPosition), new PropertyMetadata(0.0));
 
         #endregion
 
