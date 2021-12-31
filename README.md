@@ -1,2 +1,2 @@
 # ForTestGeneratorShillingerRepos
-Совместные Решения: Почтальон, ЭлдХасп
+Совместные Решения: limeniye, EldHasp
