@@ -1,58 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.Windows;
-using System.Windows.Data;
+﻿using System.Windows;
 
 namespace DragPositionWPFSolution.DragPosition
 {
     //[Bindable]
     public partial class DragPosition
     {
-        #region DragPosition
-        public static DragPositionData GetDragPosition(UIElement element)
-        {
-            return (DragPositionData)element.GetValue(DragPositionProperty);
-        }
-
-        public static void SetDragPosition(UIElement element, DragPositionData value)
-        {
-            element.SetValue(DragPositionProperty, value);
-        }
-
-        // Using a DependencyProperty as the backing store for DragPosition.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty DragPositionProperty =
-            DependencyProperty.RegisterAttached("DragPosition", typeof(DragPositionData), typeof(DragPosition),
-                new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender, DragPositionChanged));
-
-        private static void DragPositionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            UIElement element = (UIElement)d;
-            DragPositionData data = (DragPositionData)e.NewValue;
-            if (data.BaseParent is UIElement parent)
-                SetBaseParent(element, parent);
-            else
-                BindingOperations.SetBinding(element, BaseParentProperty, (BindingBase)data.BaseParent);
-
-            if (data.OffsetX is double x)
-                SetOffsetX(element, x);
-            else
-                BindingOperations.SetBinding(element, OffsetXProperty, (BindingBase)data.OffsetX);
-
-            if (data.OffsetY is double y)
-                SetOffsetY(element, y);
-            else
-                BindingOperations.SetBinding(element, OffsetYProperty, (BindingBase)data.OffsetY);
-
-            data.BindingAction?.Invoke(element);
-
-            //HandlersData handlersData = new HandlersData(element, GetBaseParent(element));
-            //SetHandlersData(element, handlersData);
-        }
-
-
-#endregion
-
-
         #region Offset properties
         public static double GetOffsetX(UIElement element)
         {
