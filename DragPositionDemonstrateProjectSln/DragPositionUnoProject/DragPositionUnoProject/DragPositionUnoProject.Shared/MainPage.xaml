@@ -45,7 +45,7 @@
                     <not_win:Setter Property="dragAPs:DragPosition.OffsetX" Value="{Binding PositionX, Mode=TwoWay}"/>
                     <not_win:Setter Property="dragAPs:DragPosition.OffsetY" Value="{Binding PositionY, Mode=TwoWay}"/>>
                     <not_win:Setter Property="Canvas.Left" Value="{Binding PositionX, Mode=TwoWay}"/-->
-                    <not_win:Setter Property="Canvas.Top" Value="{Binding PositionY, Mode=TwoWay}"/>
+                    <!--not_win:Setter Property="Canvas.Top" Value="{Binding PositionY, Mode=TwoWay}"/-->
                 </Style>
             </ItemsControl.ItemContainerStyle>
             
