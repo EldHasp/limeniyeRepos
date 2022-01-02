@@ -5,7 +5,7 @@
 - [ ] NET_WINDOWS_6
 
 Предварительная установка:
-1. [Скачивать](https://visualstudio.microsoft.com/ru/vs/preview/) и установить Visual Studio 2022;
+1. [Скачать](https://visualstudio.microsoft.com/ru/vs/preview/) и установить Visual Studio 2022;
 2. Выбрать перечень платформ:
 ![Installer_UNO](https://user-images.githubusercontent.com/69314237/147860865-00fdb61b-6363-44a5-82c2-be2f3ab3a8ff.png)
 3. [Скачать](https://developer.microsoft.com/en-us/windows/downloads/sdk-archive/) и установить последний набор SDK от Microsoft;
