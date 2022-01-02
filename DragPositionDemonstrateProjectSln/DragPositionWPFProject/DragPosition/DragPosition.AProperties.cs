@@ -2,7 +2,6 @@
 
 namespace DragPositionWPFSolution.DragPosition
 {
-    //[Bindable]
     public partial class DragPosition
     {
         #region Offset properties
@@ -39,8 +38,6 @@ namespace DragPositionWPFSolution.DragPosition
         #endregion
 
         #region BaseParent
-
-
         /// <summary>Возвращает значение присоединённого свойства BaseParent для <paramref name="element"/>.</summary>
         /// <param name="element"><see cref="UIElement"/> значение свойства которого будет возвращено.</param>
         /// <returns><see cref="UIElement"/> значение свойства.</returns>
@@ -82,8 +79,6 @@ namespace DragPositionWPFSolution.DragPosition
                 element.ClearValue(BaseParentProperty);
             }
         }
-
-
         #endregion
     }
 }

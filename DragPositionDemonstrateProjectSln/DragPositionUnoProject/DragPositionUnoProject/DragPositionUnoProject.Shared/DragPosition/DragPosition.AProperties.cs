@@ -5,6 +5,7 @@ namespace DragPosition
 {
     public partial class DragPosition
     {
+#if WINDOWS_UWP
         #region DragPosition
         public static DragPositionData GetDragPosition(UIElement element)
         {
@@ -44,9 +45,8 @@ namespace DragPosition
             HandlersData handlersData = new HandlersData(element, GetBaseParent(element));
             SetHandlersData(element, handlersData);
         }
-
-
         #endregion
+#endif
 
         #region Offset properties
         public static double GetOffsetX(UIElement element)
@@ -61,7 +61,7 @@ namespace DragPosition
 
         // Using a DependencyProperty as the backing store for OffsetX.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty OffsetXProperty =
-            DependencyProperty.RegisterAttached("OffsetX", typeof(double), typeof(DragPosition), new PropertyMetadata(0.0));
+            DependencyProperty.RegisterAttached(nameof(GetOffsetX).Substring(3), typeof(double), typeof(DragPosition), new PropertyMetadata(0.0));
 
 
 
@@ -77,13 +77,11 @@ namespace DragPosition
 
         // Using a DependencyProperty as the backing store for OffsetY.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty OffsetYProperty =
-            DependencyProperty.RegisterAttached("OffsetY", typeof(double), typeof(DragPosition), new PropertyMetadata(0.0));
+            DependencyProperty.RegisterAttached(nameof(GetOffsetY).Substring(3), typeof(double), typeof(DragPosition), new PropertyMetadata(0.0));
 
-        #endregion
+#endregion
 
         #region BaseParent
-
-
         /// <summary>Возвращает значение присоединённого свойства BaseParent для <paramref name="element"/>.</summary>
         /// <param name="element"><see cref="UIElement"/> значение свойства которого будет возвращено.</param>
         /// <returns><see cref="UIElement"/> значение свойства.</returns>
@@ -101,9 +99,35 @@ namespace DragPosition
         }
 
         /// <summary><see cref="DependencyProperty"/> для методов <see cref="GetBaseParent(UIElement)"/> и <see cref="SetBaseParent(UIElement, UIElement)"/>.</summary>
+#if WINDOWS_UWP
         public static readonly DependencyProperty BaseParentProperty =
             DependencyProperty.RegisterAttached(nameof(GetBaseParent).Substring(3), typeof(UIElement), typeof(DragPosition), new PropertyMetadata(null));
+#else
+        public static readonly DependencyProperty BaseParentProperty =
+            DependencyProperty.RegisterAttached(nameof(GetBaseParent).Substring(3), typeof(UIElement), typeof(DragPosition),
+                new PropertyMetadata(null, BaseParentChanged));
 
+        private static void BaseParentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            UIElement element = (UIElement)d;
+
+            HandlersData oldData = GetHandlersData(element);
+            if (oldData != null)
+            {
+                oldData.Dispose();
+            }
+
+            if (e.NewValue is UIElement parent)
+            {
+                HandlersData newData = new HandlersData(element, parent);
+                SetHandlersData(element, newData);
+            }
+            else
+            {
+                element.ClearValue(BaseParentProperty);
+            }
+        }
+#endif
 
         #endregion
     }
