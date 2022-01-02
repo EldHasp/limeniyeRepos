@@ -107,7 +107,29 @@ namespace DragPositionWPFSolution.DragPosition
 
         /// <summary><see cref="DependencyProperty"/> для методов <see cref="GetBaseParent(UIElement)"/> и <see cref="SetBaseParent(UIElement, UIElement)"/>.</summary>
         public static readonly DependencyProperty BaseParentProperty =
-            DependencyProperty.RegisterAttached(nameof(GetBaseParent).Substring(3), typeof(UIElement), typeof(DragPosition), new PropertyMetadata(null));
+            DependencyProperty.RegisterAttached(nameof(GetBaseParent).Substring(3), typeof(UIElement), typeof(DragPosition),
+                new PropertyMetadata(null, BaseParentChanged));
+
+        private static void BaseParentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            UIElement element = (UIElement)d;
+
+            HandlersData oldData = GetHandlersData(element);
+            if (oldData != null)
+            {
+                oldData.Dispose();
+            }
+
+            if (e.NewValue is UIElement parent)
+            {
+                HandlersData newData = new HandlersData(element, parent);
+                SetHandlersData(element, newData);
+            }
+            else
+            {
+                element.ClearValue(BaseParentProperty);
+            }
+        }
 
 
         #endregion
