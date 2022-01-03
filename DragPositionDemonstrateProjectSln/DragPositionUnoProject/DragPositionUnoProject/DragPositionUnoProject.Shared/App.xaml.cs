@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -8,6 +9,11 @@ using Windows.UI.Xaml.Navigation;
 
 namespace DragPositionUnoProject
 {
+    public static class DependencyHandler
+    {
+        public static IServiceProvider ServiceProvider;
+    }
+
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
@@ -28,8 +34,6 @@ namespace DragPositionUnoProject
 #if HAS_UNO || NETFX_CORE
             this.Suspending += OnSuspending;
 #endif
-
-            
         }
 
         /// <summary>
@@ -87,6 +91,7 @@ namespace DragPositionUnoProject
                 // Ensure the current window is active
                 _window.Activate();
             }
+            var res = DependencyHandler.ServiceProvider.GetService<IDragRectanglesTypeWithUserControl>();
         }
 
         /// <summary>

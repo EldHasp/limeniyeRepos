@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using Windows.UI.Xaml.Controls;
 
-namespace CommonControls
+namespace DragPositionUnoProject
 {
     public interface IDragRectanglesTypeWithUserControl : INotifyPropertyChanged
     {

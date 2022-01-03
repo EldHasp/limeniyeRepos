@@ -15,7 +15,6 @@
     <Content Include="Assets\Fonts\uno-fluentui-assets.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\CommonControls.csproj" />
     <ProjectReference Include="..\DragPositionUnoProject.Skia.WPF\DragPositionUnoProject.Skia.WPF.csproj" />
   </ItemGroup>
 </Project>

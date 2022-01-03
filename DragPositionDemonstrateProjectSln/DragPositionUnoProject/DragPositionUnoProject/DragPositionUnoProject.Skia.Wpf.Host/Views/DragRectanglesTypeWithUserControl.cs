@@ -1,7 +1,4 @@
-﻿using CommonControls;
-using System;
-using System.ComponentModel;
-using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Xaml.Controls;
 
 namespace DragPositionUnoProject.Skia.Wpf.Host.Views
 {

@@ -19,8 +19,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DragPositionUnoProject.Skia
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DragPositionUnoProject.Skia.Gtk", "DragPositionUnoProject\DragPositionUnoProject.Skia.Gtk\DragPositionUnoProject.Skia.Gtk.csproj", "{B868D452-199F-4A96-8854-59FB39C8796E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonControls", "Common\CommonControls.csproj", "{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}"
-EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		DragPositionUnoProject\DragPositionUnoProject.Shared\DragPositionUnoProject.Shared.projitems*{10026946-4e98-4c8b-922d-21af71373489}*SharedItemsImports = 5
@@ -183,26 +181,6 @@ Global
 		{B868D452-199F-4A96-8854-59FB39C8796E}.Release|x64.Build.0 = Release|Any CPU
 		{B868D452-199F-4A96-8854-59FB39C8796E}.Release|x86.ActiveCfg = Release|Any CPU
 		{B868D452-199F-4A96-8854-59FB39C8796E}.Release|x86.Build.0 = Release|Any CPU
-		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Debug|ARM.Build.0 = Debug|Any CPU
-		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Debug|ARM64.ActiveCfg = Debug|Any CPU
-		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Debug|ARM64.Build.0 = Debug|Any CPU
-		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Debug|x64.Build.0 = Debug|Any CPU
-		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Debug|x86.Build.0 = Debug|Any CPU
-		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Release|ARM.ActiveCfg = Release|Any CPU
-		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Release|ARM.Build.0 = Release|Any CPU
-		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Release|ARM64.ActiveCfg = Release|Any CPU
-		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Release|ARM64.Build.0 = Release|Any CPU
-		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Release|x64.ActiveCfg = Release|Any CPU
-		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Release|x64.Build.0 = Release|Any CPU
-		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Release|x86.ActiveCfg = Release|Any CPU
-		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
