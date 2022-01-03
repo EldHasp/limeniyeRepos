@@ -54,7 +54,7 @@
 
         <win:Grid Background="Red"/>
 
-        <ContentPresenter Content="{Binding Test}"/>
+        <ContentControl Content="{Binding Test}"/>
     </Grid>
 
 </Page>
