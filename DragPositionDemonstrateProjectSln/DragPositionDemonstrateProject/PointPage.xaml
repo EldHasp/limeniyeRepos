@@ -36,7 +36,7 @@
                      Fill="LightPink" Stroke="Red" StrokeThickness="2"/>
         </Canvas>
 
-        <!--Так не работает, но для WPF так не нужно. -->
+        <!--Так работает, но для WPF так не нужно. -->
         <Canvas Grid.Column="1" Background="{x:Null}" Margin="5">
             <Ellipse Width="40" Height="40"
                      Fill="LightGreen" Stroke="Green" StrokeThickness="2"
