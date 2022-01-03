@@ -29,7 +29,7 @@
             <ItemsControl.ItemContainerStyle>
                 <Style TargetType="ContentPresenter">
                     <!-- Binding for UWP -->
-                    <!--<win:Setter Property="dragAPs:DragPosition.DragPosition">
+                    <Setter Property="dragAPs:DragPosition.DragPosition">
                         <Setter.Value>
                             <dragAPs:DragPositionDataBindingCanvas
                                     BaseParent="{Binding ElementName=baseListView}"
@@ -38,13 +38,13 @@
                                     LeftBinding="{Binding PositionX, Mode=OneWay}"
                                     TopBinding="{Binding PositionY, Mode=OneWay}"/>
                         </Setter.Value>
-                    </win:Setter>-->
+                    </Setter>
 
                     <!-- Binding for WPF -->
-                    <not_win:Setter Property="dragAPs:DragPosition.BaseParent" Value="{Binding ElementName=baseListView}"/>
-                    <not_win:Setter Property="dragAPs:DragPosition.OffsetX" Value="{Binding PositionX, Mode=TwoWay}"/>
+                    <!--<not_win:Setter Property="dragAPs:DragPosition.BaseParent" Value="{Binding ElementName=baseListView}"/>-->
+                    <!--<not_win:Setter Property="dragAPs:DragPosition.OffsetX" Value="{Binding PositionX, Mode=TwoWay}"/>
                     <not_win:Setter Property="dragAPs:DragPosition.OffsetY" Value="{Binding PositionY, Mode=TwoWay}"/>
-                    <not_win:Setter Property="Canvas.Left" Value="{Binding PositionX, Mode=TwoWay}"/>
+                    <not_win:Setter Property="Canvas.Left" Value="{Binding PositionX, Mode=TwoWay}"/>-->
                     <!--not_win:Setter Property="Canvas.Top" Value="{Binding PositionY, Mode=TwoWay}"/-->
                 </Style>
             </ItemsControl.ItemContainerStyle>
