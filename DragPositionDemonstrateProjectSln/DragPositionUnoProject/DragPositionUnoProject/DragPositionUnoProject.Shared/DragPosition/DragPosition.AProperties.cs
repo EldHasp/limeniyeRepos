@@ -1,4 +1,6 @@
-﻿using Windows.UI.Xaml;
+﻿using System;
+using System.Diagnostics;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
 namespace DragPosition
@@ -19,7 +21,7 @@ namespace DragPosition
 
         // Using a DependencyProperty as the backing store for DragPosition.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty DragPositionProperty =
-            DependencyProperty.RegisterAttached("DragPosition", typeof(DragPositionData), typeof(DragPosition), new PropertyMetadata(null, DragPositionChanged));
+            DependencyProperty.RegisterAttached(nameof(SetDragPosition).Substring(3), typeof(DragPositionData), typeof(DragPosition), new PropertyMetadata(null, DragPositionChanged));
 
         private static void DragPositionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -42,8 +44,8 @@ namespace DragPosition
 
             data.BindingAction?.Invoke(element);
 
-            HandlersData handlersData = new HandlersData(element, GetBaseParent(element));
-            SetHandlersData(element, handlersData);
+            //HandlersData handlersData = new HandlersData(element, GetBaseParent(element));
+            //SetHandlersData(element, handlersData);
         }
         #endregion
 #endif
@@ -77,9 +79,15 @@ namespace DragPosition
 
         // Using a DependencyProperty as the backing store for OffsetY.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty OffsetYProperty =
-            DependencyProperty.RegisterAttached(nameof(GetOffsetY).Substring(3), typeof(double), typeof(DragPosition), new PropertyMetadata(0.0));
+            DependencyProperty.RegisterAttached(nameof(GetOffsetY).Substring(3), typeof(double), typeof(DragPosition), new PropertyMetadata(0.0, OffsetYChanged));
 
-#endregion
+        private static void OffsetYChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            // TODO: Отладочный вывод.
+            Debug.WriteLine($"OffsetYChanged: {e.NewValue}");
+        }
+
+        #endregion
 
         #region BaseParent
         /// <summary>Возвращает значение присоединённого свойства BaseParent для <paramref name="element"/>.</summary>
@@ -99,13 +107,8 @@ namespace DragPosition
         }
 
         /// <summary><see cref="DependencyProperty"/> для методов <see cref="GetBaseParent(UIElement)"/> и <see cref="SetBaseParent(UIElement, UIElement)"/>.</summary>
-#if WINDOWS_UWP
         public static readonly DependencyProperty BaseParentProperty =
-            DependencyProperty.RegisterAttached(nameof(GetBaseParent).Substring(3), typeof(UIElement), typeof(DragPosition), new PropertyMetadata(null));
-#else
-        public static readonly DependencyProperty BaseParentProperty =
-            DependencyProperty.RegisterAttached(nameof(GetBaseParent).Substring(3), typeof(UIElement), typeof(DragPosition),
-                new PropertyMetadata(null, BaseParentChanged));
+            DependencyProperty.RegisterAttached(nameof(GetBaseParent).Substring(3), typeof(UIElement), typeof(DragPosition), new PropertyMetadata(null, BaseParentChanged));
 
         private static void BaseParentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -127,8 +130,6 @@ namespace DragPosition
                 element.ClearValue(BaseParentProperty);
             }
         }
-#endif
-
         #endregion
     }
 }
