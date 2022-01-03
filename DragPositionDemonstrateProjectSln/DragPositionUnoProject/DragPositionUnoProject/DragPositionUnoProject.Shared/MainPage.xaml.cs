@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Controls;
 
 namespace DragPositionUnoProject
@@ -13,6 +14,9 @@ namespace DragPositionUnoProject
 
     public class SomeViewModel : OnNotifyPropertyChanged
     {
+        private object _testContent;
+        public object TestContent { get => _testContent; set => SetProperty(ref _testContent, value); }
+
         public ObservableCollection<SomeType> Types { get; } = new ObservableCollection<SomeType>()
         {
             new SomeType() { PositionX = 10, PositionY = 60},
@@ -25,7 +29,11 @@ namespace DragPositionUnoProject
         public MainPage()
         {
             this.InitializeComponent();
-            DataContext = new SomeViewModel();
+            var dataContext = new SomeViewModel();
+#if HAS_UNO_SKIA_WPF
+            dataContext.TestContent = DependencyHandler.ServiceProvider.GetService<IDragRectanglesTypeWithUserControl>()?.Content;
+#endif
+            DataContext = dataContext;
         }
     }
 }

@@ -91,7 +91,6 @@ namespace DragPositionUnoProject
                 // Ensure the current window is active
                 _window.Activate();
             }
-            var res = DependencyHandler.ServiceProvider.GetService<IDragRectanglesTypeWithUserControl>();
         }
 
         /// <summary>

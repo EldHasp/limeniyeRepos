@@ -9,7 +9,7 @@
 
     <Grid>
 
-        <ItemsControl Name="baseListView" ItemsSource="{Binding Types}">
+        <ItemsControl Name="baseListView" ItemsSource="{Binding Types}" Visibility="Collapsed">
 
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -51,6 +51,10 @@
             
 
         </ItemsControl>
+
+        <win:Grid Background="Red"/>
+
+        <ContentPresenter Content="{Binding Test}"/>
     </Grid>
 
 </Page>

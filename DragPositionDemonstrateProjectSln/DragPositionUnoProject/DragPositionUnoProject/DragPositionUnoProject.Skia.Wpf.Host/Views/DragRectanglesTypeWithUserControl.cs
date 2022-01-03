@@ -1,20 +1,17 @@
-﻿using Windows.UI.Xaml.Controls;
-
-namespace DragPositionUnoProject.Skia.Wpf.Host.Views
+﻿namespace DragPositionUnoProject.Skia.Wpf.Host.Views
 {
     public class DragRectanglesTypeWithUserControl : OnNotifyPropertyChanged, IDragRectanglesTypeWithUserControl
     {
-        private ContentPresenter _contentPresenter;
-        public ContentPresenter ContentPresenter
+        private object _content;
+        public object Content
         {
-            get => _contentPresenter;
-            set => SetProperty( ref _contentPresenter, value); 
+            get => _content;
+            set => SetProperty( ref _content, value); 
         }
 
         public DragRectanglesTypeWithUserControl()
         {
-            ContentPresenter = new ContentPresenter();
-            ContentPresenter.Content = new UserControl1();
+            Content = new UserControl1();
         }
     }
 }

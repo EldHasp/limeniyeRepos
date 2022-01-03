@@ -5,6 +5,6 @@ namespace DragPositionUnoProject
 {
     public interface IDragRectanglesTypeWithUserControl : INotifyPropertyChanged
     {
-        ContentPresenter ContentPresenter { get; }
+        object Content { get; }
     }
 }
