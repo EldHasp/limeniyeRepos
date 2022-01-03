@@ -7,17 +7,19 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DragPositionUnoProject.Shar
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platforms", "Platforms", "{2EB107E3-6E88-49BC-8133-2673A7F22576}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DragPositionUnoProject.Mobile", "DragPositionUnoProject\DragPositionUnoProject.Mobile\DragPositionUnoProject.Mobile.csproj", "{751DAE13-FA43-4E16-A1F2-1E0FB7E5BA44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DragPositionUnoProject.Mobile", "DragPositionUnoProject\DragPositionUnoProject.Mobile\DragPositionUnoProject.Mobile.csproj", "{751DAE13-FA43-4E16-A1F2-1E0FB7E5BA44}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DragPositionUnoProject.UWP", "DragPositionUnoProject\DragPositionUnoProject.UWP\DragPositionUnoProject.UWP.csproj", "{C4DD7929-F3FA-4757-BEB5-13DE5A0E4BE3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DragPositionUnoProject.Wasm", "DragPositionUnoProject\DragPositionUnoProject.Wasm\DragPositionUnoProject.Wasm.csproj", "{71D7113D-F8C1-4CFF-AF69-589C7A168E34}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DragPositionUnoProject.Wasm", "DragPositionUnoProject\DragPositionUnoProject.Wasm\DragPositionUnoProject.Wasm.csproj", "{71D7113D-F8C1-4CFF-AF69-589C7A168E34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DragPositionUnoProject.Skia.Wpf.Host", "DragPositionUnoProject\DragPositionUnoProject.Skia.Wpf.Host\DragPositionUnoProject.Skia.Wpf.Host.csproj", "{BFBA4C7C-7C68-4A0F-B701-E39B45A51C85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DragPositionUnoProject.Skia.Wpf.Host", "DragPositionUnoProject\DragPositionUnoProject.Skia.Wpf.Host\DragPositionUnoProject.Skia.Wpf.Host.csproj", "{BFBA4C7C-7C68-4A0F-B701-E39B45A51C85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DragPositionUnoProject.Skia.Wpf", "DragPositionUnoProject\DragPositionUnoProject.Skia.Wpf\DragPositionUnoProject.Skia.Wpf.csproj", "{10026946-4E98-4C8B-922D-21AF71373489}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DragPositionUnoProject.Skia.Wpf", "DragPositionUnoProject\DragPositionUnoProject.Skia.Wpf\DragPositionUnoProject.Skia.Wpf.csproj", "{10026946-4E98-4C8B-922D-21AF71373489}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DragPositionUnoProject.Skia.Gtk", "DragPositionUnoProject\DragPositionUnoProject.Skia.Gtk\DragPositionUnoProject.Skia.Gtk.csproj", "{B868D452-199F-4A96-8854-59FB39C8796E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DragPositionUnoProject.Skia.Gtk", "DragPositionUnoProject\DragPositionUnoProject.Skia.Gtk\DragPositionUnoProject.Skia.Gtk.csproj", "{B868D452-199F-4A96-8854-59FB39C8796E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonControls", "Common\CommonControls.csproj", "{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -181,6 +183,26 @@ Global
 		{B868D452-199F-4A96-8854-59FB39C8796E}.Release|x64.Build.0 = Release|Any CPU
 		{B868D452-199F-4A96-8854-59FB39C8796E}.Release|x86.ActiveCfg = Release|Any CPU
 		{B868D452-199F-4A96-8854-59FB39C8796E}.Release|x86.Build.0 = Release|Any CPU
+		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Debug|ARM.Build.0 = Debug|Any CPU
+		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Debug|x64.Build.0 = Debug|Any CPU
+		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Debug|x86.Build.0 = Debug|Any CPU
+		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Release|ARM.ActiveCfg = Release|Any CPU
+		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Release|ARM.Build.0 = Release|Any CPU
+		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Release|ARM64.Build.0 = Release|Any CPU
+		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Release|x64.ActiveCfg = Release|Any CPU
+		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Release|x64.Build.0 = Release|Any CPU
+		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Release|x86.ActiveCfg = Release|Any CPU
+		{A5BB3AFF-7A27-4AF9-AFD6-0C447B487C16}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
