@@ -28,6 +28,8 @@ namespace DragPositionUnoProject
 #if HAS_UNO || NETFX_CORE
             this.Suspending += OnSuspending;
 #endif
+
+            
         }
 
         /// <summary>
