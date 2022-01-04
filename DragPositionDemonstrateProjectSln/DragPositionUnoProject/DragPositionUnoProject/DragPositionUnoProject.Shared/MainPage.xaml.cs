@@ -14,7 +14,7 @@ namespace DragPositionUnoProject
 
     public class SomeViewModel : OnNotifyPropertyChanged
     {
-        private object _testContent;
+        private object _testContent = "Какая-то строка";
         public object TestContent { get => _testContent; set => SetProperty(ref _testContent, value); }
 
         public ObservableCollection<SomeType> Types { get; } = new ObservableCollection<SomeType>()
@@ -26,14 +26,15 @@ namespace DragPositionUnoProject
 
     public sealed partial class MainPage : Page
     {
+        public SomeViewModel ViewModel { get; } = new SomeViewModel();
         public MainPage()
         {
             this.InitializeComponent();
-            var dataContext = new SomeViewModel();
-#if HAS_UNO_SKIA_WPF
-            dataContext.TestContent = DependencyHandler.ServiceProvider.GetService<IDragRectanglesTypeWithUserControl>()?.Content;
-#endif
-            DataContext = dataContext;
+//            var dataContext = new SomeViewModel();
+//#if HAS_UNO_SKIA_WPF
+//            dataContext.TestContent = DependencyHandler.ServiceProvider.GetService<IDragRectanglesTypeWithUserControl>()?.Content;
+//#endif
+//            DataContext = dataContext;
         }
     }
 }
