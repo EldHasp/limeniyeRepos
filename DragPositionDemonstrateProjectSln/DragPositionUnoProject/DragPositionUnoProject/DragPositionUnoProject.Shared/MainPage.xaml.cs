@@ -30,12 +30,10 @@ namespace DragPositionUnoProject
         public MainPage()
         {
             this.InitializeComponent();
-            //            var dataContext = new SomeViewModel();
+
 #if HAS_UNO_SKIA_WPF
-            //dataContext.TestContent = DependencyHandler.ServiceProvider.GetService<IDragRectanglesTypeWithUserControl>()?.Content;
             ViewModel.TestContent = DependencyHandler.ServiceProvider.GetService<IDragRectanglesTypeWithUserControl>()?.Content;
 #endif
-            //            DataContext = dataContext;
         }
     }
 }

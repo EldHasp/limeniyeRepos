@@ -61,9 +61,7 @@
 
         </ItemsControl>
 
-        <!--<win:Grid Background="Red"/>-->
-
-        <ContentControl Content="{Binding TestContent}" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+        <ContentControl Content="{Binding TestContent}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="100" Height="200"/>
     </Grid>
 
 </Page>
