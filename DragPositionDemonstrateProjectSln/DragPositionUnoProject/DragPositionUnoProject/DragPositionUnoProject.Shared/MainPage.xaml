@@ -7,12 +7,11 @@
       xmlns:not_win="http://uno.ui/not_win"
       
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      mc:Ignorable="not_win"
+      mc:Ignorable=""
       
       DataContext="{Binding ViewModel, RelativeSource={win:RelativeSource Mode=Self}}">
 
     <Grid>
-
         <ItemsControl Name="baseListView" ItemsSource="{Binding Types}">
 
             <ItemsControl.ItemsPanel>
@@ -32,24 +31,25 @@
 
             <ItemsControl.ItemContainerStyle>
                 <Style TargetType="ContentPresenter">
+                    <Setter Property="dragAPs:ExampleDataAp.Data" Value="{Binding ElementName=baseListView}"/>
+                    
                     <!-- Binding for UWP -->
-                    <!--<Setter Property="dragAPs:DragPosition.DragPosition">
-                        <Setter.Value>
-                            <dragAPs:DragPositionDataBindingCanvas
-                                    BaseParent="{Binding ElementName=baseListView}"
-                                    OffsetX="{Binding PositionX, Mode=TwoWay}"
+                    <!--OffsetX="{Binding PositionX, Mode=TwoWay}"
                                     OffsetY="{Binding PositionY, Mode=TwoWay}"
                                     LeftBinding="{Binding PositionX, Mode=OneWay}"
-                                    TopBinding="{Binding PositionY, Mode=OneWay}"/>
+                                    TopBinding="{Binding PositionY, Mode=OneWay}"-->
+                    
+                    <!--<Setter Property="dragAPs:DragPosition.DragPosition">
+                        <Setter.Value>
+                            <dragAPs:DragPositionDataBindingCanvas BaseParent="{Binding ElementName=baseListView}"/>
                         </Setter.Value>
                     </Setter>-->
 
+                    <!--<Setter Property="dragAPs:DragPosition.ExampleDataAp" Value="{Binding ElementName=baseListView}"/>-->
+
                     <!-- Binding for WPF -->
-                    <Setter Property="dragAPs:ExampleDataAp.Data">
-                        <Setter.Value>
-                            <dragAPs:ExampleData Data="{Binding ElementName=baseListView}"/>
-                        </Setter.Value>
-                    </Setter>
+                    
+                    
                     <!--<Setter Property="dragAPs:DragPosition.BaseParent" Value="{Binding ElementName=baseListView}"/>-->
                     <!--<not_win:Setter Property="dragAPs:DragPosition.OffsetX" Value="{Binding PositionX, Mode=TwoWay}"/>
                     <not_win:Setter Property="dragAPs:DragPosition.OffsetY" Value="{Binding PositionY, Mode=TwoWay}"/>
@@ -57,11 +57,8 @@
                     <!--not_win:Setter Property="Canvas.Top" Value="{Binding PositionY, Mode=TwoWay}"/-->
                 </Style>
             </ItemsControl.ItemContainerStyle>
-            
-
         </ItemsControl>
 
-        <ContentControl Content="{Binding TestContent}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="100" Height="200"/>
     </Grid>
 
 </Page>

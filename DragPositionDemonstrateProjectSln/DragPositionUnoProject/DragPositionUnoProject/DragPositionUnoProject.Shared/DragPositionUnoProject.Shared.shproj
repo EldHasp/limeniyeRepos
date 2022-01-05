@@ -22,4 +22,7 @@
     <_Globbed_Compile Remove="DragPosition\DragPositionDataBindingCanvas.cs" />
     <_Globbed_Compile Remove="IDragRectanglesTypeWithUserControl.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <_Globbled_Page Remove="TestStyles.xaml" />
+  </ItemGroup>
 </Project>

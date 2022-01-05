@@ -42,6 +42,8 @@ namespace DragPosition
                     throw new ArgumentException(nameof(value));
             }
         }
+
+
         public object OffsetX
         {
             get => _offsetX;

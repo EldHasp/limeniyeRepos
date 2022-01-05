@@ -8,7 +8,6 @@ namespace DragPosition
 {
     public partial class DragPosition
     {
-
         private class HandlersData : IDisposable
         {
             public void Dispose()

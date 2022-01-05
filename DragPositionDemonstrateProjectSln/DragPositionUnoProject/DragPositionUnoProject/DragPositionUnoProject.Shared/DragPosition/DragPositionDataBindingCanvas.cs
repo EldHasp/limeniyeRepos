@@ -4,8 +4,6 @@ using Windows.UI.Xaml.Data;
 
 namespace DragPosition
 {
-    /// <summary>Дополнитеьные данные (специфичные для конкретного использования)
-    /// для создания привязок в DragPositionBehavior.</summary>
     public class DragPositionDataBindingCanvas : DragPositionData
     {
         public DragPositionDataBindingCanvas()
@@ -21,7 +19,5 @@ namespace DragPosition
             BindingOperations.SetBinding(d, Canvas.LeftProperty, LeftBinding);
             BindingOperations.SetBinding(d, Canvas.TopProperty, TopBinding);
         }
-
     }
-
 }

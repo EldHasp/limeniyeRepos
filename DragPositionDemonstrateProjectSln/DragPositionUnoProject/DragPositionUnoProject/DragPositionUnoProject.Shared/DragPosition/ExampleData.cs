@@ -1,30 +1,29 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace DragPosition
 {
     public static class ExampleDataAp
     {
-        /// <summary>Возвращает значение присоединённого свойства Data для <paramref name="element"/>.</summary>
-        /// <param name="element"><see cref="FrameworkElement"/> значение свойства которого будет возвращено.</param>
-        /// <returns><see cref="ExampleData"/> значение свойства.</returns>
-        public static ExampleData GetData(FrameworkElement element)
+        public static readonly DependencyProperty DataProperty = 
+            DependencyProperty.RegisterAttached("Data", typeof(FrameworkElement), typeof(ExampleDataAp),
+                     new PropertyMetadata(null, OnDataChanged));
+
+        private static void OnDataChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
         {
-            return (ExampleData)element.GetValue(DataProperty);
         }
 
-        /// <summary>Задаёт значение присоединённого свойства Data для <paramref name="element"/>.</summary>
-        /// <param name="element"><see cref="FrameworkElement"/> значение свойства которого будет возвращено.</param>
-        /// <param name="value"><see cref="ExampleData"/> значение для свойства.</param>
-        public static void SetData(FrameworkElement element, ExampleData value)
+        public static void SetData(DependencyObject element, FrameworkElement value)
         {
             element.SetValue(DataProperty, value);
         }
-
-        /// <summary><see cref="DependencyProperty"/> для методов <see cref="GetData(FrameworkElement)"/> и <see cref="SetData(FrameworkElement, ExampleData)"/>.</summary>
-        public static readonly DependencyProperty DataProperty =
-            DependencyProperty.RegisterAttached(nameof(GetData).Substring(3), typeof(ExampleData), typeof(ExampleDataAp), new PropertyMetadata(null));
+        public static FrameworkElement GetData(DependencyObject element)
+        {
+            return (FrameworkElement)element.GetValue(DataProperty);
+        }
     }
 
     [Bindable(true)]

@@ -7,8 +7,9 @@ namespace DragPosition
 {
     public partial class DragPosition
     {
-#if WINDOWS_UWP
         #region DragPosition
+
+#if WINDOWS_UWP
         public static DragPositionData GetDragPosition(UIElement element)
         {
             return (DragPositionData)element.GetValue(DragPositionProperty);
@@ -25,30 +26,51 @@ namespace DragPosition
 
         private static void DragPositionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            UIElement element = (UIElement)d;
-            DragPositionData data = (DragPositionData)e.NewValue;
-            if (data.BaseParent is UIElement parent)
-                SetBaseParent(element, parent);
-            else
-                BindingOperations.SetBinding(element, BaseParentProperty, (BindingBase)data.BaseParent);
+            //UIElement element = (UIElement)d;
+            //DragPositionData data = (DragPositionData)e.NewValue;
+            //if (data.BaseParent is UIElement parent)
+            //    SetBaseParent(element, parent);
+            //else
+            //    BindingOperations.SetBinding(element, BaseParentProperty, (BindingBase)data.BaseParent);
 
-            if (data.OffsetX is double x)
-                SetOffsetX(element, x);
-            else
-                BindingOperations.SetBinding(element, OffsetXProperty, (BindingBase)data.OffsetX);
+            //if (data.OffsetX is double x)
+            //    SetOffsetX(element, x);
+            //else
+            //    BindingOperations.SetBinding(element, OffsetXProperty, (BindingBase)data.OffsetX);
 
-            if (data.OffsetY is double y)
-                SetOffsetY(element, y);
-            else
-                BindingOperations.SetBinding(element, OffsetYProperty, (BindingBase)data.OffsetY);
+            //if (data.OffsetY is double y)
+            //    SetOffsetY(element, y);
+            //else
+            //    BindingOperations.SetBinding(element, OffsetYProperty, (BindingBase)data.OffsetY);
 
-            data.BindingAction?.Invoke(element);
+            //data.BindingAction?.Invoke(element);
+
+
 
             //HandlersData handlersData = new HandlersData(element, GetBaseParent(element));
             //SetHandlersData(element, handlersData);
         }
-        #endregion
+#else
+        public static DragPositionData GetDragPosition(UIElement element)
+        {
+            return (DragPositionData)element.GetValue(DragPositionProperty);
+        }
+
+        public static void SetDragPosition(UIElement element, DragPositionData value)
+        {
+            element.SetValue(DragPositionProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for DragPosition.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty DragPositionProperty =
+            DependencyProperty.RegisterAttached(nameof(SetDragPosition).Substring(3), typeof(DragPositionData), typeof(DragPosition), new PropertyMetadata(null, DragPositionChanged));
+
+        private static void DragPositionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+
+        }
 #endif
+        #endregion
 
         #region Offset properties
         public static double GetOffsetX(UIElement element)
@@ -87,9 +109,9 @@ namespace DragPosition
             Debug.WriteLine($"OffsetYChanged: {e.NewValue}");
         }
 
-        #endregion
+#endregion
 
-        #region BaseParent
+#region BaseParent
         /// <summary>Возвращает значение присоединённого свойства BaseParent для <paramref name="element"/>.</summary>
         /// <param name="element"><see cref="UIElement"/> значение свойства которого будет возвращено.</param>
         /// <returns><see cref="UIElement"/> значение свойства.</returns>
@@ -130,6 +152,6 @@ namespace DragPosition
                 element.ClearValue(BaseParentProperty);
             }
         }
-        #endregion
+#endregion
     }
 }
