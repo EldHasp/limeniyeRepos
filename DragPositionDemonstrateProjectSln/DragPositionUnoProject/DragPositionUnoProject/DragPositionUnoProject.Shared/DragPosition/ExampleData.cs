@@ -4,11 +4,8 @@ using Windows.UI.Xaml;
 
 namespace DragPosition
 {
-
     public static class ExampleDataAp
     {
-
-
         /// <summary>Возвращает значение присоединённого свойства Data для <paramref name="element"/>.</summary>
         /// <param name="element"><see cref="FrameworkElement"/> значение свойства которого будет возвращено.</param>
         /// <returns><see cref="ExampleData"/> значение свойства.</returns>
@@ -28,8 +25,6 @@ namespace DragPosition
         /// <summary><see cref="DependencyProperty"/> для методов <see cref="GetData(FrameworkElement)"/> и <see cref="SetData(FrameworkElement, ExampleData)"/>.</summary>
         public static readonly DependencyProperty DataProperty =
             DependencyProperty.RegisterAttached(nameof(GetData).Substring(3), typeof(ExampleData), typeof(ExampleDataAp), new PropertyMetadata(null));
-
-
     }
 
     [Bindable(true)]
