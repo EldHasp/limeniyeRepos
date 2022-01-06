@@ -26,24 +26,24 @@ namespace DragPosition
 
         private static void DragPositionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            //UIElement element = (UIElement)d;
-            //DragPositionData data = (DragPositionData)e.NewValue;
-            //if (data.BaseParent is UIElement parent)
-            //    SetBaseParent(element, parent);
-            //else
-            //    BindingOperations.SetBinding(element, BaseParentProperty, (BindingBase)data.BaseParent);
+            UIElement element = (UIElement)d;
+            DragPositionData data = (DragPositionData)e.NewValue;
+            if (data.BaseParent is UIElement parent)
+                SetBaseParent(element, parent);
+            else
+                BindingOperations.SetBinding(element, BaseParentProperty, (BindingBase)data.BaseParent);
 
-            //if (data.OffsetX is double x)
-            //    SetOffsetX(element, x);
-            //else
-            //    BindingOperations.SetBinding(element, OffsetXProperty, (BindingBase)data.OffsetX);
+            if (data.OffsetX is double x)
+                SetOffsetX(element, x);
+            else
+                BindingOperations.SetBinding(element, OffsetXProperty, (BindingBase)data.OffsetX);
 
-            //if (data.OffsetY is double y)
-            //    SetOffsetY(element, y);
-            //else
-            //    BindingOperations.SetBinding(element, OffsetYProperty, (BindingBase)data.OffsetY);
+            if (data.OffsetY is double y)
+                SetOffsetY(element, y);
+            else
+                BindingOperations.SetBinding(element, OffsetYProperty, (BindingBase)data.OffsetY);
 
-            //data.BindingAction?.Invoke(element);
+            data.BindingAction?.Invoke(element);
 
 
 

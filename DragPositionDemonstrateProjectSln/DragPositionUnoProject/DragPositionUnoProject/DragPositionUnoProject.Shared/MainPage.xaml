@@ -31,21 +31,17 @@
 
             <ItemsControl.ItemContainerStyle>
                 <Style TargetType="ContentPresenter">
-                    <Setter Property="dragAPs:ExampleDataAp.Data" Value="{Binding ElementName=baseListView}"/>
-                    
                     <!-- Binding for UWP -->
-                    <!--OffsetX="{Binding PositionX, Mode=TwoWay}"
+                    <Setter Property="dragAPs:DragPosition.DragPosition">
+                        <Setter.Value>
+                            <dragAPs:DragPositionDataBindingCanvas
+                                    BaseParent="{Binding ElementName=baseListView}"
+                                    OffsetX="{Binding PositionX, Mode=TwoWay}"
                                     OffsetY="{Binding PositionY, Mode=TwoWay}"
                                     LeftBinding="{Binding PositionX, Mode=OneWay}"
-                                    TopBinding="{Binding PositionY, Mode=OneWay}"-->
-                    
-                    <!--<Setter Property="dragAPs:DragPosition.DragPosition">
-                        <Setter.Value>
-                            <dragAPs:DragPositionDataBindingCanvas BaseParent="{Binding ElementName=baseListView}"/>
+                                    TopBinding="{Binding PositionY, Mode=OneWay}"/>
                         </Setter.Value>
-                    </Setter>-->
-
-                    <!--<Setter Property="dragAPs:DragPosition.ExampleDataAp" Value="{Binding ElementName=baseListView}"/>-->
+                    </Setter>
 
                     <!-- Binding for WPF -->
                     
