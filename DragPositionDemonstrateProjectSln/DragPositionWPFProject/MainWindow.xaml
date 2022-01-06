@@ -1,0 +1,55 @@
+﻿<Window x:Class="DragPositionWPFSolution.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DragPositionWPFSolution"
+        xmlns:dragPosition="clr-namespace:DragPositionWPFSolution.DragPosition"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <local:SomeViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <ItemsControl Name="baseListView" ItemsSource="{Binding Types}">
+
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas Background="Transparent"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+
+                    <!--<boards:BoardStandard Title="{Binding Title}" Ads="{Binding Ads, Converter={StaticResource CollectionToUniqueCollectionConverter}}"
+                                          Width="250" Height="400" BorderBrush="#2c2c2c" BorderThickness="4"/>-->
+
+                    <Border Width="100" Height="100" Background="Red"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+
+
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="dragPosition:DragPosition.BaseParent" Value="{Binding ElementName=baseListView}"/>
+                    <Setter Property="dragPosition:DragPosition.OffsetX" Value="{Binding PositionX, Mode=TwoWay}"/>
+                    <Setter Property="dragPosition:DragPosition.OffsetY" Value="{Binding PositionY, Mode=TwoWay}"/>
+                    <Setter Property="Canvas.Left" Value="{Binding PositionX, Mode=TwoWay}"/>
+                    <Setter Property="Canvas.Top" Value="{Binding PositionY, Mode=TwoWay}"/>
+                    <!--<Setter Property="dragPosition:DragPosition.DragPosition">
+                        <Setter.Value>
+                            <dragPosition:DragPositionDataBindingCanvas
+                                BaseParent="{Binding ElementName=baseListView}"
+                                OffsetX="{Binding PositionX, Mode=TwoWay}"
+                                OffsetY="{Binding PositionY, Mode=TwoWay}"
+                                LeftBinding="{Binding PositionX, Mode=OneWay}"
+                                TopBinding="{Binding PositionY, Mode=OneWay}"/>
+                        </Setter.Value>
+                    </Setter>-->
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+
+        </ItemsControl>
+    </Grid>
+</Window>

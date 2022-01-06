@@ -1,0 +1,3 @@
+﻿namespace DragPositionUnoProject.Skia.Gtk
+{
+}

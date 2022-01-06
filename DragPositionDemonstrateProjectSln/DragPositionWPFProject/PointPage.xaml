@@ -1,0 +1,39 @@
+﻿<Page
+    x:Class="DragPositionDemonstrateProject.PointPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DragPositionDemonstrateProject"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    DataContext="{Binding ViewModel, RelativeSource={RelativeSource Mode=Self}}"
+    Background="Aqua" FontSize="30">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBox Text="{Binding X, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     Margin="10" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+            <TextBox Grid.Row="1" Text="{Binding Y, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     Margin="10" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+        </Grid>
+        <Canvas Grid.Column="1" Background="Wheat" Margin="5">
+            <Canvas.Resources>
+                <Style TargetType="Ellipse">
+                    <Setter Property="Canvas.Left" Value="{Binding X}"/>
+                    <Setter Property="Canvas.Top" Value="{Binding Y}"/>
+                </Style>
+            </Canvas.Resources>
+            <Ellipse Width="40" Height="40"
+                     Fill="LightPink" Stroke="Red" StrokeThickness="2"
+                     MouseDown="OnClick"/>
+        </Canvas>
+    </Grid>
+</Page>

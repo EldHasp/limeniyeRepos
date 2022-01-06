@@ -33,7 +33,7 @@
             </ItemsControl.ItemTemplate>
             <ItemsControl.ItemContainerStyle>
                 <Style TargetType="ContentPresenter">
-                    <Setter Property="local:DragPosition.DragPosition">
+                    <Setter Property="local:DragPositionBehavior.DragPosition">
                         <Setter.Value>
                             <local:DragPositionDataBindingCanvas
                                 BaseParent="{Binding ElementName=baseListView}"

@@ -1,6 +1,6 @@
-﻿using Windows.UI.Xaml;
+﻿using System.Windows;
 
-namespace DragPositionDemonstrateProject
+namespace DragPositionWPFSolution.DragPosition
 {
     public partial class DragPosition 
     {
@@ -31,7 +31,7 @@ namespace DragPositionDemonstrateProject
             UIElement element = (UIElement)d;
             if(e.OldValue is HandlersData handlersData)
             {
-                handlersData.Dispose();
+                //handlersData.Dispose();
             }
         }
     }

@@ -119,17 +119,20 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DragPosition.AProperties.cs" />
-    <Compile Include="DragPosition.cs" />
+    <Compile Include="DragPositionBehavior.AProperties.cs" />
+    <Compile Include="DragPositionBehavior.cs" />
     <Compile Include="DragPositionData.cs" />
     <Compile Include="DragPositionDataBindingCanvas.cs" />
-    <Compile Include="DragPosition.HandlersData.cs" />
+    <Compile Include="HandlersData.cs" />
     <Compile Include="ICloneable.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="OffsetBinding.cs" />
     <Compile Include="OnNotifyPropertyChanged.cs" />
+    <Compile Include="PointPage.xaml.cs">
+      <DependentUpon>PointPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PointsPage.xaml.cs">
       <DependentUpon>PointsPage.xaml</DependentUpon>
     </Compile>
@@ -158,6 +161,10 @@
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PointPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PointsPage.xaml">
       <SubType>Designer</SubType>
