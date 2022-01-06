@@ -31,7 +31,13 @@
 
             <ItemsControl.ItemContainerStyle>
                 <Style TargetType="ContentPresenter">
-                    <!-- Binding for UWP -->
+                    <Setter Property="dragAPs:ExampleDataAp.Data">
+                        <Setter.Value>
+                            <dragAPs:ExampleData Data="{Binding ElementName=baseListView}"/>
+                        </Setter.Value>
+                    </Setter>
+                    
+                   <!-- Binding for UWP -->
                     <Setter Property="dragAPs:DragPosition.DragPosition">
                         <Setter.Value>
                             <dragAPs:DragPositionDataBindingCanvas

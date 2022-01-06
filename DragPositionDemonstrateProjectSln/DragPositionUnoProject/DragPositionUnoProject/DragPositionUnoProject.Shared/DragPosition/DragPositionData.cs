@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DragPositionUnoProject;
+using System;
 using System.ComponentModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
@@ -6,7 +7,7 @@ using Windows.UI.Xaml.Data;
 namespace DragPosition
 {
     /// <summary>Основные данные для создания привязок в DragPositionBehavior.</summary>
-    public class DragPositionData
+    public class DragPositionData : OnNotifyPropertyChanged
     {
         private object _baseParent;
         private object _offsetX;
@@ -36,8 +37,10 @@ namespace DragPosition
             get => _baseParent;
             set
             {
-                if (value is UIElement || value is BindingBase)
-                    _baseParent = value;
+                if (value == null ||
+                    value is UIElement ||
+                    value is BindingBase)
+                    SetProperty(ref _baseParent, value);
                 else
                     throw new ArgumentException(nameof(value));
             }
@@ -49,9 +52,10 @@ namespace DragPosition
             get => _offsetX;
             set
             {
-                if (value is BindingBase ||
+                if (value == null ||
+                    value is BindingBase ||
                     DoubleTryParse(value, out value))
-                    _offsetX = value;
+                    SetProperty(ref _offsetX, value);
                 else
                     throw new ArgumentException(nameof(value));
             }
@@ -61,9 +65,10 @@ namespace DragPosition
             get => _offsetY;
             set
             {
-                if (value is BindingBase ||
+                if (value == null ||
+                    value is BindingBase ||
                     DoubleTryParse(value, out value))
-                    _offsetY = value;
+                    SetProperty(ref _offsetY, value);
                 else
                     throw new ArgumentException(nameof(value));
             }
