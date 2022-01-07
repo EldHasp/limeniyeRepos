@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Diagnostics;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
@@ -10,7 +9,7 @@ namespace DragPosition
     {
         #region DragPosition
 
-        //#if WINDOWS_UWP
+#if WINDOWS_UWP
         public static DragPositionData GetDragPosition(UIElement element)
         {
             return (DragPositionData)element.GetValue(DragPositionProperty);
@@ -27,16 +26,8 @@ namespace DragPosition
 
         private static void DragPositionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Debug.WriteLine($"{nameof(DragPositionChanged)} dependencyObject:{d}; NewValue:{e.NewValue?.GetType().Name ?? "null"}");
-
-            UIElement element = (UIElement)d;
-            //DragPositionData odata = (DragPositionData)e.OldValue;
-            //if (odata != null)
-            //    odata.PropertyDataChanged -= (s, p, o, n) => OnPropertyDataChanged(element, (DragPositionData)s, p, o, n);
-            DragPositionData data = (DragPositionData)e.NewValue;
-            if (data != null)
-                data.PropertyChanged += (s, arg) => OnPropertyDataChanged(element, (DragPositionData)s, arg);
-
+            //UIElement element = (UIElement)d;
+            //DragPositionData data = (DragPositionData)e.NewValue;
             //if (data.BaseParent is UIElement parent)
             //    SetBaseParent(element, parent);
             //else
@@ -52,83 +43,33 @@ namespace DragPosition
             //else
             //    BindingOperations.SetBinding(element, OffsetYProperty, (BindingBase)data.OffsetY);
 
-            OnPropertyDataChanged(element, data, null);
-            data.BindingAction?.Invoke(element);
+            //data.BindingAction?.Invoke(element);
 
 
 
             //HandlersData handlersData = new HandlersData(element, GetBaseParent(element));
             //SetHandlersData(element, handlersData);
         }
-
-        private static void OnPropertyDataChanged(UIElement element, DragPositionData data, PropertyChangedEventArgs arg)
+#else
+        public static DragPositionData GetDragPosition(UIElement element)
         {
-            string propertyName = arg?.PropertyName;
-
-            if (CheckName(propertyName, nameof(DragPositionData.BaseParent)))
-            {
-                if (!(data.BaseParent is BindingBase binding))
-                {
-                    binding = new Binding()
-                    {
-                        Source = data,
-                        Path = new PropertyPath(nameof(DragPositionData.BaseParent))
-                    };
-                }
-                BindingOperations.SetBinding(element, BaseParentProperty, binding);
-            }
-            if (CheckName(propertyName, nameof(DragPositionData.OffsetX)))
-            {
-                if (!(data.OffsetX is BindingBase binding))
-                {
-                    binding = new Binding()
-                    {
-                        Source = data,
-                        Path = new PropertyPath(nameof(DragPositionData.OffsetX))
-                    };
-                }
-                BindingOperations.SetBinding(element, OffsetXProperty, binding);
-            }
-            if (CheckName(propertyName, nameof(DragPositionData.OffsetY)))
-            {
-                if (!(data.OffsetY is BindingBase binding))
-                {
-                    binding = new Binding()
-                    {
-                        Source = data,
-                        Path = new PropertyPath(nameof(DragPositionData.OffsetY))
-                    };
-                }
-                BindingOperations.SetBinding(element, OffsetYProperty, binding);
-            }
+            return (DragPositionData)element.GetValue(DragPositionProperty);
         }
 
-        private static bool CheckName(string propertyName, string nameof)
+        public static void SetDragPosition(UIElement element, DragPositionData value)
         {
-            return string.IsNullOrEmpty(propertyName) ||
-                propertyName == nameof;
+            element.SetValue(DragPositionProperty, value);
         }
 
-        //#else
-        //        public static DragPositionData GetDragPosition(UIElement element)
-        //        {
-        //            return (DragPositionData)element.GetValue(DragPositionProperty);
-        //        }
+        // Using a DependencyProperty as the backing store for DragPosition.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty DragPositionProperty =
+            DependencyProperty.RegisterAttached(nameof(SetDragPosition).Substring(3), typeof(DragPositionData), typeof(DragPosition), new PropertyMetadata(null, DragPositionChanged));
 
-        //        public static void SetDragPosition(UIElement element, DragPositionData value)
-        //        {
-        //            element.SetValue(DragPositionProperty, value);
-        //        }
+        private static void DragPositionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
 
-        //        // Using a DependencyProperty as the backing store for DragPosition.  This enables animation, styling, binding, etc...
-        //        public static readonly DependencyProperty DragPositionProperty =
-        //            DependencyProperty.RegisterAttached(nameof(SetDragPosition).Substring(3), typeof(DragPositionData), typeof(DragPosition), new PropertyMetadata(null, DragPositionChanged));
-
-        //        private static void DragPositionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        //        {
-
-        //        }
-        //#endif
+        }
+#endif
         #endregion
 
         #region Offset properties
@@ -168,9 +109,9 @@ namespace DragPosition
             Debug.WriteLine($"OffsetYChanged: {e.NewValue}");
         }
 
-        #endregion
+#endregion
 
-        #region BaseParent
+#region BaseParent
         /// <summary>Возвращает значение присоединённого свойства BaseParent для <paramref name="element"/>.</summary>
         /// <param name="element"><see cref="UIElement"/> значение свойства которого будет возвращено.</param>
         /// <returns><see cref="UIElement"/> значение свойства.</returns>
@@ -211,6 +152,6 @@ namespace DragPosition
                 element.ClearValue(BaseParentProperty);
             }
         }
-        #endregion
+#endregion
     }
 }

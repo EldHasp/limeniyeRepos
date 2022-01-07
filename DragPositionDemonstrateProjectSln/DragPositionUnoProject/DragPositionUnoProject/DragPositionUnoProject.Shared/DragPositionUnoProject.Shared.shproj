@@ -11,7 +11,6 @@
   <Import Project="DragPositionUnoProject.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\CodeSharing\Microsoft.CodeSharing.CSharp.targets" />
   <ItemGroup>
-    <_Globbed_Compile Remove="Data\BindData.cs" />
     <_Globbed_Compile Remove="DragPosition\DragPosition - Copy.AProperties.cs" />
     <_Globbed_Compile Remove="DragPosition\DragPosition - Copy.cs" />
     <_Globbed_Compile Remove="DragPosition\DragPosition - Copy.HandlersData.cs" />

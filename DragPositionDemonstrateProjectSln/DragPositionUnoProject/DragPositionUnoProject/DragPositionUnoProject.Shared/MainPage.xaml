@@ -6,7 +6,7 @@
       xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:not_win="http://uno.ui/not_win"
       
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:data="using:DragPositionUnoProject.Data"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable=""
       
       DataContext="{Binding ViewModel, RelativeSource={win:RelativeSource Mode=Self}}">
@@ -31,23 +31,21 @@
 
             <ItemsControl.ItemContainerStyle>
                 <Style TargetType="ContentPresenter">
-                    <Setter Property="dragAPs:ExampleDataAp.Data">
-                        <Setter.Value>
-                            <dragAPs:ExampleData Data="{Binding ElementName=baseListView}"/>
-                        </Setter.Value>
-                    </Setter>
+                    <Setter Property="dragAPs:ExampleDataAp.Data" Value="{Binding ElementName=baseListView}"/>
                     
-                   <!-- Binding for UWP -->
-                    <Setter Property="dragAPs:DragPosition.DragPosition">
+                    <!-- Binding for UWP -->
+                    <!--OffsetX="{Binding PositionX, Mode=TwoWay}"
+                                    OffsetY="{Binding PositionY, Mode=TwoWay}"
+                                    LeftBinding="{Binding PositionX, Mode=OneWay}"
+                                    TopBinding="{Binding PositionY, Mode=OneWay}"-->
+                    
+                    <!--<Setter Property="dragAPs:DragPosition.DragPosition">
                         <Setter.Value>
-                            <dragAPs:DragPositionDataBindingCanvas
-                                    BaseParent="{data:BindData ElementName=baseListView}"
-                                    OffsetX="{data:BindData Path=PositionX, Mode=TwoWay}"
-                                    OffsetY="{data:BindData Path=PositionY, Mode=TwoWay}"
-                                    LeftBinding="{data:BindData Path=PositionX, Mode=OneWay}"
-                                    TopBinding="{data:BindData Path=PositionY, Mode=OneWay}"/>
+                            <dragAPs:DragPositionDataBindingCanvas BaseParent="{Binding ElementName=baseListView}"/>
                         </Setter.Value>
-                    </Setter>
+                    </Setter>-->
+
+                    <!--<Setter Property="dragAPs:DragPosition.ExampleDataAp" Value="{Binding ElementName=baseListView}"/>-->
 
                     <!-- Binding for WPF -->
                     
