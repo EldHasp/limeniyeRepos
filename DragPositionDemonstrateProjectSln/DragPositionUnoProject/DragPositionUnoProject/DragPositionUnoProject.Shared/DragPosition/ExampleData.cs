@@ -9,20 +9,21 @@ namespace DragPosition
     public static class ExampleDataAp
     {
         public static readonly DependencyProperty DataProperty = 
-            DependencyProperty.RegisterAttached("Data", typeof(FrameworkElement), typeof(ExampleDataAp),
+            DependencyProperty.RegisterAttached("Data", typeof(ExampleData), typeof(ExampleDataAp),
                      new PropertyMetadata(null, OnDataChanged));
 
         private static void OnDataChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
         {
+            Debug.WriteLine($"{nameof(OnDataChanged)} dependencyObject:{dependencyObject}; NewValue:{args.NewValue?.GetType().Name ?? "null"}");
         }
 
-        public static void SetData(DependencyObject element, FrameworkElement value)
+        public static void SetData(DependencyObject element, ExampleData value)
         {
             element.SetValue(DataProperty, value);
         }
-        public static FrameworkElement GetData(DependencyObject element)
+        public static ExampleData GetData(DependencyObject element)
         {
-            return (FrameworkElement)element.GetValue(DataProperty);
+            return (ExampleData)element.GetValue(DataProperty);
         }
     }
 
