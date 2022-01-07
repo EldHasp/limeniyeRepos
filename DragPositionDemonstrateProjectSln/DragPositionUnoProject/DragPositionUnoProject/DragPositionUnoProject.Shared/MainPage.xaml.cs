@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.ObjectModel;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace DragPositionUnoProject
@@ -27,6 +29,12 @@ namespace DragPositionUnoProject
         public MainPage()
         {
             this.InitializeComponent();
+            Loaded += OnLoaded;
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Loaded Page");
         }
     }
 }
