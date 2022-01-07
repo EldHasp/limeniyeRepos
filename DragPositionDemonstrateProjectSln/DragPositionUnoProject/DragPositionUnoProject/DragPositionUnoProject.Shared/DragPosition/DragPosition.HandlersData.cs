@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
 namespace DragPosition
@@ -29,7 +30,7 @@ namespace DragPosition
 
             public HandlersData(UIElement element, UIElement parent)
             {
-                this.parent = parent ?? throw new ArgumentNullException(nameof(parent));
+                this.parent = parent ?? Window.Current.Content as Frame ?? throw new ArgumentNullException(nameof(parent));
                 this.element = element ?? throw new ArgumentNullException(nameof(element));
 
                 element.AddHandler(UIElement.PointerPressedEvent, (PointerEventHandler)OnElementPointerPressed, true);

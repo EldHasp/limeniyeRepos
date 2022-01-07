@@ -9,8 +9,6 @@ namespace DragPosition
     public partial class DragPosition
     {
         #region DragPosition
-
-        //#if WINDOWS_UWP
         public static DragPositionData GetDragPosition(UIElement element)
         {
             return (DragPositionData)element.GetValue(DragPositionProperty);
@@ -30,35 +28,13 @@ namespace DragPosition
             Debug.WriteLine($"{nameof(DragPositionChanged)} dependencyObject:{d}; NewValue:{e.NewValue?.GetType().Name ?? "null"}");
 
             UIElement element = (UIElement)d;
-            //DragPositionData odata = (DragPositionData)e.OldValue;
-            //if (odata != null)
-            //    odata.PropertyDataChanged -= (s, p, o, n) => OnPropertyDataChanged(element, (DragPositionData)s, p, o, n);
+
             DragPositionData data = (DragPositionData)e.NewValue;
             if (data != null)
                 data.PropertyChanged += (s, arg) => OnPropertyDataChanged(element, (DragPositionData)s, arg);
 
-            //if (data.BaseParent is UIElement parent)
-            //    SetBaseParent(element, parent);
-            //else
-            //    BindingOperations.SetBinding(element, BaseParentProperty, (BindingBase)data.BaseParent);
-
-            //if (data.OffsetX is double x)
-            //    SetOffsetX(element, x);
-            //else
-            //    BindingOperations.SetBinding(element, OffsetXProperty, (BindingBase)data.OffsetX);
-
-            //if (data.OffsetY is double y)
-            //    SetOffsetY(element, y);
-            //else
-            //    BindingOperations.SetBinding(element, OffsetYProperty, (BindingBase)data.OffsetY);
-
             OnPropertyDataChanged(element, data, null);
             data.BindingAction?.Invoke(element);
-
-
-
-            //HandlersData handlersData = new HandlersData(element, GetBaseParent(element));
-            //SetHandlersData(element, handlersData);
         }
 
         private static void OnPropertyDataChanged(UIElement element, DragPositionData data, PropertyChangedEventArgs arg)
@@ -101,6 +77,10 @@ namespace DragPosition
                 }
                 BindingOperations.SetBinding(element, OffsetYProperty, binding);
             }
+
+#if ANDROID
+            HandlersData newData = new HandlersData(element, null);
+#endif
         }
 
         private static bool CheckName(string propertyName, string nameof)
@@ -108,27 +88,6 @@ namespace DragPosition
             return string.IsNullOrEmpty(propertyName) ||
                 propertyName == nameof;
         }
-
-        //#else
-        //        public static DragPositionData GetDragPosition(UIElement element)
-        //        {
-        //            return (DragPositionData)element.GetValue(DragPositionProperty);
-        //        }
-
-        //        public static void SetDragPosition(UIElement element, DragPositionData value)
-        //        {
-        //            element.SetValue(DragPositionProperty, value);
-        //        }
-
-        //        // Using a DependencyProperty as the backing store for DragPosition.  This enables animation, styling, binding, etc...
-        //        public static readonly DependencyProperty DragPositionProperty =
-        //            DependencyProperty.RegisterAttached(nameof(SetDragPosition).Substring(3), typeof(DragPositionData), typeof(DragPosition), new PropertyMetadata(null, DragPositionChanged));
-
-        //        private static void DragPositionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        //        {
-
-        //        }
-        //#endif
         #endregion
 
         #region Offset properties
