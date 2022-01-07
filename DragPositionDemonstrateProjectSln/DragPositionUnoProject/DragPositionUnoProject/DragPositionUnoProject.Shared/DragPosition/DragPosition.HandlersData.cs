@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DragPositionUnoProject.Data;
+using System;
 using System.Diagnostics;
 using Windows.Foundation;
 using Windows.UI.Xaml;
@@ -69,8 +70,8 @@ namespace DragPosition
 
                 var pos = e.GetCurrentPoint(null).Position;
 
-                SetOffsetX(element, GetOffsetX(element) + (pos.X - prevPoint.X) / zommFactor);
-                SetOffsetY(element, GetOffsetY(element) + (pos.Y - prevPoint.Y) / zommFactor);
+                Canvas.SetOffsetX(element, Canvas.GetOffsetX(element) + (pos.X - prevPoint.X) / zommFactor);
+                Canvas.SetOffsetY(element, Canvas.GetOffsetY(element) + (pos.Y - prevPoint.Y) / zommFactor);
 
                 prevPoint = pos;
             }

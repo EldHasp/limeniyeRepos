@@ -74,9 +74,9 @@ namespace DragPositionUnoProject.Data
         /// <inheritdoc cref="Binding.TargetNullValue"/>>
         public object TargetNullValue
         {
-             get => binding.TargetNullValue;
+            get => binding.TargetNullValue;
             set => binding.TargetNullValue = value;
-       }
+        }
 
         /// <inheritdoc cref="Binding.FallbackValue"/>>
         public object FallbackValue
