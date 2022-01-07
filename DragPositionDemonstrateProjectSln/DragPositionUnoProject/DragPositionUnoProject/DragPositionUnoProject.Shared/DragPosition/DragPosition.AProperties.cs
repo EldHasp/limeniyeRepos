@@ -10,7 +10,7 @@ namespace DragPosition
     {
         #region DragPosition
 
-#if WINDOWS_UWP
+        //#if WINDOWS_UWP
         public static DragPositionData GetDragPosition(UIElement element)
         {
             return (DragPositionData)element.GetValue(DragPositionProperty);
@@ -77,7 +77,7 @@ namespace DragPosition
                 }
                 BindingOperations.SetBinding(element, BaseParentProperty, binding);
             }
-             if (CheckName(propertyName, nameof(DragPositionData.OffsetX)))
+            if (CheckName(propertyName, nameof(DragPositionData.OffsetX)))
             {
                 if (!(data.OffsetX is BindingBase binding))
                 {
@@ -101,7 +101,7 @@ namespace DragPosition
                 }
                 BindingOperations.SetBinding(element, OffsetYProperty, binding);
             }
-       }
+        }
 
         private static bool CheckName(string propertyName, string nameof)
         {
@@ -109,26 +109,26 @@ namespace DragPosition
                 propertyName == nameof;
         }
 
-#else
-        public static DragPositionData GetDragPosition(UIElement element)
-        {
-            return (DragPositionData)element.GetValue(DragPositionProperty);
-        }
+        //#else
+        //        public static DragPositionData GetDragPosition(UIElement element)
+        //        {
+        //            return (DragPositionData)element.GetValue(DragPositionProperty);
+        //        }
 
-        public static void SetDragPosition(UIElement element, DragPositionData value)
-        {
-            element.SetValue(DragPositionProperty, value);
-        }
+        //        public static void SetDragPosition(UIElement element, DragPositionData value)
+        //        {
+        //            element.SetValue(DragPositionProperty, value);
+        //        }
 
-        // Using a DependencyProperty as the backing store for DragPosition.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty DragPositionProperty =
-            DependencyProperty.RegisterAttached(nameof(SetDragPosition).Substring(3), typeof(DragPositionData), typeof(DragPosition), new PropertyMetadata(null, DragPositionChanged));
+        //        // Using a DependencyProperty as the backing store for DragPosition.  This enables animation, styling, binding, etc...
+        //        public static readonly DependencyProperty DragPositionProperty =
+        //            DependencyProperty.RegisterAttached(nameof(SetDragPosition).Substring(3), typeof(DragPositionData), typeof(DragPosition), new PropertyMetadata(null, DragPositionChanged));
 
-        private static void DragPositionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
+        //        private static void DragPositionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        //        {
 
-        }
-#endif
+        //        }
+        //#endif
         #endregion
 
         #region Offset properties

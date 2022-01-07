@@ -37,6 +37,9 @@ namespace DragPosition
 
             private void OnElementPointerPressed(object sender, PointerRoutedEventArgs e)
             {
+
+                Debug.WriteLine($"OnElementPointerPressed sender: {sender}");
+
                 parent.AddHandler(UIElement.PointerReleasedEvent, (PointerEventHandler)OnElementPointerReleased, true);
 
                 countMove = 0;
@@ -48,6 +51,7 @@ namespace DragPosition
 
             private void OnElementPointerReleased(object sender, PointerRoutedEventArgs e)
             {
+                Debug.WriteLine($"OnElementPointerReleased sender: {sender}");
                 parent.RemoveHandler(UIElement.PointerReleasedEvent, (PointerEventHandler)OnElementPointerReleased);
 
                 parent.PointerMoved -= OnMove;

@@ -6,7 +6,7 @@
       xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:not_win="http://uno.ui/not_win"
       
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:data="using:DragPositionUnoProject.Data"
       mc:Ignorable=""
       
       DataContext="{Binding ViewModel, RelativeSource={win:RelativeSource Mode=Self}}">
@@ -41,11 +41,11 @@
                     <Setter Property="dragAPs:DragPosition.DragPosition">
                         <Setter.Value>
                             <dragAPs:DragPositionDataBindingCanvas
-                                    BaseParent="{Binding ElementName=baseListView}"
-                                    OffsetX="{Binding PositionX, Mode=TwoWay}"
-                                    OffsetY="{Binding PositionY, Mode=TwoWay}"
-                                    LeftBinding="{Binding PositionX, Mode=OneWay}"
-                                    TopBinding="{Binding PositionY, Mode=OneWay}"/>
+                                    BaseParent="{data:BindData ElementName=baseListView}"
+                                    OffsetX="{data:BindData Path=PositionX, Mode=TwoWay}"
+                                    OffsetY="{data:BindData Path=PositionY, Mode=TwoWay}"
+                                    LeftBinding="{data:BindData Path=PositionX, Mode=OneWay}"
+                                    TopBinding="{data:BindData Path=PositionY, Mode=OneWay}"/>
                         </Setter.Value>
                     </Setter>
 
