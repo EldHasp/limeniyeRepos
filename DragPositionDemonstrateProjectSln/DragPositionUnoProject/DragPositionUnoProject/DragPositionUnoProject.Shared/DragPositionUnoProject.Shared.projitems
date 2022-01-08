@@ -21,6 +21,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Data\Canvas.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\BindData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DragPosition\DragPosition.AProperties.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DragPosition\DragPosition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DragPosition\DragPosition.HandlersData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DragPosition\ExampleData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)OnNotifyPropertyChanged.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -53,7 +57,6 @@
       <DependentUpon>%(Filename)</DependentUpon>
     </_Globbed_Compile>
     <_Globbed_Compile Include="$(MSBuildThisFileDirectory)**/*.cs" Exclude="@(Compile);@(_Globbed_Compile)" />
-    <Compile Include="@(_Globbed_Compile)" />
     <_Globbed_PRIResource Include="$(MSBuildThisFileDirectory)**/*.resw" Exclude="@(PRIResource)" />
     <PRIResource Include="@(_Globbed_PRIResource)" />
     <_Globbed_Content Include="$(MSBuildThisFileDirectory)Assets/**/*.*" Exclude="@(Content)" />

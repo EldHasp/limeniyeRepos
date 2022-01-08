@@ -26,43 +26,11 @@
                     <Border Background="Red" Width="100" Height="100"
                             data:Canvas.OffsetX="{Binding PositionX}"
                             data:Canvas.OffsetY="{Binding PositionY}"
-                            dragAPs:DragPosition.BaseParent="{Binding ElementName=baseListView}"/>
+                            dragAPs:DragPosition.IsDrop="True"/>
 
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
-
-
-            <ItemsControl.ItemContainerStyle>
-                <Style TargetType="ContentPresenter">
-                    <!--<Setter Property="dragAPs:ExampleDataAp.Data">
-                        <Setter.Value>
-                            <dragAPs:ExampleData Data="{Binding ElementName=baseListView}"/>
-                        </Setter.Value>
-                    </Setter>-->
-                    
-                   <!-- Binding for UWP -->
-                    <!--<Setter Property="dragAPs:DragPosition.DragPosition">
-                        <Setter.Value>
-                            <dragAPs:DragPositionDataBindingCanvas
-                                    BaseParent="{data:BindData ElementName=baseListView}"
-                                    OffsetX="{data:BindData Path=PositionX, Mode=TwoWay}"
-                                    OffsetY="{data:BindData Path=PositionY, Mode=TwoWay}"
-                                    LeftBinding="{data:BindData Path=PositionX, Mode=OneWay}"
-                                    TopBinding="{data:BindData Path=PositionY, Mode=OneWay}"/>
-                        </Setter.Value>
-                    </Setter>-->
-
-                    <!-- Binding for WPF -->
-                    
-                    
-                    <!--<Setter Property="dragAPs:DragPosition.BaseParent" Value="{Binding ElementName=baseListView}"/>-->
-                    <!--<not_win:Setter Property="dragAPs:DragPosition.OffsetX" Value="{Binding PositionX, Mode=TwoWay}"/>
-                    <not_win:Setter Property="dragAPs:DragPosition.OffsetY" Value="{Binding PositionY, Mode=TwoWay}"/>
-                    <not_win:Setter Property="Canvas.Left" Value="{Binding PositionX, Mode=TwoWay}"/>-->
-                    <!--not_win:Setter Property="Canvas.Top" Value="{Binding PositionY, Mode=TwoWay}"/-->
-                </Style>
-            </ItemsControl.ItemContainerStyle>
-        </ItemsControl>
+Убран        </ItemsControl>
 
     </Grid>
 

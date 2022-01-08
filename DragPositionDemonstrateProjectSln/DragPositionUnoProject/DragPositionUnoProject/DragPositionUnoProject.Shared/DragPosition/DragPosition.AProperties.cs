@@ -1,57 +1,48 @@
-﻿using DragPositionUnoProject.Data;
-using System;
-using System.ComponentModel;
-using System.Diagnostics;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Data;
+﻿using Windows.UI.Xaml;
 
 namespace DragPosition
 {
     public partial class DragPosition
     {
-
-        #region BaseParent
-        /// <summary>Возвращает значение присоединённого свойства BaseParent для <paramref name="element"/>.</summary>
+        /// <summary>Возвращает значение присоединённого свойства IsDrop для <paramref name="element"/>.</summary>
         /// <param name="element"><see cref="UIElement"/> значение свойства которого будет возвращено.</param>
-        /// <returns><see cref="UIElement"/> значение свойства.</returns>
-        public static UIElement GetBaseParent(UIElement element)
+        /// <returns><see cref="bool"/> значение свойства.</returns>
+        public static bool GetIsDrop(UIElement element)
         {
-            return (UIElement)element.GetValue(BaseParentProperty);
+            return (bool)element.GetValue(IsDropProperty);
         }
 
-        /// <summary>Задаёт значение присоединённого свойства BaseParent для <paramref name="element"/>.</summary>
+        /// <summary>Задаёт значение присоединённого свойства IsDrop для <paramref name="element"/>.</summary>
         /// <param name="element"><see cref="UIElement"/> значение свойства которого будет возвращено.</param>
-        /// <param name="value"><see cref="UIElement"/> значение для свойства.</param>
-        public static void SetBaseParent(UIElement element, UIElement value)
+        /// <param name="value"><see cref="bool"/> значение для свойства.</param>
+        public static void SetIsDrop(UIElement element, bool value)
         {
-            element.SetValue(BaseParentProperty, value);
+            element.SetValue(IsDropProperty, value);
         }
 
-        /// <summary><see cref="DependencyProperty"/> для методов <see cref="GetBaseParent(UIElement)"/> и <see cref="SetBaseParent(UIElement, UIElement)"/>.</summary>
-        public static readonly DependencyProperty BaseParentProperty =
-            DependencyProperty.RegisterAttached(nameof(GetBaseParent).Substring(3), typeof(UIElement), typeof(DragPosition), new PropertyMetadata(null, BaseParentChanged));
+        /// <summary><see cref="DependencyProperty"/> для методов <see cref="GetIsDrop(UIElement)"/> и <see cref="SetIsDrop(UIElement, bool)"/>.</summary>
+        public static readonly DependencyProperty IsDropProperty =
+            DependencyProperty.RegisterAttached(nameof(GetIsDrop).Substring(3), typeof(bool), typeof(DragPosition), new PropertyMetadata(false, IsDropChanged));
 
-        private static void BaseParentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void IsDropChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
         {
-            UIElement element = (UIElement)d;
-
-            HandlersData oldData = GetHandlersData(element);
-            if (oldData != null)
+            UIElement element = (UIElement)dependencyObject;
+            HandlersData data = GetHandlersData(element);
+            if ((bool)args.NewValue)
             {
-                oldData.Dispose();
-            }
-
-            if (e.NewValue is UIElement parent)
-            {
-                HandlersData newData = new HandlersData(element, parent);
-                SetHandlersData(element, newData);
+                if (data == null)
+                {
+                    SetHandlersData(element, new HandlersData(element/*, parent*/));
+                }
             }
             else
             {
-                element.ClearValue(BaseParentProperty);
+                if (data != null)
+                {
+                    data.Dispose();
+                    element.ClearValue(IsDropProperty);
+                }
             }
         }
-        #endregion
     }
 }

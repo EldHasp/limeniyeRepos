@@ -18,8 +18,9 @@ namespace DragPositionUnoProject.Data
                 element = VisualTreeHelper.GetParent(element);
             }
 
-            return (T) element;
+            return (T)element;
         }
+
         public static DependencyObject GetWithParent<T>(this DependencyObject element)
            where T : DependencyObject
         {
@@ -31,6 +32,18 @@ namespace DragPositionUnoProject.Data
             }
 
             return element;
+        }
+
+        public static UIElement GetTopUIElement(this DependencyObject element)
+        {
+            DependencyObject parent;
+
+            while ((parent = VisualTreeHelper.GetParent(element)) != null)
+            {
+                element = parent;
+            }
+
+            return element as UIElement;
         }
     }
 }
